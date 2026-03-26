@@ -1,0 +1,88 @@
+/* Dashboard Layout Styles */
+
+/* Sidebar */
+.dashboard-sidebar {
+    min-height: 100vh;
+    background: #2c3e50;
+    color: white;
+}
+
+.dashboard-sidebar .brand {
+    padding: 20px;
+    background: #1a252f;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.dashboard-sidebar a {
+    color: #bdc3c7;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: block;
+    transition: all 0.3s;
+}
+
+.dashboard-sidebar a:hover, 
+.dashboard-sidebar a.active {
+    background: #34495e;
+    color: white;
+    border-left: 4px solid #3498db;
+}
+
+.dashboard-sidebar .nav-icon {
+    width: 25px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+/* Main Content */
+.dashboard-content {
+    background: #f5f6fa;
+    min-height: 100vh;
+}
+
+/* User Info Card */
+.user-info-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.user-info-card img {
+    object-fit: cover;
+}
+
+/* Stat Cards */
+.stat-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Quick Actions */
+.quick-action-btn {
+    transition: all 0.3s ease;
+}
+
+.quick-action-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Page Header */
+.page-header {
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-sidebar {
+        min-height: auto;
+    }
+}

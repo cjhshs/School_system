@@ -1,0 +1,146 @@
+/* Registration Form Styles */
+
+.profile-picture-wrapper {
+    position: relative;
+}
+
+.drop-zone {
+    width: 140px;
+    height: 140px;
+    border: 3px dashed #6c757d;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    transition: all 0.3s ease;
+    margin: 0 auto;
+}
+
+.drop-zone:hover {
+    border-color: #0d6efd;
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+}
+
+.drop-zone.dragover {
+    border-color: #0d6efd;
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+    transform: scale(1.05);
+}
+
+.drop-zone img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.drop-zone img.has-image {
+    display: block;
+}
+
+#dropZoneText {
+    text-align: center;
+    color: #6c757d;
+}
+
+#dropZoneText i {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 2rem;
+}
+
+#dropZoneText span {
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.drop-zone input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+}
+
+/* Form Section Cards */
+.registration-section .card {
+    margin-bottom: 1rem;
+}
+
+.registration-section .card-header {
+    border-bottom: 1px solid #e9ecef;
+    padding: 12px 20px;
+}
+
+.registration-section .card-header h6 {
+    margin: 0;
+    font-weight: 600;
+    color: #495057;
+}
+
+.registration-section .card-body {
+    padding: 20px;
+}
+
+/* Profile picture help text */
+.profile-help-text {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* Form labels */
+.registration-section .form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 5px;
+}
+
+/* Required indicator */
+.registration-section .form-label::after {
+    content: " *";
+    color: #dc3545;
+}
+
+/* Submit buttons */
+.btn-submit {
+    padding: 12px 30px;
+    font-weight: 500;
+}
+
+.btn-reset {
+    padding: 12px 30px;
+    font-weight: 500;
+}
+
+/* Success message */
+.enrollment-success {
+    border-left: 4px solid #198754;
+}
+
+.enrollment-success .alert-heading {
+    color: #198754;
+}
+
+/* Loading spinner for AJAX */
+.ajax-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .drop-zone {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .registration-section .card-body {
+        padding: 15px;
+    }
+}
