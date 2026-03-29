@@ -59,13 +59,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['toggle_status'])) {
         $teacher_id = intval($_POST['teacher_id']);
         $new_status = intval($_POST['current_status']) == 1 ? 0 : 1;
-        $conn->query("UPDATE system_users SET is_active = $new_status WHERE id = $teacher_id AND role_id = 5");
+        $conn->query("UPDATE system_users SET is_active = $new_status WHERE id = $teacher_id AND role_id = 4");
         $message = "Teacher status updated!";
         $message_type = 'success';
     }
 }
 
-$teachers = $conn->query("SELECT * FROM system_users WHERE role_id = 5 AND department_id = $dept_id ORDER BY last_name, first_name");
+$teachers = $conn->query("SELECT * FROM system_users WHERE role_id = 4 AND department_id = $dept_id ORDER BY last_name, first_name");
 ?>
 
 <div class="page-header">

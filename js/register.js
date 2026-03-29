@@ -4,7 +4,7 @@
  */
 
 // Profile Picture Upload with Drag & Drop
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initProfilePicture();
     initRegionDropdown();
     initCourseMajorDropdown();
@@ -22,7 +22,7 @@ function initProfilePicture() {
     }
 
     // Click to browse
-    dropZone.addEventListener('click', function() {
+    dropZone.addEventListener('click', function () {
         fileInput.click();
     });
 
@@ -50,10 +50,10 @@ function initProfilePicture() {
     });
 
     // Handle dropped files
-    dropZone.addEventListener('drop', function(e) {
+    dropZone.addEventListener('drop', function (e) {
         const dt = e.dataTransfer;
         const files = dt.files;
-        
+
         if (files.length > 0) {
             fileInput.files = files;
             handleFileSelect(files[0]);
@@ -61,7 +61,7 @@ function initProfilePicture() {
     });
 
     // File input change
-    fileInput.addEventListener('change', function() {
+    fileInput.addEventListener('change', function () {
         if (this.files.length > 0) {
             handleFileSelect(this.files[0]);
         }
@@ -73,7 +73,7 @@ function initProfilePicture() {
             alert('Please select an image file (JPG, PNG, GIF, etc.)');
             return;
         }
-        
+
         // Validate file size (5MB max)
         if (file.size > 5000000) {
             alert('File size must be less than 5MB');
@@ -81,7 +81,7 @@ function initProfilePicture() {
         }
 
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             previewImage.src = e.target.result;
             previewImage.style.display = 'block';
             previewImage.style.width = '150px';
@@ -96,50 +96,91 @@ function initProfilePicture() {
     }
 }
 
-// Region/Province/City cascading dropdown
+// Region/Province/City/Barangay cascading dropdown
 function initRegionDropdown() {
     const regionSelect = document.getElementById('region');
     const provinceSelect = document.getElementById('province');
     const citySelect = document.getElementById('city');
+    const barangaySelect = document.getElementById('barangay');
     const zipcodeInput = document.getElementById('zipcode');
 
     if (!regionSelect) return;
 
     // Region change -> Load Provinces
-    regionSelect.addEventListener('change', function() {
+    regionSelect.addEventListener('change', function () {
         const region = this.value;
-        
+
         if (region) {
             loadProvinces(region);
         } else {
             if (provinceSelect) provinceSelect.innerHTML = '<option value="">Select Region First</option>';
             if (citySelect) citySelect.innerHTML = '<option value="">Select Province First</option>';
+            if (barangaySelect) barangaySelect.innerHTML = '<option value="">Select City First</option>';
             if (zipcodeInput) zipcodeInput.value = '';
         }
     });
 
     // Province change -> Load Cities
     if (provinceSelect) {
-        provinceSelect.addEventListener('change', function() {
+        provinceSelect.addEventListener('change', function () {
             const province = this.value;
-            
+
             if (province) {
                 loadCities(province);
             } else {
                 if (citySelect) citySelect.innerHTML = '<option value="">Select Province First</option>';
+                if (barangaySelect) barangaySelect.innerHTML = '<option value="">Select City First</option>';
                 if (zipcodeInput) zipcodeInput.value = '';
             }
         });
     }
 
-    // City change -> Load Zipcode
+    // Update complete address
+    function updateCompleteAddress() {
+        const address = document.getElementById('address')?.value || '';
+        const barangay = document.getElementById('barangay')?.value || '';
+        const city = document.getElementById('city')?.value || '';
+        const province = document.getElementById('province')?.value || '';
+        const region = document.getElementById('region')?.value || '';
+        const zipcode = document.getElementById('zipcode')?.value || '';
+
+        const parts = [];
+        if (region) parts.push(region);
+        if (province) parts.push(province);
+         if (city) parts.push(city);
+        if (barangay) parts.push('Brgy. ' + barangay);
+        if (address) parts.push(address);
+        if (zipcode) parts.push(zipcode);
+
+        const completeAddress = parts.join(', ');
+        const completeInput = document.getElementById('complete_address');
+        if (completeInput) {
+            completeInput.value = completeAddress;
+        }
+    }
+
+    // Add event listeners for complete address
+    const addressFields = ['region', 'province', 'city', 'barangay', 'address', 'zipcode'];
+    addressFields.forEach(function (fieldId) {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.addEventListener('change', updateCompleteAddress);
+            field.addEventListener('input', updateCompleteAddress);
+        }
+    });
+
+    // City change -> Load Barangays and Zipcode
     if (citySelect) {
-        citySelect.addEventListener('change', function() {
+        citySelect.addEventListener('change', function () {
             const city = this.value;
-            
+            const selectedOption = this.options[this.selectedIndex];
+            const zipcode = selectedOption ? selectedOption.getAttribute('data-zipcode') : '';
+
             if (city) {
-                loadZipcode(city);
+                loadBarangays(city);
+                if (zipcodeInput) zipcodeInput.value = zipcode || '';
             } else {
+                if (barangaySelect) barangaySelect.innerHTML = '<option value="">Select City First</option>';
                 if (zipcodeInput) zipcodeInput.value = '';
             }
         });
@@ -147,9 +188,9 @@ function initRegionDropdown() {
 
     function loadProvinces(region) {
         if (!provinceSelect) return;
-        
+
         provinceSelect.innerHTML = '<option value="">Loading...</option>';
-        
+
         fetch('get-provinces.php', {
             method: 'POST',
             headers: {
@@ -157,27 +198,27 @@ function initRegionDropdown() {
             },
             body: 'region=' + encodeURIComponent(region)
         })
-        .then(response => response.json())
-        .then(data => {
-            provinceSelect.innerHTML = '<option value="">Select Province</option>';
-            data.forEach(function(province) {
-                provinceSelect.innerHTML += '<option value="' + province + '">' + province + '</option>';
+            .then(response => response.json())
+            .then(data => {
+                provinceSelect.innerHTML = '<option value="">Select Province</option>';
+                data.forEach(function (province) {
+                    provinceSelect.innerHTML += '<option value="' + province + '">' + province + '</option>';
+                });
+                // Reset city
+                if (citySelect) citySelect.innerHTML = '<option value="">Select Province First</option>';
+                if (zipcodeInput) zipcodeInput.value = '';
+            })
+            .catch(error => {
+                console.error('Error loading provinces:', error);
+                provinceSelect.innerHTML = '<option value="">Error loading</option>';
             });
-            // Reset city
-            if (citySelect) citySelect.innerHTML = '<option value="">Select Province First</option>';
-            if (zipcodeInput) zipcodeInput.value = '';
-        })
-        .catch(error => {
-            console.error('Error loading provinces:', error);
-            provinceSelect.innerHTML = '<option value="">Error loading</option>';
-        });
     }
 
     function loadCities(province) {
         if (!citySelect) return;
-        
+
         citySelect.innerHTML = '<option value="">Loading...</option>';
-        
+
         fetch('get-cities.php', {
             method: 'POST',
             headers: {
@@ -185,22 +226,26 @@ function initRegionDropdown() {
             },
             body: 'province=' + encodeURIComponent(province)
         })
-        .then(response => response.json())
-        .then(data => {
-            citySelect.innerHTML = '<option value="">Select City/Municipality</option>';
-            data.forEach(function(city) {
-                citySelect.innerHTML += '<option value="' + city + '">' + city + '</option>';
+            .then(response => response.json())
+            .then(data => {
+                citySelect.innerHTML = '<option value="">Select City/Municipality</option>';
+                if (Array.isArray(data)) {
+                    data.forEach(function (city) {
+                        var cityName = city.name || city;
+                        var zipcode = city.zipcode || '';
+                        citySelect.innerHTML += '<option value="' + cityName + '" data-zipcode="' + zipcode + '">' + cityName + '</option>';
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error loading cities:', error);
+                citySelect.innerHTML = '<option value="">Error loading</option>';
             });
-        })
-        .catch(error => {
-            console.error('Error loading cities:', error);
-            citySelect.innerHTML = '<option value="">Error loading</option>';
-        });
     }
 
     function loadZipcode(city) {
         if (!zipcodeInput) return;
-        
+
         fetch('get-zipcode.php', {
             method: 'POST',
             headers: {
@@ -208,13 +253,38 @@ function initRegionDropdown() {
             },
             body: 'city=' + encodeURIComponent(city)
         })
-        .then(response => response.text())
-        .then(data => {
-            zipcodeInput.value = data.trim();
+            .then(response => response.text())
+            .then(data => {
+                zipcodeInput.value = data.trim();
+            })
+            .catch(error => {
+                console.error('Error loading zipcode:', error);
+            });
+    }
+
+    function loadBarangays(municipality) {
+        if (!barangaySelect) return;
+
+        barangaySelect.innerHTML = '<option value="">Loading...</option>';
+
+        fetch('get-baranggays.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'municipality=' + encodeURIComponent(municipality)
         })
-        .catch(error => {
-            console.error('Error loading zipcode:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
+                data.forEach(function (barangay) {
+                    barangaySelect.innerHTML += '<option value="' + barangay + '">' + barangay + '</option>';
+                });
+            })
+            .catch(error => {
+                console.error('Error loading barangays:', error);
+                barangaySelect.innerHTML = '<option value="">Error loading</option>';
+            });
     }
 }
 
@@ -225,9 +295,9 @@ function initCourseMajorDropdown() {
 
     if (!courseSelect || !majorSelect) return;
 
-    courseSelect.addEventListener('change', function() {
+    courseSelect.addEventListener('change', function () {
         const course = this.value;
-        
+
         if (course) {
             loadMajors(course);
         } else {
@@ -237,7 +307,7 @@ function initCourseMajorDropdown() {
 
     function loadMajors(course) {
         majorSelect.innerHTML = '<option value="">Loading...</option>';
-        
+
         fetch('get-majors.php', {
             method: 'POST',
             headers: {
@@ -245,14 +315,14 @@ function initCourseMajorDropdown() {
             },
             body: 'course=' + encodeURIComponent(course)
         })
-        .then(response => response.text())
-        .then(data => {
-            majorSelect.innerHTML = data;
-        })
-        .catch(error => {
-            console.error('Error loading majors:', error);
-            majorSelect.innerHTML = '<option value="">Error loading</option>';
-        });
+            .then(response => response.text())
+            .then(data => {
+                majorSelect.innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error loading majors:', error);
+                majorSelect.innerHTML = '<option value="">Error loading</option>';
+            });
     }
 }
 
@@ -260,20 +330,20 @@ function initCourseMajorDropdown() {
 function calculateAge() {
     const birthdateInput = document.getElementById('birthdate');
     const ageInput = document.getElementById('age');
-    
+
     if (!birthdateInput || !ageInput) return;
-    
+
     const birthdate = birthdateInput.value;
     if (birthdate) {
         const today = new Date();
         const birthDate = new Date(birthdate);
         let age = today.getFullYear() - birthDate.getFullYear();
         const monthDiff = today.getMonth() - birthDate.getMonth();
-        
+
         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         }
-        
+
         ageInput.value = age;
     } else {
         ageInput.value = '';

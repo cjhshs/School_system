@@ -63,7 +63,7 @@ if (isset($_GET['submit_grades']) && isset($_GET['subject_id'])) {
 
 if ($subject_id) {
     $subject = $conn->query("SELECT * FROM subjects WHERE id = $subject_id")->fetch_assoc();
-    $students = $conn->query("SELECT s.*, g.prelim, g.midterm, g.final_exam, g.final_grade, g.remarks, g.status as grade_status
+    $students = $conn->query("SELECT s.*, g.prelim, g.midterm, g.final_exam, g.final_grade, g.remarks, g.grade_status
         FROM students s 
         JOIN student_subjects ss ON s.id = ss.student_id
         LEFT JOIN grades g ON s.id = g.student_id AND g.subject_id = $subject_id

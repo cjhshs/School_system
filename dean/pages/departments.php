@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Get department details
 $department = $conn->query("SELECT d.*, COUNT(t.id) as teacher_count 
                             FROM departments d 
-                            LEFT JOIN system_users t ON d.id = t.department_id AND t.role_id = 5
+                            LEFT JOIN system_users t ON d.id = t.department_id AND t.role_id = 4
                             WHERE d.id = $dept_id 
                             GROUP BY d.id")->fetch_assoc();
 

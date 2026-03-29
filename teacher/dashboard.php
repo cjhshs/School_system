@@ -23,7 +23,7 @@ $my_students = $conn->query("SELECT COUNT(DISTINCT ss.student_id) as c FROM stud
 $pending_grades = $conn->query("SELECT COUNT(*) as c FROM grades g 
                                 JOIN subjects s ON g.subject_id = s.id 
                                 WHERE s.instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%' 
-                                AND g.status = 'Draft'")->fetch_assoc()['c'];
+                                AND g.grade_status = 'Draft'")->fetch_assoc()['c'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,6 +82,11 @@ $pending_grades = $conn->query("SELECT COUNT(*) as c FROM grades g
                             <?php endif; ?>
                         </a>
                     </div>
+                    <div class="nav-item">
+                        <a href="dashboard.php?page=profile" class="nav-link <?php echo $page == 'profile' ? 'active' : ''; ?>">
+                            <i class="fas fa-user"></i><span>My Profile</span>
+                        </a>
+                    </div>
                 </div>
             </nav>
 
@@ -133,6 +138,9 @@ $pending_grades = $conn->query("SELECT COUNT(*) as c FROM grades g
                         break;
                     case 'grade_entry':
                         include 'pages/grade_entry.php';
+                        break;
+                    case 'profile':
+                        include 'pages/profile.php';
                         break;
                     default:
                         ?>

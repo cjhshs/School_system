@@ -255,6 +255,19 @@
     background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
 }
 
+.portals-section .portal-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 260px;
+    margin: 0 auto;
+    max-width: 320px;
+}
+
+.portals-section .row > div {
+    margin-bottom: 24px;
+}
+
 .section-header {
     text-align: center;
     margin-bottom: 60px;
@@ -340,6 +353,7 @@
 .portal-card.student .portal-icon { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); --portal-color: #667eea; }
 .portal-card.registrar .portal-icon { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); --portal-color: #28a745; }
 .portal-card.finance .portal-icon { background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%); --portal-color: #ffc107; }
+.portal-card.cashier .portal-icon { background: linear-gradient(135deg, #20c997 0%, #198754 100%); --portal-color: #20c997; }
 .portal-card.teacher .portal-icon { background: linear-gradient(135deg, #17a2b8 0%, #6610f2 100%); --portal-color: #17a2b8; }
 .portal-card.dean .portal-icon { background: linear-gradient(135deg, #6c757d 0%, #495057 100%); --portal-color: #6c757d; }
 

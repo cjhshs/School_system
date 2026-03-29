@@ -11,12 +11,12 @@ $student_id = $_SESSION['student_id'];
 $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 
 // Get student info
-$student = $conn->query("SELECT s.*, c.name as course_name FROM students s LEFT JOIN courses c ON s.course_code = c.code WHERE s.id = $student_id")->fetch_assoc();
+$student = $conn->query("SELECT s.*, c.code as course_code, c.name as course_name FROM students s LEFT JOIN courses c ON s.course_id = c.id WHERE s.id = $student_id")->fetch_assoc();
 $student_name = $_SESSION['student_name'];
 $current_school_year = date('Y') . '-' . (date('Y') + 1);
 
 // Get stats
-$subjects = $conn->query("SELECT * FROM subjects WHERE course_code = '" . $student['course_code'] . "' AND school_year = '$current_school_year'");
+$subjects = $conn->query("SELECT * FROM subjects WHERE course_code = '" . $student['course_code'] . "' AND year_level = " . $student['year_level']);
 $total_units = 0;
 $subjects_array = [];
 if ($subjects) {
@@ -272,7 +272,7 @@ if ($subjects) {
                                     <div class="card-body">
                                         <?php
                                         $balance = $student['balance'] ?? 0;
-                                        $total_fees = $conn->query("SELECT COALESCE(SUM(amount), 0) as c FROM payments WHERE student_id = $student_id")->fetch_assoc()['c'];
+                                        $total_fees = $conn->query("SELECT COALESCE(SUM(payment_amount), 0) as c FROM payments WHERE student_id = $student_id")->fetch_assoc()['c'];
                                         ?>
                                         <div class="balance-card <?php echo $balance > 0 ? 'unpaid' : 'paid'; ?> mb-3">
                                             <div class="balance-label">Outstanding Balance</div>

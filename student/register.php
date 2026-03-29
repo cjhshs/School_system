@@ -11,7 +11,7 @@ $extra_js = '<script src="../js/register.js"></script>';
 $religions = $conn->query("SELECT DISTINCT religion FROM religions WHERE religion IS NOT NULL ORDER BY religion");
 $ethnicities = $conn->query("SELECT DISTINCT ethnicname FROM ethnicity ORDER BY ethnicname");
 $dialects = $conn->query("SELECT DISTINCT dialects FROM dialects ORDER BY dialects");
-$regions = $conn->query("SELECT DISTINCT REGION FROM cities WHERE REGION IS NOT NULL ORDER BY REGION");
+$regions = $conn->query("SELECT DISTINCT region_name FROM regions ORDER BY region_name");
 $courses = $conn->query("SELECT DISTINCT code, name FROM courses WHERE code != 'code' ORDER BY code");
 
 // Generate school year options
@@ -136,17 +136,21 @@ include '../header.php';
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <label for="firstname" class="form-label">First Name *</label>
                                     <input type="text" class="form-control" id="firstname" name="firstname" required>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <label for="middlename" class="form-label">Middle Name</label>
                                     <input type="text" class="form-control" id="middlename" name="middlename">
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <label for="lastname" class="form-label">Last Name *</label>
                                     <input type="text" class="form-control" id="lastname" name="lastname" required>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="suffix" class="form-label">Suffix</label>
+                                    <input type="text" class="form-control" id="suffix" name="suffix" placeholder="Jr., Sr., III">
                                 </div>
                             </div>
 
@@ -190,41 +194,55 @@ include '../header.php';
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="address" class="form-label">Complete Address *</label>
-                                    <textarea class="form-control" id="address" name="address" rows="2" required></textarea>
+                                    <label for="address" class="form-label">Street Address / House Number *</label>
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="e.g., 123 Main Street" required>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label for="region" class="form-label">Region *</label>
                                     <select class="form-select" id="region" name="region" required>
                                         <option value="">Select Region</option>
                                         <?php while ($reg = $regions->fetch_assoc()): ?>
-                                            <option value="<?php echo htmlspecialchars($reg['REGION']); ?>"><?php echo htmlspecialchars($reg['REGION']); ?></option>
+                                            <option value="<?php echo htmlspecialchars($reg['region_name']); ?>"><?php echo htmlspecialchars($reg['region_name']); ?></option>
                                         <?php endwhile; ?>
                                     </select>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label for="province" class="form-label">Province *</label>
                                     <select class="form-select" id="province" name="province" required>
                                         <option value="">Select Region First</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4 mb-3">
                                     <label for="city" class="form-label">City/Municipality *</label>
                                     <select class="form-select" id="city" name="city" required>
                                         <option value="">Select Province First</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="barangay" class="form-label">Barangay *</label>
+                                    <select class="form-select" id="barangay" name="barangay" required>
+                                        <option value="">Select City First</option>
+                                    </select>
+                                </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="zipcode" class="form-label">ZIP Code *</label>
                                     <input type="text" class="form-control" id="zipcode" name="zipcode" readonly>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
                                     <label for="nationality" class="form-label">Nationality *</label>
                                     <input type="text" class="form-control" id="nationality" name="nationality" value="Filipino" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="complete_address" class="form-label">Complete Address (Auto-generated)</label>
+                                    <textarea class="form-control" id="complete_address" name="complete_address" rows="2" readonly placeholder="Auto-generated from above fields"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -293,6 +311,67 @@ include '../header.php';
                                         <option value="4">4th Year</option>
                                         <option value="5">5th Year</option>
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Guardian Information -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0"><i class="fas fa-user-shield me-2"></i>Guardian Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="guardian_name" class="form-label">Guardian Name</label>
+                                    <input type="text" class="form-control" id="guardian_name" name="guardian_name" placeholder="Full Name">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="guardian_relationship" class="form-label">Relationship</label>
+                                    <select class="form-select" id="guardian_relationship" name="guardian_relationship">
+                                        <option value="">Select Relationship</option>
+                                        <option value="Parent">Parent</option>
+                                        <option value="Father">Father</option>
+                                        <option value="Mother">Mother</option>
+                                        <option value="Sibling">Sibling</option>
+                                        <option value="Grandparent">Grandparent</option>
+                                        <option value="Aunt/Uncle">Aunt/Uncle</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="guardian_phone" class="form-label">Guardian Phone</label>
+                                    <input type="text" class="form-control" id="guardian_phone" name="guardian_phone" placeholder="Contact Number">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="guardian_email" class="form-label">Guardian Email</label>
+                                    <input type="email" class="form-control" id="guardian_email" name="guardian_email" placeholder="Email Address">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="guardian_address" class="form-label">Guardian Address</label>
+                                    <input type="text" class="form-control" id="guardian_address" name="guardian_address" placeholder="Complete Address">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Previous School Information -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <h6 class="mb-0"><i class="fas fa-school me-2"></i>Previous School Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="previous_school" class="form-label">Previous School Name</label>
+                                    <input type="text" class="form-control" id="previous_school" name="previous_school" placeholder="School Name">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="previous_school_address" class="form-label">School Address</label>
+                                    <input type="text" class="form-control" id="previous_school_address" name="previous_school_address" placeholder="School Address">
                                 </div>
                             </div>
                         </div>

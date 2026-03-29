@@ -10,6 +10,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'super_admin') {
 $message = '';
 $error = '';
 
+$preselected_course = isset($_GET['add_tuition_for']) ? $_GET['add_tuition_for'] : '';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['action'])) {
         
@@ -171,6 +173,14 @@ $course_fees = $conn->query("SELECT cf.*, c.name as course_name, d.name as dept_
                              LEFT JOIN departments d ON c.department_id = d.id 
                              ORDER BY d.name, c.code, cf.fee_name");
 $tuition_fees = $conn->query("SELECT tf.*, c.name as course_name FROM tuition_fees tf LEFT JOIN courses c ON tf.course_code = c.code ORDER BY tf.course_code, tf.year_level");
+
+$courses_without_fees = $conn->query("
+    SELECT c.id, c.code, c.name, d.name as dept_name
+    FROM courses c
+    LEFT JOIN departments d ON c.department_id = d.id
+    WHERE c.code NOT IN (SELECT DISTINCT course_code FROM tuition_fees)
+    ORDER BY d.name, c.code
+");
 ?>
 
 <div class="page-header">
@@ -185,6 +195,70 @@ $tuition_fees = $conn->query("SELECT tf.*, c.name as course_name FROM tuition_fe
 <?php endif; ?>
 <?php if ($error): ?>
     <div class="alert alert-danger"><i class="fas fa-exclamation-circle me-2"></i><?php echo $error; ?></div>
+<?php endif; ?>
+
+<?php 
+$count_no_fees = 0;
+if ($courses_without_fees) {
+    $count_no_fees = $courses_without_fees->num_rows;
+    $courses_without_fees->data_seek(0);
+}
+?>
+
+<?php if ($count_no_fees > 0): ?>
+<div class="card border-warning mb-4">
+    <div class="card-body bg-warning-subtle p-4">
+        <div class="row align-items-center">
+            <div class="col-md-2 text-center">
+                <i class="fas fa-exclamation-triangle fa-4x text-warning"></i>
+            </div>
+            <div class="col-md-10">
+                <h4 class="text-warning-dark">⚠️ Attention Required: Courses Without Fees</h4>
+                <p class="mb-2">There are <strong><?php echo $count_no_fees; ?> course(s)</strong> that have not been assigned tuition fees yet. Please set up fees for these courses to ensure proper enrollment.</p>
+                <p class="text-muted mb-2"><small>Scroll down to view the complete list of courses without fees.</small></p>
+                <a href="#courses-without-fees" class="btn btn-warning">
+                    <i class="fas fa-arrow-down me-1"></i> View Courses Without Fees
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="courses-without-fees" class="card mb-4 border-danger">
+    <div class="card-header bg-danger text-white">
+        <h5 class="mb-0"><i class="fas fa-list me-2"></i>Courses Without Fees (<?php echo $count_no_fees; ?>)</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="table-dark sticky-top">
+                    <tr>
+                        <th>#</th>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                        <th>Department</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $counter = 1; while($cw = $courses_without_fees->fetch_assoc()): ?>
+                    <tr>
+                        <td><?php echo $counter++; ?></td>
+                        <td><span class="badge bg-danger fs-6"><?php echo htmlspecialchars($cw['code']); ?></span></td>
+                        <td><?php echo htmlspecialchars($cw['name']); ?></td>
+                        <td><?php echo htmlspecialchars($cw['dept_name']); ?></td>
+                        <td>
+                            <a href="?page=fees&add_tuition_for=<?php echo urlencode($cw['code']); ?>" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus me-1"></i>Add Fee
+                            </a>
+                        </td>
+                    </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 <?php endif; ?>
 
 <!-- TUITION FEES SECTION -->
@@ -263,7 +337,7 @@ $tuition_fees = $conn->query("SELECT tf.*, c.name as course_name FROM tuition_fe
                             <option value="">Select Course</option>
                             <?php $courses_all = $conn->query("SELECT DISTINCT code, name FROM courses ORDER BY code"); ?>
                             <?php while ($c = $courses_all->fetch_assoc()): ?>
-                                <option value="<?php echo $c['code']; ?>"><?php echo htmlspecialchars($c['code'] . ' - ' . $c['name']); ?></option>
+                                <option value="<?php echo $c['code']; ?>" <?php echo $preselected_course === $c['code'] ? 'selected' : ''; ?>><?php echo htmlspecialchars($c['code'] . ' - ' . $c['name']); ?></option>
                             <?php endwhile; ?>
                         </select>
                     </div>

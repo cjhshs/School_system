@@ -2,7 +2,7 @@
 require_once '../config.php';
 
 $student_id = $_SESSION['student_id'];
-$student = $conn->query("SELECT * FROM students WHERE id = $student_id")->fetch_assoc();
+$student = $conn->query("SELECT s.*, c.code as course_code FROM students s LEFT JOIN courses c ON s.course_id = c.id WHERE s.id = $student_id")->fetch_assoc();
 $enrollment = $conn->query("SELECT * FROM enrollments WHERE student_id = $student_id ORDER BY created_at DESC LIMIT 1")->fetch_assoc();
 ?>
 <div class="row">

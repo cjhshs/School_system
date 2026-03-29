@@ -1,24 +1,39 @@
 <?php
-require_once "../config.php";
-require_once "../includes/rbac.php";
+session_start();
+require_once '../config.php';
 
-$error = "";
+$error = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST["username"]);
-    $password = $_POST["password"];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
     
-    $rbac = new RBAC($conn);
+    $stmt = $conn->prepare("SELECT * FROM system_users WHERE username = ? AND role_id = 6");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
     
-    if ($rbac->authenticate($username, $password, "dean")) {
-        $_SESSION["user_id"] = $rbac->getUserId();
-        $_SESSION["username"] = $rbac->getUserName();
-        $_SESSION["user_role"] = "dean";
-        $_SESSION["branch_id"] = $rbac->getBranchId();
-        header("Location: dashboard.php");
-        exit;
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user['password'])) {
+            if ($user['is_active']) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['user_role'] = 'cashier';
+                $_SESSION['first_name'] = $user['first_name'];
+                $_SESSION['last_name'] = $user['last_name'];
+                
+                $conn->query("UPDATE system_users SET last_login = NOW() WHERE id = " . $user['id']);
+                header('Location: dashboard.php');
+                exit;
+            } else {
+                $error = 'Account is deactivated.';
+            }
+        } else {
+            $error = 'Invalid password.';
+        }
     } else {
-        $error = "Invalid credentials or insufficient permissions";
+        $error = 'Cashier account not found.';
     }
 }
 ?>
@@ -27,16 +42,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dean Login - CJLG University</title>
+    <title>Cashier Login - CJLG University</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        html, body { height: 100%; width: 100%; margin: 0; padding: 0; }
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
         body {
             background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460) !important;
             min-height: 100vh !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
+            position: relative !important;
         }
         .login-card {
             background: #ffffff;
@@ -51,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             transform: translate(-50%, -50%) !important;
         }
         .login-header {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
+            background: linear-gradient(135deg, #20c997, #198754);
             color: white;
             padding: 30px;
             text-align: center;
@@ -65,9 +86,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .login-body .input-group { border-radius: 8px; overflow: hidden; display: flex; }
         .login-body .input-group-text { background: #f9fafb; border: 1px solid #ddd; border-right: none; padding: 10px 12px; color: #666; }
         .login-body .form-control { border: 1px solid #ddd; border-left: none; padding: 10px 12px; width: 100%; }
-        .login-body .form-control:focus { outline: none; border-color: #2c3e50; box-shadow: 0 0 0 3px rgba(44,62,80,0.15); }
+        .login-body .form-control:focus { outline: none; border-color: #20c997; box-shadow: 0 0 0 3px rgba(32,201,151,0.15); }
         .login-body .btn-primary { 
-            background: linear-gradient(135deg, #2c3e50, #34495e); 
+            background: linear-gradient(135deg, #20c997, #198754); 
             border: none; 
             padding: 12px; 
             font-weight: 600; 
@@ -76,9 +97,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 8px;
             cursor: pointer;
         }
-        .login-body .btn-primary:hover { background: linear-gradient(135deg, #1a252f, #2c3e50); }
+        .login-body .btn-primary:hover {
+            background: linear-gradient(135deg, #1aa179, #146c43);
+        }
         .login-footer { text-align: center; padding-top: 15px; margin-top: 15px; border-top: 1px solid #eee; }
-        .login-footer a { color: #2c3e50; text-decoration: none; font-weight: 500; }
+        .login-footer a { color: #20c997; text-decoration: none; font-weight: 500; }
         .alert { padding: 12px; border-radius: 8px; margin-bottom: 15px; }
         .alert-danger { background: #fee; color: #c00; border: 1px solid #fcc; }
     </style>
@@ -86,8 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="login-card">
         <div class="login-header">
-            <i class="fas fa-user-graduate"></i>
-            <h3>Dean Panel</h3>
+            <i class="fas fa-cash-register"></i>
+            <h3>Cashier Portal</h3>
             <p>CJLG University</p>
         </div>
         <div class="login-body">

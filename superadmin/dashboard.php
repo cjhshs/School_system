@@ -1,5 +1,6 @@
 <?php
 require_once '../config.php';
+ob_start();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'super_admin') {
     header('Location: login.php');
@@ -14,6 +15,7 @@ $current_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 $nav_items = [
     ['key' => 'dashboard', 'label' => 'Dashboard', 'url' => 'dashboard.php', 'icon' => 'fas fa-home'],
     ['key' => 'users', 'label' => 'User Management', 'url' => 'dashboard.php?page=users', 'icon' => 'fas fa-users-cog'],
+    ['key' => 'departments', 'label' => 'Departments & Deans', 'url' => 'dashboard.php?page=departments', 'icon' => 'fas fa-building'],
     ['key' => 'roles', 'label' => 'Roles & Permissions', 'url' => 'dashboard.php?page=roles', 'icon' => 'fas fa-shield-alt'],
     ['key' => 'fees', 'label' => 'Fees Management', 'url' => 'dashboard.php?page=fees', 'icon' => 'fas fa-coins'],
     ['divider' => true],
@@ -29,8 +31,8 @@ include '../includes/portal_layout_start.php';
 
 // Get statistics
 $total_users = $conn->query("SELECT COUNT(*) as count FROM system_users")->fetch_assoc()['count'];
-$total_deans = $conn->query("SELECT COUNT(*) as count FROM system_users WHERE role_id = 4")->fetch_assoc()['count'];
-$total_teachers = $conn->query("SELECT COUNT(*) as count FROM system_users WHERE role_id = 5")->fetch_assoc()['count'];
+$total_deans = $conn->query("SELECT COUNT(*) as count FROM system_users WHERE role_id = 3")->fetch_assoc()['count'];
+$total_teachers = $conn->query("SELECT COUNT(*) as count FROM system_users WHERE role_id = 4")->fetch_assoc()['count'];
 $total_students = $conn->query("SELECT COUNT(*) as count FROM students")->fetch_assoc()['count'];
 $total_departments = $conn->query("SELECT COUNT(*) as count FROM departments")->fetch_assoc()['count'];
 
@@ -46,6 +48,10 @@ switch($page) {
     case 'users':
         $portal_title = 'User Management';
         include 'pages/users.php';
+        break;
+    case 'departments':
+        $portal_title = 'Departments & Deans';
+        include 'pages/departments.php';
         break;
     case 'roles':
         $portal_title = 'Roles & Permissions';
@@ -248,6 +254,7 @@ switch($page) {
         </div>
         <?php
 }
+ob_end_flush();
 ?>
 
 <?php include '../includes/portal_layout_end.php'; ?>

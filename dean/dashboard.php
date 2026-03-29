@@ -18,7 +18,7 @@ $dean = $conn->query("SELECT su.*, d.name as dept_name, d.code as dept_code
 $dept_id = $dean['department_id'] ?? 0;
 
 // Get stats
-$total_teachers = $conn->query("SELECT COUNT(*) as c FROM system_users WHERE role_id = 5 AND department_id = $dept_id")->fetch_assoc()['c'];
+$total_teachers = $conn->query("SELECT COUNT(*) as c FROM system_users WHERE role_id = 4 AND department_id = $dept_id")->fetch_assoc()['c'];
 $total_subjects = $conn->query("SELECT COUNT(*) as c FROM subjects s JOIN courses c ON s.course_code = c.code WHERE c.department_id = $dept_id")->fetch_assoc()['c'];
 $pending_grades = $conn->query("SELECT COUNT(*) as c FROM grades WHERE status = 'Submitted'")->fetch_assoc()['c'];
 $total_students = $conn->query("SELECT COUNT(DISTINCT ss.student_id) as c FROM student_subjects ss 
@@ -102,7 +102,6 @@ $total_students = $conn->query("SELECT COUNT(DISTINCT ss.student_id) as c FROM s
                             <i class="fas fa-cog"></i><span>Settings</span>
                         </a>
                     </div>
-                </div>
             </nav>
 
             <div class="sidebar-footer">
@@ -272,7 +271,7 @@ $total_students = $conn->query("SELECT COUNT(DISTINCT ss.student_id) as c FROM s
                                                                          JOIN students s ON g.student_id = s.id
                                                                          JOIN subjects sub ON g.subject_id = sub.id
                                                                          JOIN courses c ON sub.course_code = c.code
-                                                                         WHERE g.status = 'Submitted' AND c.department_id = $dept_id
+                                                                         WHERE g.grade_status = 'Submitted' AND c.department_id = $dept_id
                                                                          ORDER BY g.created_at DESC LIMIT 5");
                                                 if ($pending && $pending->num_rows > 0):
                                                     while ($grade = $pending->fetch_assoc()):

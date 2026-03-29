@@ -11,7 +11,7 @@ $user_name = $_SESSION['username'];
 
 // Get stats
 $total_students = $conn->query("SELECT COUNT(*) as c FROM students")->fetch_assoc()['c'];
-$total_teachers = $conn->query("SELECT COUNT(*) as c FROM system_users WHERE role_id = 5")->fetch_assoc()['c'];
+$total_teachers = $conn->query("SELECT COUNT(*) as c FROM system_users WHERE role_id = 4")->fetch_assoc()['c'];
 $total_courses = $conn->query("SELECT COUNT(*) as c FROM courses")->fetch_assoc()['c'];
 $total_subjects = $conn->query("SELECT COUNT(*) as c FROM subjects")->fetch_assoc()['c'];
 $pending_enrollments = $conn->query("SELECT COUNT(*) as c FROM enrollments WHERE status = 'Pending'")->fetch_assoc()['c'];
@@ -76,6 +76,17 @@ $pending_enrollments = $conn->query("SELECT COUNT(*) as c FROM enrollments WHERE
                     <div class="nav-item">
                         <a href="dashboard.php?page=subjects" class="nav-link <?php echo $page == 'subjects' ? 'active' : ''; ?>">
                             <i class="fas fa-book"></i><span>Subjects</span>
+                        </a>
+                    </div>
+                </div>
+                    <div class="nav-item">
+                        <a href="../cashier/login.php" class="nav-link" target="_blank">
+                            <i class="fas fa-cash-register"></i><span>Cashier</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="../student/login.php" class="nav-link" target="_blank">
+                            <i class="fas fa-graduation-cap"></i><span>Student</span>
                         </a>
                     </div>
                 </div>

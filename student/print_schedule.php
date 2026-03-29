@@ -7,7 +7,7 @@ if (!isset($_SESSION['student_id'])) {
 }
 
 $student_id = $_SESSION['student_id'];
-$student = $conn->query("SELECT s.*, c.name as course_name FROM students s LEFT JOIN courses c ON s.course_code = c.code WHERE s.id = $student_id")->fetch_assoc();
+$student = $conn->query("SELECT s.*, c.code as course_code, c.name as course_name FROM students s LEFT JOIN courses c ON s.course_id = c.id WHERE s.id = $student_id")->fetch_assoc();
 
 $current_school_year = date('Y') . '-' . (date('Y') + 1);
 
@@ -22,7 +22,7 @@ if ($subjects->num_rows == 0) {
     $subjects = $conn->query("
         SELECT * FROM subjects 
         WHERE course_code = '" . $student['course_code'] . "'
-        AND school_year = '$current_school_year'
+        AND year_level = " . $student['year_level'] . "
         ORDER BY semester, subject_code
     ");
 }

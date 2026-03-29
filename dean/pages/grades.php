@@ -20,7 +20,7 @@ $pending_grades = $conn->query("SELECT g.*, s.firstname, s.lastname, s.student_n
     JOIN students s ON g.student_id = s.id
     JOIN subjects sub ON g.subject_id = sub.id
     LEFT JOIN teachers t ON g.teacher_id = t.id
-    WHERE g.status = 'Submitted'
+    WHERE g.grade_status = 'Submitted'
     ORDER BY sub.subject_code, s.lastname");
 
 $default_passing = $conn->query("SELECT AVG(passing_grade) as avg_grade FROM departments")->fetch_assoc()['avg_grade'] ?? 75;
@@ -139,7 +139,7 @@ function clearSearch(btn) {
             FROM grades g
             JOIN students s ON g.student_id = s.id
             JOIN subjects sub ON g.subject_id = sub.id
-            WHERE g.status = 'Approved'
+            WHERE g.grade_status = 'Approved'
             ORDER BY g.approved_at DESC LIMIT 20");
         ?>
         

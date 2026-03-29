@@ -72,7 +72,6 @@ $recent_payments = $conn->query("SELECT COUNT(*) as c FROM payments WHERE DATE(p
                             <i class="fas fa-chart-bar"></i><span>Reports</span>
                         </a>
                     </div>
-                </div>
             </nav>
 
             <div class="sidebar-footer">

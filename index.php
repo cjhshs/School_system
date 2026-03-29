@@ -87,45 +87,47 @@ $course_icons = ['fa-laptop-code', 'fa-chart-line', 'fa-cogs', 'fa-palette', 'fa
             <h2 class="section-title">Choose Your Portal</h2>
             <p class="section-subtitle">Access different portals based on your role. Each portal is designed to meet your specific needs.</p>
         </div>
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
-                <div class="portal-card student fade-in-up">
+        <div class="row justify-content-center g-4">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                <div class="portal-card student">
                     <div class="portal-icon"><i class="fas fa-user-graduate"></i></div>
-                    <h4>Student Portal</h4>
-                    <p>View your schedule, grades, and manage your academic journey</p>
-                    <a href="student/login.php" class="btn-portal">Login <i class="fas fa-arrow-right"></i></a>
+                    <h4>Student</h4>
+                    <a href="student/login.php" class="btn-portal">Login</a>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="portal-card registrar fade-in-up" style="animation-delay: 0.1s;">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                <div class="portal-card registrar">
                     <div class="portal-icon"><i class="fas fa-user-shield"></i></div>
-                    <h4>Registrar Portal</h4>
-                    <p>Manage students, courses, and enrollment processes</p>
-                    <a href="registrar/login.php" class="btn-portal">Login <i class="fas fa-arrow-right"></i></a>
+                    <h4>Registrar</h4>
+                    <a href="registrar/login.php" class="btn-portal">Login</a>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="portal-card finance fade-in-up" style="animation-delay: 0.2s;">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                <div class="portal-card finance">
                     <div class="portal-icon"><i class="fas fa-coins"></i></div>
-                    <h4>Finance Portal</h4>
-                    <p>Handle payments, billing, and financial tracking</p>
-                    <a href="finance/login.php" class="btn-portal">Login <i class="fas fa-arrow-right"></i></a>
+                    <h4>Finance</h4>
+                    <a href="finance/login.php" class="btn-portal">Login</a>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="portal-card teacher fade-in-up" style="animation-delay: 0.3s;">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                <div class="portal-card cashier">
+                    <div class="portal-icon"><i class="fas fa-cash-register"></i></div>
+                    <h4>Cashier</h4>
+                    <a href="cashier/login.php" class="btn-portal">Login</a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                <div class="portal-card teacher">
                     <div class="portal-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-                    <h4>Teacher Portal</h4>
-                    <p>Encode grades and manage your assigned subjects</p>
-                    <a href="teacher/login.php" class="btn-portal">Login <i class="fas fa-arrow-right"></i></a>
+                    <h4>Teacher</h4>
+                    <a href="teacher/login.php" class="btn-portal">Login</a>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="portal-card dean fade-in-up" style="animation-delay: 0.4s;">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                <div class="portal-card dean">
                     <div class="portal-icon"><i class="fas fa-user-tie"></i></div>
-                    <h4>Dean Portal</h4>
-                    <p>Department management and academic approvals</p>
-                    <a href="dean/login.php" class="btn-portal">Login <i class="fas fa-arrow-right"></i></a>
+                    <h4>Dean</h4>
+                    <a href="dean/login.php" class="btn-portal">Login</a>
                 </div>
             </div>
         </div>

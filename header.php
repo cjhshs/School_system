@@ -60,7 +60,7 @@
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -104,7 +104,7 @@
         .nav-link {
             color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
-            padding: 10px 18px;
+            padding: 8px 12px;
             border-radius: 50px;
             font-weight: 500;
             font-size: 0.95rem;
@@ -250,6 +250,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="/enrollment_system/student/login.php" class="nav-link">
+                        <i class="fas fa-user-graduate"></i> Student
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/enrollment_system/registrar/login.php" class="nav-link">
                         <i class="fas fa-user-shield"></i> Registrar
                     </a>
@@ -267,6 +272,11 @@
                 <li class="nav-item">
                     <a href="/enrollment_system/dean/login.php" class="nav-link">
                         <i class="fas fa-user-tie"></i> Dean
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/enrollment_system/cashier/login.php" class="nav-link">
+                        <i class="fas fa-cash-register"></i> Cashier
                     </a>
                 </li>
                 <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'super_admin'): ?>

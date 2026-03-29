@@ -7,7 +7,7 @@ if (!isset($_SESSION['student_id'])) {
 }
 
 $student_id = $_SESSION['student_id'];
-$student = $conn->query("SELECT s.*, c.name as course_name FROM students s LEFT JOIN courses c ON s.course_code = c.code WHERE s.id = $student_id")->fetch_assoc();
+$student = $conn->query("SELECT s.*, c.code as course_code, c.name as course_name FROM students s LEFT JOIN courses c ON s.course_id = c.id WHERE s.id = $student_id")->fetch_assoc();
 
 $passing_grade = 75;
 $dept_result = $conn->query("SELECT passing_grade FROM departments LIMIT 1");
@@ -16,8 +16,8 @@ if ($dept_result && $dept_result->num_rows > 0) {
 }
 
 $grades = $conn->query("
-    SELECT sub.subject_code, sub.description, sub.units, sub.semester, sub.school_year,
-           g.prelim, g.midterm, g.final_exam, g.final_grade, g.remarks, g.status, g.approved_at
+    SELECT sub.subject_code, sub.description, sub.units, sub.semester, sub.year_level,
+           g.prelim, g.midterm, g.final_exam, g.final_grade, g.remarks, g.grade_status, g.approved_at
     FROM student_subjects ss
     JOIN subjects sub ON ss.subject_id = sub.id
     LEFT JOIN grades g ON sub.id = g.subject_id AND g.student_id = $student_id

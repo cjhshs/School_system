@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 $roles = $conn->query("SELECT * FROM roles ORDER BY hierarchy_level DESC");
-$permissions = $conn->query("SELECT * FROM permissions ORDER BY category, display_name");
+$permissions = $conn->query("SELECT * FROM permissions ORDER BY name");
 $role_perms = $conn->query("SELECT * FROM role_permissions");
 
 $perm_map = array();
@@ -30,9 +30,9 @@ while ($rp = $role_perms->fetch_assoc()) {
     $perm_map[$rp['role_id']][] = $rp['permission_id'];
 }
 
-$categories = array();
+$permissions_list = array();
 while ($p = $permissions->fetch_assoc()) {
-    $categories[$p['category']][] = $p;
+    $permissions_list[] = $p;
 }
 ?>
 
@@ -76,21 +76,17 @@ while ($p = $permissions->fetch_assoc()) {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($categories as $category => $perms): ?>
-                    <tr class="table-secondary">
-                        <td colspan="7"><strong><i class="fas fa-folder me-2"></i><?php echo $category; ?></strong></td>
-                    </tr>
-                    <?php foreach ($perms as $perm): ?>
-                        <tr>
-                            <td>
-                                <div><?php echo $perm['display_name']; ?></div>
-                                <small class="text-muted"><?php echo $perm['name']; ?></small>
-                            </td>
-                            <?php 
-                            $roles2 = $conn->query("SELECT * FROM roles ORDER BY hierarchy_level DESC");
-                            while ($role = $roles2->fetch_assoc()): 
-                                $has = in_array($perm['id'], $perm_map[$role['id']] ?? []);
-                            ?>
+                <?php foreach ($permissions_list as $perm): ?>
+                <tr>
+                    <td>
+                        <div><?php echo htmlspecialchars($perm['name']); ?></div>
+                        <small class="text-muted"><?php echo htmlspecialchars($perm['description'] ?? ''); ?></small>
+                    </td>
+                    <?php 
+                    $roles2 = $conn->query("SELECT * FROM roles ORDER BY hierarchy_level DESC");
+                    while ($role = $roles2->fetch_assoc()): 
+                        $has = in_array($perm['id'], $perm_map[$role['id']] ?? []);
+                    ?>
                                 <td class="text-center">
                                     <form method="POST" class="d-inline">
                                         <input type="hidden" name="action" value="toggle_permission">
@@ -103,7 +99,6 @@ while ($p = $permissions->fetch_assoc()) {
                             <?php endwhile; ?>
                         </tr>
                     <?php endforeach; ?>
-                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

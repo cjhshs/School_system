@@ -15,13 +15,7 @@ if (isset($_POST['change_password'])) {
     
     // Verify current password
     $stored_password = $student['password'];
-    $password_valid = false;
-    
-    if (password_get_info($stored_password)['algo'] === 0) {
-        $password_valid = ($current_password === $stored_password);
-    } else {
-        $password_valid = password_verify($current_password, $stored_password);
-    }
+    $password_valid = password_verify($current_password, $stored_password);
     
     if (!$password_valid) {
         $message = '<div class="alert alert-danger">Current password is incorrect.</div>';
@@ -50,7 +44,7 @@ if (isset($_POST['change_password'])) {
     <div class="col-md-4">
         <div class="card">
             <div class="card-body text-center">
-                <?php if($student['profile_picture']): ?>
+                <?php if(!empty($student['profile_picture'])): ?>
                     <img src="../uploads/<?php echo $student['profile_picture']; ?>" class="rounded-circle mb-3" width="150" height="150" style="object-fit: cover;">
                 <?php else: ?>
                     <i class="fas fa-user-circle fa-7x text-muted mb-3"></i>
@@ -73,15 +67,12 @@ if (isset($_POST['change_password'])) {
                 <div class="row">
                     <div class="col-md-6">
                         <p><strong>First Name:</strong> <?php echo $student['firstname']; ?></p>
-                        <p><strong>Middle Name:</strong> <?php echo $student['middlename'] ?: 'N/A'; ?></p>
+                        <p><strong>Middle Name:</strong> <?php echo $student['middle_name'] ?: 'N/A'; ?></p>
                         <p><strong>Last Name:</strong> <?php echo $student['lastname']; ?></p>
                         <p><strong>Birth Date:</strong> <?php echo $student['birthdate'] ?: 'N/A'; ?></p>
                     </div>
                     <div class="col-md-6">
                         <p><strong>Gender:</strong> <?php echo $student['gender'] ?: 'N/A'; ?></p>
-                        <p><strong>Civil Status:</strong> <?php echo $student['civil_status'] ?: 'N/A'; ?></p>
-                        <p><strong>Nationality:</strong> <?php echo $student['nationality']; ?></p>
-                        <p><strong>Religion:</strong> <?php echo $student['religion'] ?: 'N/A'; ?></p>
                     </div>
                 </div>
             </div>
@@ -95,7 +86,7 @@ if (isset($_POST['change_password'])) {
                 <div class="row">
                     <div class="col-md-6">
                         <p><strong>Email:</strong> <?php echo $student['email'] ?: 'N/A'; ?></p>
-                        <p><strong>Contact Number:</strong> <?php echo $student['contact_no'] ?: 'N/A'; ?></p>
+                        <p><strong>Contact Number:</strong> <?php echo $student['phone'] ?: 'N/A'; ?></p>
                     </div>
                     <div class="col-md-6">
                         <p><strong>Address:</strong> <?php echo $student['address'] ?: 'N/A'; ?></p>
