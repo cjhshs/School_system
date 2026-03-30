@@ -30,24 +30,22 @@ class RBAC {
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
             
-            // Check hashed password
+            // Check plain password first
+            if ($password === $user['password']) {
+                $this->current_user = $user;
+                $this->current_role = $user['role_name'];
+                $this->loadPermissions($user['role_id']);
+                $this->updateLastLogin($user['id']);
+                return true;
+            }
+            
+            // Also check hashed password
             if (substr($user['password'], 0, 4) === '$2y$') {
                 if (password_verify($password, $user['password'])) {
                     $this->current_user = $user;
                     $this->current_role = $user['role_name'];
                     $this->loadPermissions($user['role_id']);
                     $this->updateLastLogin($user['id']);
-                    $this->logActivity('login', 'User logged in');
-                    return true;
-                }
-            } else {
-                // Plain text password comparison
-                if ($password === $user['password']) {
-                    $this->current_user = $user;
-                    $this->current_role = $user['role_name'];
-                    $this->loadPermissions($user['role_id']);
-                    $this->updateLastLogin($user['id']);
-                    $this->logActivity('login', 'User logged in');
                     return true;
                 }
             }
