@@ -8,16 +8,22 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'registrar') {
 }
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-$user_name = $_SESSION['username'] ?? 'Registrar';
+$user_name = isset($_SESSION['username']) ? $_SESSION['username'] : 'Registrar';
 
-// Get stats
-$total_students = $conn->query("SELECT COUNT(*) as c FROM students")->fetch_assoc()['c'] ?? 0;
-$total_teachers = $conn->query("SELECT COUNT(*) as c FROM system_users WHERE role_id = 4")->fetch_assoc()['c'] ?? 0;
-$total_courses = $conn->query("SELECT COUNT(*) as c FROM courses")->fetch_assoc()['c'] ?? 0;
-$total_subjects = $conn->query("SELECT COUNT(*) as c FROM subjects")->fetch_assoc()['c'] ?? 0;
-
-$pending_enrollments_result = $conn->query("SELECT COUNT(*) as c FROM enrollments WHERE status = 'Pending'");
-$pending_enrollments = $pending_enrollments_result ? $pending_enrollments_result->fetch_assoc()['c'] : 0;
+// Get stats safely
+$total_students = 0; $total_teachers = 0; $total_courses = 0; $total_subjects = 0; $pending_enrollments = 0;
+if ($conn) {
+    $r = $conn->query("SELECT COUNT(*) as c FROM students");
+    $total_students = $r ? (int)$r->fetch_assoc()['c'] : 0;
+    $r = $conn->query("SELECT COUNT(*) as c FROM system_users WHERE role_id = 4");
+    $total_teachers = $r ? (int)$r->fetch_assoc()['c'] : 0;
+    $r = $conn->query("SELECT COUNT(*) as c FROM courses");
+    $total_courses = $r ? (int)$r->fetch_assoc()['c'] : 0;
+    $r = $conn->query("SELECT COUNT(*) as c FROM subjects");
+    $total_subjects = $r ? (int)$r->fetch_assoc()['c'] : 0;
+    $r = $conn->query("SELECT COUNT(*) as c FROM enrollments WHERE status = 'Pending'");
+    $pending_enrollments = $r ? (int)$r->fetch_assoc()['c'] : 0;
+}
 ?>
 
 <!DOCTYPE html>
@@ -174,25 +180,23 @@ $pending_enrollments = $pending_enrollments_result ? $pending_enrollments_result
         <div class="app-content">
 
         <?php
-        switch($page){
-
-            case 'courses':
-                include 'pages/courses.php';
-            break;
-
-            case 'students':
-                include 'pages/students.php';
-            break;
-
-            case 'enrollments':
-                include 'pages/enrollments.php';
-            break;
-
-            case 'edit_student':
-                include 'pages/edit_student.php';
-            break;
-
-            default:
+switch($page){
+    case 'courses':
+        include 'pages/courses.php';
+        break;
+    case 'students':
+        include 'pages/students.php';
+        break;
+    case 'enrollments':
+        include 'pages/enrollments.php';
+        break;
+    case 'subjects':
+        include 'pages/subjects.php';
+        break;
+    case 'edit_student':
+        include 'pages/edit_student.php';
+        break;
+    default:
         ?>
 
         <div class="page-header">
