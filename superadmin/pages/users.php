@@ -25,11 +25,11 @@ function generateEmployeeId($conn, $role_id) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['action'])) {
         if ($_POST['action'] === 'add') {
+            $role_id = intval($_POST['role_id']);
             $employee_id = generateEmployeeId($conn, $role_id);
             $username = $employee_id; // Username = Employee ID
             $email = trim($_POST['email']);
             $password = trim($_POST['password']); // Plain text password
-            $role_id = intval($_POST['role_id']);
             $first_name = trim($_POST['first_name']);
             $last_name = trim($_POST['last_name']);
             $department_id = !empty($_POST['department_id']) ? intval($_POST['department_id']) : null;
