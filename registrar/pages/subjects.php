@@ -11,7 +11,7 @@ if (isset($_GET['export']) && $_GET['export'] == 'csv') {
     $subjects = $conn->query("SELECT * FROM subjects ORDER BY course_code, semester, subject_code");
     
     $output = fopen('php://output', 'w');
-    fputcsv($output, ['Code', 'Description', 'Units', 'Course', 'Semester', 'School Year', 'Schedule', 'Room', 'Instructor', 'Capacity', 'Status']);
+    fputcsv($output, ['Code', 'Description', 'Units', 'Course', 'Year', 'Semester', 'Schedule', 'Room', 'Instructor', 'Max Students', 'Status']);
     
     while ($row = $subjects->fetch_assoc()) {
         fputcsv($output, [
@@ -19,13 +19,13 @@ if (isset($_GET['export']) && $_GET['export'] == 'csv') {
             $row['description'],
             $row['units'],
             $row['course_code'],
+            $row['year_level'],
             $row['semester'],
-            $row['school_year'],
             $row['schedule'],
             $row['room'],
             $row['instructor'],
-            $row['capacity'],
-            $row['is_open'] ? 'Open' : 'Closed'
+            $row['max_students'],
+            $row['is_active'] ? 'Active' : 'Inactive'
         ]);
     }
     fclose($output);
@@ -65,13 +65,16 @@ if (isset($_POST['toggle_status'])) {
     $id = intval($_POST['id']);
     $current_status = $_POST['current_status'];
     $new_status = $current_status ? 0 : 1;
-    $conn->query("UPDATE subjects SET is_open = $new_status WHERE id = $id");
+    $conn->query("UPDATE subjects SET is_active = $new_status WHERE id = $id");
     $message = '<div class="alert alert-success">Status updated!</div>';
 }
 
 // Get data
 $subjects = $conn->query("SELECT * FROM subjects ORDER BY course_code, semester, subject_code");
-$courses = $conn->query("SELECT DISTINCT code FROM courses ORDER BY code");
+$courses = $conn->query("SELECT DISTINCT code, name FROM courses ORDER BY code");
+
+echo "<!-- DEBUG subjects: " . ($subjects ? $subjects->num_rows : 'null') . " rows -->";
+echo "<!-- DEBUG courses: " . ($courses ? $courses->num_rows : 'null') . " rows -->";
 ?>
 
 <div class="row">
@@ -196,9 +199,9 @@ $courses = $conn->query("SELECT DISTINCT code FROM courses ORDER BY code");
                                 <td>
                                     <form method="POST" style="display:inline;">
                                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                        <input type="hidden" name="current_status" value="<?php echo $row['is_open']; ?>">
-                                        <button type="submit" name="toggle_status" class="btn btn-sm btn-<?php echo $row['is_open'] ? 'success' : 'secondary'; ?>" title="<?php echo $row['is_open'] ? 'Close' : 'Open'; ?>">
-                                            <i class="fas fa-<?php echo $row['is_open'] ? 'check-circle' : '-times-circle'; ?>"></i>
+                                        <input type="hidden" name="current_status" value="<?php echo $row['is_active']; ?>">
+                                        <button type="submit" name="toggle_status" class="btn btn-sm btn-<?php echo $row['is_active'] ? 'success' : 'secondary'; ?>" title="<?php echo $row['is_active'] ? 'Deactivate' : 'Activate'; ?>">
+                                            <i class="fas fa-<?php echo $row['is_active'] ? 'check-circle' : 'times-circle'; ?>"></i>
                                         </button>
                                     </form>
                                 </td>
