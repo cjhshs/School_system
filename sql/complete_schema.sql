@@ -148,6 +148,19 @@ CREATE TABLE departments (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Deans Table
+CREATE TABLE deans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    department_id INT NOT NULL,
+    appointment_date DATE,
+    status ENUM('Active', 'Inactive') DEFAULT 'Active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES system_users(id) ON DELETE CASCADE,
+    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_dean_department (user_id, department_id)
+);
+
 -- Courses/Programs
 CREATE TABLE courses (
     id INT AUTO_INCREMENT PRIMARY KEY,

@@ -30,11 +30,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
         $dept_id = intval($_POST['department_id']);
         $dean_id = intval($_POST['dean_id']);
         
+        // Remove previous dean assignment if exists
+        $conn->query("UPDATE departments SET dean_id = NULL WHERE dean_id = $dean_id");
+        
         // Update department with dean
         $conn->query("UPDATE departments SET dean_id = $dean_id WHERE id = $dept_id");
         
         // Also update the dean's department_id in system_users
         $conn->query("UPDATE system_users SET department_id = $dept_id WHERE id = $dean_id");
+        
+        // Insert into deans table
+        $conn->query("INSERT INTO deans (user_id, department_id, appointment_date, status) 
+            VALUES ($dean_id, $dept_id, CURDATE(), 'Active') 
+            ON DUPLICATE KEY UPDATE status = 'Active', department_id = $dept_id");
         
         $_SESSION['success'] = "Dean assigned successfully!";
         header("Location: dashboard.php?page=departments");

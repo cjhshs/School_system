@@ -11,18 +11,15 @@ $message = '';
 $error = '';
 
 function generateEmployeeId($conn, $role_id) {
-    $role_prefix = match($role_id) {
-        2 => 'R-', 3 => 'D-', 4 => 'F-', 5 => 'T-', 1 => 'SA-', default => 'U-'
-    };
     $year = date('Y');
-    $prefix = $role_prefix . $year . '-';
+    $prefix = $year;
     $result = $conn->query("SELECT employee_id FROM system_users WHERE employee_id LIKE '$prefix%' ORDER BY employee_id DESC LIMIT 1");
     if ($result && $result->num_rows > 0) {
-        $num = intval(substr($result->fetch_assoc()['employee_id'], -3)) + 1;
+        $num = intval(substr($result->fetch_assoc()['employee_id'], -4)) + 1;
     } else {
         $num = 1;
     }
-    return $prefix . str_pad($num, 3, '0', STR_PAD_LEFT);
+    return $prefix . str_pad($num, 4, '0', STR_PAD_LEFT);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
