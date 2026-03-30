@@ -23,7 +23,7 @@ if (isset($_POST['enroll_student'])) {
     }
 }
 
-$students = $conn->query("SELECT * FROM students ORDER BY lastname, firstname");
+$students = $conn->query("SELECT s.*, c.code as course_code FROM students s LEFT JOIN courses c ON s.course_id = c.id ORDER BY s.lastname, s.firstname");
 ?>
 
 <div class="row">
@@ -65,8 +65,8 @@ $students = $conn->query("SELECT * FROM students ORDER BY lastname, firstname");
                             <td><?php echo ($row['lastname'] ?? '') . ', ' . ($row['firstname'] ?? ''); ?></td>
                             <td><?php echo $row['course_code'] ?? '-'; ?></td>
                             <td><?php echo $row['year_level']; ?></td>
-                            <td><?php echo $row['email']; ?></td>
-                            <td><?php echo $row['contact_no']; ?></td>
+                            <td><?php echo $row['email'] ?? '-'; ?></td>
+                            <td><?php echo $row['phone'] ?? '-'; ?></td>
                             <td>
                                 <?php if($enrolled): ?>
                                     <span class="badge bg-<?php echo $enrolled['status'] == 'Confirmed' ? 'success' : 'warning'; ?>"><?php echo $enrolled['status']; ?></span>

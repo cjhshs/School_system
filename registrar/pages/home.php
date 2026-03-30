@@ -47,9 +47,10 @@ $total_enrollments = $conn->query("SELECT COUNT(*) as count FROM enrollments")->
             </div>
             <div class="card-body">
                 <?php
-                $recent = $conn->query("SELECT e.*, s.firstname, s.lastname, s.course_code 
+                $recent = $conn->query("SELECT e.*, s.firstname, s.lastname, c.code as course_code
                     FROM enrollments e 
-                    LEFT JOIN students s ON e.student_id = s.id 
+                    LEFT JOIN students s ON e.student_id = s.id
+                    LEFT JOIN courses c ON e.course_id = c.id
                     ORDER BY e.created_at DESC LIMIT 5");
                 if ($recent && $recent->num_rows > 0): ?>
                     <table class="table table-sm">

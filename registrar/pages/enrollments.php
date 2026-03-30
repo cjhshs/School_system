@@ -59,7 +59,7 @@ $enrollments = $conn->query("SELECT e.*, s.firstname, s.lastname, s.student_numb
                         <tr>
                             <td><?php echo $row['student_number'] ?? '-'; ?></td>
                             <td><?php echo ($row['lastname'] ?? '') . ', ' . ($row['firstname'] ?? ''); ?></td>
-                            <td><?php echo $row['course_code'] ?? '-'; ?></td>
+                            <td><?php echo $row['course_name'] ?? '-'; ?></td>
                             <td><?php echo $row['year_level'] ?? '-'; ?></td>
                             <td>
                                 <form method="POST" style="display:inline;">
