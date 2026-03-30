@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if (isset($_GET['submit_grades']) && isset($_GET['subject_id'])) {
     $sid = intval($_GET['subject_id']);
-    $conn->query("UPDATE grades SET status = 'Submitted', submitted_at = NOW() WHERE subject_id = $sid AND teacher_id = $teacher_id AND status = 'Draft'");
+    $conn->query("UPDATE grades SET grade_status = 'Submitted', submitted_at = NOW() WHERE subject_id = $sid AND teacher_id = $teacher_id AND grade_status = 'Draft'");
     $message = 'Grades submitted for approval!';
     $message_type = 'success';
 }

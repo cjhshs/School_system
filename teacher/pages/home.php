@@ -9,7 +9,7 @@ $stats = [];
 $stats['subjects'] = $conn->query("SELECT COUNT(DISTINCT id) as cnt FROM subjects WHERE instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%'")->fetch_assoc()['cnt'];
 $stats['students'] = $conn->query("SELECT COUNT(DISTINCT ss.student_id) as cnt FROM student_subjects ss JOIN subjects s ON ss.subject_id = s.id WHERE s.instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%'")->fetch_assoc()['cnt'];
 $stats['pending_grades'] = $conn->query("SELECT COUNT(*) as cnt FROM grades WHERE teacher_id = $teacher_id AND (prelim IS NULL OR midterm IS NULL OR final_exam IS NULL)")->fetch_assoc()['cnt'];
-$stats['submitted_grades'] = $conn->query("SELECT COUNT(*) as cnt FROM grades WHERE teacher_id = $teacher_id AND status = 'Submitted'")->fetch_assoc()['cnt'];
+$stats['submitted_grades'] = $conn->query("SELECT COUNT(*) as cnt FROM grades WHERE teacher_id = $teacher_id AND grade_status = 'Submitted'")->fetch_assoc()['cnt'];
 
 $my_subjects = $conn->query("SELECT DISTINCT s.* FROM subjects s WHERE s.instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%'");
 ?>

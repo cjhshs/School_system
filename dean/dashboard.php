@@ -20,7 +20,7 @@ $dept_id = $dean['department_id'] ?? 0;
 // Get stats
 $total_teachers = $conn->query("SELECT COUNT(*) as c FROM system_users WHERE role_id = 4 AND department_id = $dept_id")->fetch_assoc()['c'];
 $total_subjects = $conn->query("SELECT COUNT(*) as c FROM subjects s JOIN courses c ON s.course_code = c.code WHERE c.department_id = $dept_id")->fetch_assoc()['c'];
-$pending_grades = $conn->query("SELECT COUNT(*) as c FROM grades WHERE status = 'Submitted'")->fetch_assoc()['c'];
+$pending_grades = $conn->query("SELECT COUNT(*) as c FROM grades WHERE grade_status = 'Submitted'")->fetch_assoc()['c'];
 $total_students = $conn->query("SELECT COUNT(DISTINCT ss.student_id) as c FROM student_subjects ss 
                                  JOIN subjects s ON ss.subject_id = s.id 
                                  JOIN courses c ON s.course_code = c.code
@@ -288,7 +288,7 @@ $total_students = $conn->query("SELECT COUNT(DISTINCT ss.student_id) as c FROM s
                                                     </td>
                                                     <td><?php echo htmlspecialchars($grade['subject_code']); ?></td>
                                                     <td class="fw-bold"><?php echo $grade['final_grade'] ? number_format($grade['final_grade'], 1) : '-'; ?></td>
-                                                    <td><span class="status pending"><?php echo $grade['status']; ?></span></td>
+                                                    <td><span class="status pending"><?php echo $grade['grade_status']; ?></span></td>
                                                     <td>
                                                         <a href="dashboard.php?page=grades" class="btn btn-sm btn-success"><i class="fas fa-check"></i></a>
                                                     </td>

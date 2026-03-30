@@ -5,12 +5,12 @@ $message = '';
 
 if (isset($_GET['approve'])) {
     $grade_id = intval($_GET['approve']);
-    $conn->query("UPDATE grades SET status = 'Approved', approved_at = NOW() WHERE id = $grade_id");
+    $conn->query("UPDATE grades SET grade_status = 'Approved', approved_at = NOW() WHERE id = $grade_id");
     $message = "Grade approved!";
 }
 
 if (isset($_GET['approve_all'])) {
-    $conn->query("UPDATE grades SET status = 'Approved', approved_at = NOW() WHERE status = 'Submitted'");
+    $conn->query("UPDATE grades SET grade_status = 'Approved', approved_at = NOW() WHERE grade_status = 'Submitted'");
     $message = "All pending grades approved!";
 }
 

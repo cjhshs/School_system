@@ -10,7 +10,7 @@ $stats = [];
 $stats['total_students'] = $conn->query("SELECT COUNT(*) as cnt FROM students")->fetch_assoc()['cnt'];
 $stats['total_teachers'] = $conn->query("SELECT COUNT(*) as cnt FROM teachers")->fetch_assoc()['cnt'];
 $stats['total_subjects'] = $conn->query("SELECT COUNT(*) as cnt FROM subjects")->fetch_assoc()['cnt'];
-$stats['pending_grades'] = $conn->query("SELECT COUNT(*) as cnt FROM grades WHERE status = 'Submitted'")->fetch_assoc()['cnt'];
+$stats['pending_grades'] = $conn->query("SELECT COUNT(*) as cnt FROM grades WHERE grade_status = 'Submitted'")->fetch_assoc()['cnt'];
 ?>
 
 <h2><i class="fas fa-home me-2"></i>Welcome, <?php echo $_SESSION['username']; ?></h2>
