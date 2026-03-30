@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['import'])) {
         ON DUPLICATE KEY UPDATE name=VALUES(name)");
 
     // Courses
-    $conn->query("INSERT INTO courses (id, code, name, department_id, duration_years, is_active) VALUES 
+    $conn->query("INSERT INTO courses (id, code, name, department_id, years, is_active) VALUES 
         (1, 'BSCS', 'Bachelor of Science in Computer Science', 1, 4, 1),
         (2, 'BSBA', 'Bachelor of Science in Business Administration', 2, 4, 1),
         (3, 'BSCE', 'Bachelor of Science in Civil Engineering', 3, 4, 1),
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['import'])) {
         ON DUPLICATE KEY UPDATE amount=VALUES(amount)");
 
     // Students
-    $conn->query("INSERT INTO students (id, student_number, firstname, lastname, email, phone, gender, birthdate, course_id, year_level, enrollment_date, status, password) VALUES 
+    $conn->query("INSERT INTO students (id, student_number, firstname, lastname, email, phone, gender, birthdate, course_id, year_level, enrollment_date, enrollment_status, password) VALUES 
         (1, '2024-0001', 'John', 'Smith', 'john.smith@student.edu', '09123456789', 'Male', '2005-03-15', 1, 1, '2024-08-01', 'Enrolled', 'password123'),
         (2, '2024-0002', 'Maria', 'Garcia', 'maria.garcia@student.edu', '09123456790', 'Female', '2005-05-20', 1, 1, '2024-08-01', 'Enrolled', 'password123'),
         (3, '2024-0003', 'Pedro', 'Santos', 'pedro.santos@student.edu', '09123456791', 'Male', '2005-07-10', 2, 1, '2024-08-01', 'Enrolled', 'password123'),
