@@ -1,18 +1,9 @@
 <?php
-session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 require_once '../config.php';
 
-// Check if logged in
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'registrar') {
     header('Location: login.php');
     exit;
-}
-
-// Test connection
-if (!$conn) {
-    die("Database connection failed!");
 }
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
@@ -25,8 +16,6 @@ $total_courses = $conn->query("SELECT COUNT(*) as c FROM courses")->fetch_assoc(
 $total_subjects = $conn->query("SELECT COUNT(*) as c FROM subjects")->fetch_assoc()['c'] ?? 0;
 $pending_enrollments_result = $conn->query("SELECT COUNT(*) as c FROM enrollments WHERE status = 'Pending'");
 $pending_enrollments = $pending_enrollments_result ? $pending_enrollments_result->fetch_assoc()['c'] : 0;
-
-echo "<!-- DEBUG: page=$page, students=$total_students, courses=$total_courses -->";
 ?>
 
 <!DOCTYPE html>
