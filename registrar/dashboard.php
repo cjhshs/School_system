@@ -100,8 +100,8 @@ $pending_enrollments = $pending_enrollments_result ? $pending_enrollments_result
             </div>
         </aside>
 
-        <main class="app-main">
-            <header class="app-header">
+        <main class="app-main" style="margin-top: 0;">
+            <header class="app-header" style="margin-top: 0; padding-top: 0;">
                 <div class="header-left">
                     <button class="toggle-sidebar" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
                     <div>
