@@ -6,14 +6,15 @@ $message = '';
 if (isset($_POST['add_course'])) {
     $code = $_POST['code'];
     $name = $_POST['name'];
-    $major = $_POST['major'];
+    $major = $_POST['major'] ?? null;
+    $department_id = intval($_POST['department_id']);
     
-    $stmt = $conn->prepare("INSERT INTO courses (code, name, major) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $code, $name, $major);
+    $stmt = $conn->prepare("INSERT INTO courses (code, name, major, department_id) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("sssi", $code, $name, $major, $department_id);
     if ($stmt->execute()) {
         $message = '<div class="alert alert-success">Course added successfully!</div>';
     } else {
-        $message = '<div class="alert alert-danger">Error adding course.</div>';
+        $message = '<div class="alert alert-danger">Error adding course: ' . $conn->error . '</div>';
     }
 }
 
@@ -23,7 +24,8 @@ if (isset($_POST['delete_course'])) {
     $message = '<div class="alert alert-success">Course deleted!</div>';
 }
 
-$courses = $conn->query("SELECT * FROM courses ORDER BY code, name");
+$courses = $conn->query("SELECT c.*, d.name as dept_name FROM courses c LEFT JOIN departments d ON c.department_id = d.id ORDER BY c.code, c.name");
+$departments = $conn->query("SELECT * FROM departments WHERE is_active = 1 ORDER BY name");
 ?>
 
 <div class="row">
@@ -41,6 +43,15 @@ $courses = $conn->query("SELECT * FROM courses ORDER BY code, name");
             </div>
             <div class="card-body">
                 <form method="POST">
+                    <div class="mb-3">
+                        <label>Department</label>
+                        <select name="department_id" class="form-select" required>
+                            <option value="">Select Department</option>
+                            <?php while ($dept = $departments->fetch_assoc()): ?>
+                            <option value="<?php echo $dept['id']; ?>"><?php echo htmlspecialchars($dept['name']); ?></option>
+                            <?php endwhile; ?>
+                        </select>
+                    </div>
                     <div class="mb-3">
                         <label>Course Code</label>
                         <input type="text" name="code" class="form-control" required placeholder="e.g., BSIT">
@@ -71,6 +82,7 @@ $courses = $conn->query("SELECT * FROM courses ORDER BY code, name");
                             <th>#</th>
                             <th>Code</th>
                             <th>Name</th>
+                            <th>Department</th>
                             <th>Major</th>
                             <th>Action</th>
                         </tr>
@@ -84,6 +96,7 @@ $courses = $conn->query("SELECT * FROM courses ORDER BY code, name");
                             <td><?php echo $counter++; ?></td>
                             <td><?php echo $row['code']; ?></td>
                             <td><?php echo $row['name']; ?></td>
+                            <td><?php echo $row['dept_name'] ?? '-'; ?></td>
                             <td><?php echo $row['major'] ?: '-'; ?></td>
                             <td>
                                 <form method="POST" style="display:inline;">

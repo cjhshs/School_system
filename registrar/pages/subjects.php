@@ -38,15 +38,15 @@ if (isset($_POST['add_subject'])) {
     $description = $conn->real_escape_string($_POST['description']);
     $units = intval($_POST['units']);
     $course_code = $conn->real_escape_string($_POST['course_code']);
-    $semester = intval($_POST['semester']);
-    $school_year = $conn->real_escape_string($_POST['school_year']);
+    $semester = $conn->real_escape_string($_POST['semester']);
+    $year_level = intval($_POST['year_level']);
     $schedule = $conn->real_escape_string($_POST['schedule']);
     $room = $conn->real_escape_string($_POST['room']);
     $instructor = $conn->real_escape_string($_POST['instructor']);
-    $capacity = intval($_POST['capacity']);
+    $max_students = intval($_POST['max_students']);
     
-    $stmt = $conn->prepare("INSERT INTO subjects (subject_code, description, units, course_code, semester, school_year, schedule, room, capacity, instructor, is_open) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
-    $stmt->bind_param("ssisssssii", $subject_code, $description, $units, $course_code, $semester, $school_year, $schedule, $room, $capacity, $instructor);
+    $stmt = $conn->prepare("INSERT INTO subjects (subject_code, description, units, course_code, year_level, semester, schedule, room, instructor, max_students, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
+    $stmt->bind_param("sssisssssi", $subject_code, $description, $units, $course_code, $year_level, $semester, $schedule, $room, $instructor, $max_students);
     
     if ($stmt->execute()) {
         $message = '<div class="alert alert-success">Subject added successfully!</div>';
@@ -111,16 +111,21 @@ $courses = $conn->query("SELECT DISTINCT code FROM courses ORDER BY code");
                         </select>
                     </div>
                     <div class="mb-2">
-                        <label>Semester *</label>
-                        <select name="semester" class="form-select" required>
-                            <option value="1">1st Semester</option>
-                            <option value="2">2nd Semester</option>
-                            <option value="3">Summer</option>
+                        <label>Year Level *</label>
+                        <select name="year_level" class="form-select" required>
+                            <option value="1">1st Year</option>
+                            <option value="2">2nd Year</option>
+                            <option value="3">3rd Year</option>
+                            <option value="4">4th Year</option>
                         </select>
                     </div>
                     <div class="mb-2">
-                        <label>School Year *</label>
-                        <input type="text" name="school_year" class="form-control" required value="<?php echo date('Y') . '-' . (date('Y') + 1); ?>">
+                        <label>Semester *</label>
+                        <select name="semester" class="form-select" required>
+                            <option value="1st">1st Semester</option>
+                            <option value="2nd">2nd Semester</option>
+                            <option value="Summer">Summer</option>
+                        </select>
                     </div>
                     <div class="mb-2">
                         <label>Schedule</label>
@@ -135,8 +140,8 @@ $courses = $conn->query("SELECT DISTINCT code FROM courses ORDER BY code");
                         <input type="text" name="instructor" class="form-control" placeholder="e.g., Mr. Smith">
                     </div>
                     <div class="mb-2">
-                        <label>Capacity</label>
-                        <input type="number" name="capacity" class="form-control" value="30" min="1">
+                        <label>Max Students</label>
+                        <input type="number" name="max_students" class="form-control" value="30" min="1">
                     </div>
                     <button type="submit" name="add_subject" class="btn btn-primary w-100">Add Subject</button>
                 </form>
@@ -161,6 +166,7 @@ $courses = $conn->query("SELECT DISTINCT code FROM courses ORDER BY code");
                                 <th>Description</th>
                                 <th>Units</th>
                                 <th>Course</th>
+                                <th>Year</th>
                                 <th>Sem</th>
                                 <th>Schedule</th>
                                 <th>Room</th>
@@ -181,11 +187,12 @@ $courses = $conn->query("SELECT DISTINCT code FROM courses ORDER BY code");
                                 <td><?php echo $row['description']; ?></td>
                                 <td><span class="badge bg-info"><?php echo $row['units']; ?></span></td>
                                 <td><?php echo $row['course_code']; ?></td>
+                                <td><?php echo $row['year_level']; ?></td>
                                 <td><?php echo $row['semester']; ?></td>
                                 <td><small><?php echo $row['schedule'] ?: '-'; ?></small></td>
                                 <td><?php echo $row['room'] ?: '-'; ?></td>
                                 <td><?php echo $row['instructor'] ?: '-'; ?></td>
-                                <td><?php echo $row['capacity']; ?></td>
+                                <td><?php echo $row['max_students']; ?></td>
                                 <td>
                                     <form method="POST" style="display:inline;">
                                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
