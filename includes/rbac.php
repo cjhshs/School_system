@@ -13,15 +13,15 @@ class RBAC {
         $sql = "SELECT su.*, r.name as role_name, r.hierarchy_level 
                 FROM system_users su 
                 JOIN roles r ON su.role_id = r.id 
-                WHERE su.username = ? AND su.is_active = 1";
+                WHERE (su.username = ? OR su.employee_id = ?) AND su.is_active = 1";
         
         if ($role) {
             $sql .= " AND r.name = ?";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("ss", $username, $role);
+            $stmt->bind_param("sss", $username, $username, $role);
         } else {
             $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("s", $username);
+            $stmt->bind_param("ss", $username, $username);
         }
         
         $stmt->execute();

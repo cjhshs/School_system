@@ -25,14 +25,14 @@ function generateEmployeeId($conn, $role_id) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['action'])) {
         if ($_POST['action'] === 'add') {
-            $username = trim($_POST['username']);
+            $employee_id = generateEmployeeId($conn, $role_id);
+            $username = $employee_id; // Username = Employee ID
             $email = trim($_POST['email']);
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $password = trim($_POST['password']); // Plain text password
             $role_id = intval($_POST['role_id']);
             $first_name = trim($_POST['first_name']);
             $last_name = trim($_POST['last_name']);
             $department_id = !empty($_POST['department_id']) ? intval($_POST['department_id']) : null;
-            $employee_id = generateEmployeeId($conn, $role_id);
             
             $check = $conn->query("SELECT id FROM system_users WHERE username = '$username' OR email = '$email'");
             if ($check && $check->num_rows > 0) {
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $dept = $conn->query("SELECT name FROM departments WHERE id = $department_id")->fetch_assoc();
                         $dept_name = " | Department: {$dept['name']}";
                     }
-                    $message = "User created! Employee ID: <strong>$employee_id</strong> | Password: <strong>{$_POST['password']}</strong>$dept_name";
+                    $message = "User created! Username/ID: <strong>$employee_id</strong> | Password: <strong>{$_POST['password']}</strong>$dept_name";
                 } else {
                     $error = "Error: " . $conn->error;
                 }
@@ -100,10 +100,7 @@ $available_departments = $conn->query("SELECT d.* FROM departments d WHERE d.id 
     <div class="card-body">
         <form method="POST" class="form-row">
             <input type="hidden" name="action" value="add">
-            <div class="form-group">
-                <label class="form-label">Username *</label>
-                <input type="text" name="username" class="form-control" required placeholder="e.g., jsmith">
-            </div>
+            <input type="hidden" name="username" value="">
             <div class="form-group">
                 <label class="form-label">Email *</label>
                 <input type="email" name="email" class="form-control" required placeholder="name@school.edu">
