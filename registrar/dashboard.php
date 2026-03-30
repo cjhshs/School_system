@@ -14,7 +14,7 @@ $total_students = $conn->query("SELECT COUNT(*) as c FROM students")->fetch_asso
 $total_teachers = $conn->query("SELECT COUNT(*) as c FROM system_users WHERE role_id = 4")->fetch_assoc()['c'];
 $total_courses = $conn->query("SELECT COUNT(*) as c FROM courses")->fetch_assoc()['c'];
 $total_subjects = $conn->query("SELECT COUNT(*) as c FROM subjects")->fetch_assoc()['c'];
-$pending_enrollments = $conn->query("SELECT COUNT(*) as c FROM enrollments WHERE status = 'Pending'")->fetch_assoc()['c'];
+$pending_enrollments = $conn->query("SELECT COUNT(*) as c FROM enrollments WHERE status = 'Pending'")->num_rows > 0 ? $conn->query("SELECT COUNT(*) as c FROM enrollments WHERE status = 'Pending'")->fetch_assoc()['c'] : 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">

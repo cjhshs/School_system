@@ -6,7 +6,7 @@ $message = '';
 if (isset($_POST['update_status'])) {
     $id = (int) $_POST['id'];
     $status = $conn->real_escape_string($_POST['status']);
-    $update_sql = "UPDATE enrollments SET status = '$status', updated_at = NOW() WHERE id = $id";
+    $update_sql = "UPDATE enrollments SET status = '$status' WHERE id = $id";
     if ($conn->query($update_sql)) {
         $message = '<div class="alert alert-success">Status updated!</div>';
     } else {
@@ -20,9 +20,10 @@ if (isset($_POST['delete_enrollment'])) {
     $message = '<div class="alert alert-success">Enrollment deleted!</div>';
 }
 
-$enrollments = $conn->query("SELECT e.*, s.firstname, s.lastname, s.student_number, s.course_code, s.year_level 
+$enrollments = $conn->query("SELECT e.*, s.firstname, s.lastname, s.student_number, c.name as course_name
     FROM enrollments e 
-    LEFT JOIN students s ON e.student_id = s.id 
+    LEFT JOIN students s ON e.student_id = s.id
+    LEFT JOIN courses c ON e.course_id = c.id
     ORDER BY e.created_at DESC");
 ?>
 
