@@ -46,11 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             
             if (!$error) {
-                $plain_password = $_POST['password']; // Store plain for testing
-                $stmt = $conn->prepare("INSERT INTO system_users (username, email, password, role_id, first_name, last_name, department_id, employee_id, created_by, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
-                $stmt->bind_param("ssisssisi", $username, $email, $plain_password, $role_id, $first_name, $last_name, $department_id, $employee_id, $_SESSION['user_id']);
+                $plain_password = $_POST['password'];
+                $created_by = $_SESSION['user_id'];
                 
-                if ($stmt->execute()) {
+                $sql = "INSERT INTO system_users (username, email, password, role_id, first_name, last_name, department_id, employee_id, created_by, is_active) 
+                        VALUES ('$username', '$email', '$plain_password', $role_id, '$first_name', '$last_name', " . ($department_id ? $department_id : "NULL") . ", '$employee_id', $created_by, 1)";
+                
+                if ($conn->query($sql)) {
                     $dept_name = '';
                     if ($department_id) {
                         $dept = $conn->query("SELECT name FROM departments WHERE id = $department_id")->fetch_assoc();
