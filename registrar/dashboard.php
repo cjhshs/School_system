@@ -128,7 +128,7 @@ $pending_enrollments = $pending_enrollments_result ? $pending_enrollments_result
                 </div>
             </header>
 
-            <div class="app-content">
+            <div class="app-content" style="margin-top: 0; padding-top: 0;">
                 <?php
                 switch($page) {
                     case 'courses':
