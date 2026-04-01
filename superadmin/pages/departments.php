@@ -127,7 +127,7 @@ $edit_dept = null;
 if ($edit_dept_id) {
     $edit_dept = $conn->query("SELECT * FROM departments WHERE id = $edit_dept_id")->fetch_assoc();
 }
-<?php include 'registrar/pages/move_courses_inline.php'; ?>
+<?php include __DIR__ . '/../../registrar/pages/move_courses_inline.php'; ?>
 ?>
 
 <style>
