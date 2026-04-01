@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
         $name = $conn->real_escape_string($_POST['name']);
         $code = $conn->real_escape_string(strtoupper($_POST['code']));
         
-        $conn->query("INSERT INTO departments (name, code) VALUES ('$name', '$code')");
+        $conn->query("INSERT INTO departments (name, code) VALUES ('$name', '$code') ON DUPLICATE KEY UPDATE name=VALUES(name), code=VALUES(code)");
         $dept_id = $conn->insert_id;
         
         $_SESSION['success'] = "Department '$name' created! Now assign a dean and courses.";
