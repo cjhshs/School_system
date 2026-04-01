@@ -82,6 +82,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
         header("Location: dashboard.php?page=departments");
         exit;
     }
+    // Phase A: Bulk Move Courses into a destination department
+    else if ($_POST['action'] == 'move_courses') {
+        $dest = isset($_POST['destination_dept_id']) ? intval($_POST['destination_dept_id']) : 0;
+        $course_ids = isset($_POST['course_ids']) ? array_map('intval', $_POST['course_ids']) : [];
+        if (!$dest) {
+            $error = 'Please select a destination department.';
+        } elseif (empty($course_ids)) {
+            $error = 'No courses selected.';
+        } else {
+            $ids = implode(',', $course_ids);
+            $conn->query("UPDATE courses SET department_id = $dest WHERE id IN ($ids)");
+            $message = 'Moved ' . count($course_ids) . ' course(s) to the selected department.';
+        }
+    }
 }
 
 // Get all available deans (users with role_id = 3)
