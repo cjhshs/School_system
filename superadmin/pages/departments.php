@@ -97,10 +97,7 @@ $departments = $conn->query("
 
 // Get ungrouped courses (no department)
 $ungrouped_courses = $conn->query("
-    SELECT c.* 
-    FROM courses c 
-    WHERE c.department_id IS NULL OR c.department_id NOT IN (SELECT id FROM departments WHERE id IS NOT NULL)
-    ORDER BY c.code, c.name
+    SELECT c.* FROM courses c ORDER BY c.code, c.name
 ");
 
 // Get all courses
