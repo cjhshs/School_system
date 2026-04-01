@@ -66,8 +66,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } elseif ($_POST['action'] === 'delete') {
             $id = intval($_POST['id']);
             if ($id != $_SESSION['user_id']) {
+                // Remove dependent logs first due to FK constraint
+                $conn->query("DELETE FROM activity_logs WHERE user_id = $id");
+                // Then delete user
                 $conn->query("DELETE FROM system_users WHERE id = $id");
-                $message = "User deleted successfully!";
+                $message = "User and related logs deleted!";
             } else {
                 $error = "Cannot delete yourself!";
             }
