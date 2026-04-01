@@ -8,7 +8,7 @@ if (isset($_GET['export']) && $_GET['export'] == 'csv') {
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment; filename="subjects.csv"');
     
-    $subjects = $conn->query("SELECT * FROM subjects ORDER BY course_code, semester, subject_code");
+    $subjects = $conn->query("SELECT s.*, c.name as course_name, c.code as course_code FROM subjects s LEFT JOIN courses c ON s.course_code = c.code ORDER BY c.code, s.semester, s.subject_code");
     
     $output = fopen('php://output', 'w');
     fputcsv($output, ['Code', 'Description', 'Units', 'Course', 'Year', 'Semester', 'Schedule', 'Room', 'Instructor', 'Max Students', 'Status']);
@@ -45,10 +45,11 @@ if (isset($_POST['add_subject'])) {
     $instructor = $conn->real_escape_string($_POST['instructor']);
     $max_students = intval($_POST['max_students']);
     
-    $stmt = $conn->prepare("INSERT INTO subjects (subject_code, description, units, course_code, year_level, semester, schedule, room, instructor, max_students, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
-    $stmt->bind_param("sssisssssi", $subject_code, $description, $units, $course_code, $year_level, $semester, $schedule, $room, $instructor, $max_students);
+    // Inline insert to avoid complex binding
+    $sql = "INSERT INTO subjects (subject_code, description, units, course_code, year_level, semester, schedule, room, instructor, max_students, is_active) VALUES ('$subject_code', '$description', $units, '$course_code', $year_level, '$semester', '$schedule', '$room', '$instructor', $max_students, 1)";
+    $conn->query($sql);
     
-    if ($stmt->execute()) {
+    if ($conn->affected_rows > 0) {
         $message = '<div class="alert alert-success">Subject added successfully!</div>';
     } else {
         $message = '<div class="alert alert-danger">Error adding subject: ' . $conn->error . '</div>';
@@ -70,11 +71,10 @@ if (isset($_POST['toggle_status'])) {
 }
 
 // Get data
-$subjects = $conn->query("SELECT * FROM subjects ORDER BY course_code, semester, subject_code");
+$subjects = $conn->query("SELECT s.*, c.name as course_name, c.code as course_code FROM subjects s LEFT JOIN courses c ON s.course_code = c.code ORDER BY c.code, s.semester, s.subject_code");
 $courses = $conn->query("SELECT DISTINCT code, name FROM courses ORDER BY code");
 
-echo "<!-- DEBUG subjects: " . ($subjects ? $subjects->num_rows : 'null') . " rows -->";
-echo "<!-- DEBUG courses: " . ($courses ? $courses->num_rows : 'null') . " rows -->";
+// Debug prints removed
 ?>
 
 <div class="row">
@@ -189,7 +189,7 @@ echo "<!-- DEBUG courses: " . ($courses ? $courses->num_rows : 'null') . " rows 
                                 <td><strong><?php echo $row['subject_code']; ?></strong></td>
                                 <td><?php echo $row['description']; ?></td>
                                 <td><span class="badge bg-info"><?php echo $row['units']; ?></span></td>
-                                <td><?php echo $row['course_code']; ?></td>
+                                <td><?php echo ($row['course_name'] ?? '') . ' (' . ($row['course_code'] ?? '-') . ')'; ?></td>
                                 <td><?php echo $row['year_level']; ?></td>
                                 <td><?php echo $row['semester']; ?></td>
                                 <td><small><?php echo $row['schedule'] ?: '-'; ?></small></td>
