@@ -76,6 +76,7 @@ $courses = $conn->query("SELECT * FROM courses WHERE department_id = $dept_id OR
             <div class="card-body">
                 <?php if ($courses && $courses->num_rows > 0): ?>
                 <form method="POST">
+    <?php echo csrf_field(); ?>
                     <input type="hidden" name="action" value="add_fee">
                     <div class="form-group">
                         <label class="form-label">Course *</label>
@@ -194,6 +195,7 @@ $courses = $conn->query("SELECT * FROM courses WHERE department_id = $dept_id OR
                             </td>
                             <td>
                                 <form method="POST" class="d-inline" onsubmit="return confirm('Delete this fee?');">
+    <?php echo csrf_field(); ?>
                                     <input type="hidden" name="action" value="delete_fee">
                                     <input type="hidden" name="id" value="<?php echo $fee['id']; ?>">
                                     <button type="submit" class="btn btn-icon btn-ghost text-danger" title="Delete">

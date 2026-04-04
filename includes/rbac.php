@@ -30,16 +30,7 @@ class RBAC {
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
             
-            // Check plain password first
-            if ($password === $user['password']) {
-                $this->current_user = $user;
-                $this->current_role = $user['role_name'];
-                $this->loadPermissions($user['role_id']);
-                $this->updateLastLogin($user['id']);
-                return true;
-            }
-            
-            // Also check hashed password
+            // Check hashed password (bcrypt)
             if (substr($user['password'], 0, 4) === '$2y$') {
                 if (password_verify($password, $user['password'])) {
                     $this->current_user = $user;
@@ -48,6 +39,15 @@ class RBAC {
                     $this->updateLastLogin($user['id']);
                     return true;
                 }
+            }
+            
+            // Fallback: check plain password (legacy accounts)
+            if ($password === $user['password']) {
+                $this->current_user = $user;
+                $this->current_role = $user['role_name'];
+                $this->loadPermissions($user['role_id']);
+                $this->updateLastLogin($user['id']);
+                return true;
             }
         }
         

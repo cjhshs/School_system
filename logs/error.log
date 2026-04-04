@@ -1,0 +1,380 @@
+[03-Apr-2026 06:56:05 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'enrollment_system.student' doesn't exist in C:\xampp\htdocs\enrollment_system\verify_all.php:33
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\verify_all.php(33): mysqli->query('SHOW INDEX FROM...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\verify_all.php on line 33
+[03-Apr-2026 07:28:05 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\users.php:116
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(62): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\users.php on line 116
+[03-Apr-2026 07:28:05 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\departments.php:321
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(66): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\departments.php on line 321
+[03-Apr-2026 07:28:07 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\users.php:116
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(62): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\users.php on line 116
+[03-Apr-2026 07:28:07 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\users.php:116
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(62): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\users.php on line 116
+[03-Apr-2026 07:28:29 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\departments.php:321
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(66): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\departments.php on line 321
+[03-Apr-2026 07:28:30 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\roles.php:92
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(70): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\roles.php on line 92
+[03-Apr-2026 07:28:32 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\fees.php:203
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(74): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\fees.php on line 203
+[03-Apr-2026 07:28:45 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\roles.php:92
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(70): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\roles.php on line 92
+[03-Apr-2026 07:29:01 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\fees.php:203
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(74): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\fees.php on line 203
+[03-Apr-2026 07:29:12 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\roles.php:92
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(70): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\roles.php on line 92
+[03-Apr-2026 07:29:13 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\departments.php:321
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(66): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\departments.php on line 321
+[03-Apr-2026 07:29:18 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\users.php:116
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(62): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\users.php on line 116
+[03-Apr-2026 07:29:27 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function csrf_field() in C:\xampp\htdocs\enrollment_system\superadmin\pages\users.php:116
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\superadmin\dashboard.php(62): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\superadmin\pages\users.php on line 116
+[03-Apr-2026 07:31:00 Europe/Berlin] PHP Warning:  require_once(C:\xampp\htdocs\enrollment_system\registrar/includes/pagination.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 3
+[03-Apr-2026 07:31:00 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\enrollment_system\registrar/includes/pagination.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php:3
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(189): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 3
+[03-Apr-2026 07:31:07 Europe/Berlin] PHP Warning:  require_once(C:\xampp\htdocs\enrollment_system\registrar/includes/pagination.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 3
+[03-Apr-2026 07:31:07 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\enrollment_system\registrar/includes/pagination.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php:3
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(189): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 3
+[03-Apr-2026 07:31:16 Europe/Berlin] PHP Warning:  require_once(C:\xampp\htdocs\enrollment_system\registrar/includes/pagination.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 3
+[03-Apr-2026 07:31:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\xampp\htdocs\enrollment_system\registrar/includes/pagination.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php:3
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(189): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 3
+[03-Apr-2026 07:32:38 Europe/Berlin] PHP Warning:  Undefined variable $enrolled in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 98
+[03-Apr-2026 07:32:38 Europe/Berlin] PHP Warning:  Undefined variable $enrolled in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 98
+[03-Apr-2026 07:32:38 Europe/Berlin] PHP Warning:  Undefined variable $enrolled in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 98
+[03-Apr-2026 07:32:38 Europe/Berlin] PHP Warning:  Undefined variable $enrolled in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 98
+[03-Apr-2026 07:32:42 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\enrollment_system\registrar\dashboard.php:145) in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 8
+[03-Apr-2026 07:32:42 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\enrollment_system\registrar\dashboard.php:145) in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 9
+[03-Apr-2026 07:33:50 Europe/Berlin] PHP Warning:  Undefined variable $enrolled in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 98
+[03-Apr-2026 07:33:50 Europe/Berlin] PHP Warning:  Undefined variable $enrolled in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 98
+[03-Apr-2026 07:33:50 Europe/Berlin] PHP Warning:  Undefined variable $enrolled in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 98
+[03-Apr-2026 07:33:50 Europe/Berlin] PHP Warning:  Undefined variable $enrolled in C:\xampp\htdocs\enrollment_system\registrar\pages\students.php on line 98
+[03-Apr-2026 07:34:19 Europe/Berlin] PHP Parse error:  Unmatched '}' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 36
+[03-Apr-2026 07:34:23 Europe/Berlin] PHP Parse error:  Unmatched '}' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 36
+[03-Apr-2026 07:34:23 Europe/Berlin] PHP Parse error:  Unmatched '}' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 36
+[03-Apr-2026 07:34:24 Europe/Berlin] PHP Parse error:  Unmatched '}' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 36
+[03-Apr-2026 07:34:25 Europe/Berlin] PHP Parse error:  Unmatched '}' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 36
+[03-Apr-2026 07:34:37 Europe/Berlin] PHP Parse error:  Unmatched '}' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 36
+[03-Apr-2026 07:35:39 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'drf-BSCS-1-1st' for key 'unique_subject' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php:50
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php(50): mysqli->query('INSERT INTO sub...')
+#1 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(195): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 50
+[03-Apr-2026 07:40:08 Europe/Berlin] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\enrollment_system\finance\print_receipt.php on line 103
+[03-Apr-2026 07:40:08 Europe/Berlin] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\enrollment_system\finance\print_receipt.php on line 103
+[03-Apr-2026 07:47:59 Europe/Berlin] PHP Warning:  Undefined array key "id" in C:\xampp\htdocs\enrollment_system\finance\pages\students.php on line 154
+[03-Apr-2026 07:47:59 Europe/Berlin] PHP Warning:  Undefined array key "id" in C:\xampp\htdocs\enrollment_system\finance\pages\students.php on line 154
+[03-Apr-2026 07:47:59 Europe/Berlin] PHP Warning:  Undefined array key "id" in C:\xampp\htdocs\enrollment_system\finance\pages\students.php on line 154
+[03-Apr-2026 07:47:59 Europe/Berlin] PHP Warning:  Undefined array key "id" in C:\xampp\htdocs\enrollment_system\finance\pages\students.php on line 154
+[03-Apr-2026 07:48:07 Europe/Berlin] PHP Warning:  Undefined array key "id" in C:\xampp\htdocs\enrollment_system\finance\pages\students.php on line 154
+[03-Apr-2026 07:48:07 Europe/Berlin] PHP Warning:  Undefined array key "id" in C:\xampp\htdocs\enrollment_system\finance\pages\students.php on line 154
+[03-Apr-2026 07:48:07 Europe/Berlin] PHP Warning:  Undefined array key "id" in C:\xampp\htdocs\enrollment_system\finance\pages\students.php on line 154
+[03-Apr-2026 07:48:07 Europe/Berlin] PHP Warning:  Undefined array key "id" in C:\xampp\htdocs\enrollment_system\finance\pages\students.php on line 154
+[03-Apr-2026 07:58:37 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'profile_picture' in 'field list' in C:\xampp\htdocs\enrollment_system\student\pages\profile.php:6
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\student\pages\profile.php(6): mysqli->query('SELECT id, stud...')
+#1 C:\xampp\htdocs\enrollment_system\student\dashboard.php(142): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\student\pages\profile.php on line 6
+[03-Apr-2026 07:58:46 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'profile_picture' in 'field list' in C:\xampp\htdocs\enrollment_system\student\pages\profile.php:6
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\student\pages\profile.php(6): mysqli->query('SELECT id, stud...')
+#1 C:\xampp\htdocs\enrollment_system\student\dashboard.php(142): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\student\pages\profile.php on line 6
+[03-Apr-2026 07:59:05 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'profile_picture' in 'field list' in C:\xampp\htdocs\enrollment_system\student\pages\profile.php:6
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\student\pages\profile.php(6): mysqli->query('SELECT id, stud...')
+#1 C:\xampp\htdocs\enrollment_system\student\dashboard.php(142): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\student\pages\profile.php on line 6
+[03-Apr-2026 08:02:30 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'How to fuck-0-1-1st' for key 'unique_subject' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php:57
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php(57): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(195): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 57
+[03-Apr-2026 08:03:44 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'How to fuck-0-1-1st' for key 'unique_subject' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php:57
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php(57): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(195): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 57
+[03-Apr-2026 08:03:47 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'How to fuck-0-1-1st' for key 'unique_subject' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php:57
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php(57): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(195): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 57
+[03-Apr-2026 08:03:49 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'How to fuck-0-1-1st' for key 'unique_subject' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php:57
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php(57): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(195): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 57
+[03-Apr-2026 08:06:40 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'How to fuck-0-1-1st' for key 'unique_subject' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php:61
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php(61): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(195): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 61
+[03-Apr-2026 08:06:42 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'How to fuck-0-1-1st' for key 'unique_subject' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php:61
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php(61): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(195): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 61
+[03-Apr-2026 08:06:44 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'How to fuck-0-1-1st' for key 'unique_subject' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php:61
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php(61): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(195): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 61
+[03-Apr-2026 08:06:50 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 'How to fuck-0-1-1st' for key 'unique_subject' in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php:61
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php(61): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(195): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 61
+[03-Apr-2026 08:57:03 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "endwhile", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 539
+[03-Apr-2026 08:57:04 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "endwhile", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 539
+[03-Apr-2026 08:57:04 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "endwhile", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 539
+[03-Apr-2026 08:58:42 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "endwhile", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 539
+[03-Apr-2026 08:58:43 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "endwhile", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 539
+[03-Apr-2026 08:58:43 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "endwhile", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 539
+[03-Apr-2026 08:58:43 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "endwhile", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 539
+[03-Apr-2026 08:59:52 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "endwhile", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 539
+[03-Apr-2026 09:03:31 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 537
+[03-Apr-2026 09:03:32 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 537
+[03-Apr-2026 09:03:33 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 537
+[03-Apr-2026 09:03:33 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 537
+[03-Apr-2026 09:03:33 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 537
+[03-Apr-2026 09:03:33 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 537
+[03-Apr-2026 09:03:34 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 537
+[03-Apr-2026 09:03:34 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 537
+[03-Apr-2026 09:03:35 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 537
+[03-Apr-2026 09:03:35 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 537
+[03-Apr-2026 09:03:35 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 537
+[03-Apr-2026 09:03:48 Europe/Berlin] PHP Parse error:  syntax error, unexpected token "else", expecting end of file in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 537
+[03-Apr-2026 09:05:15 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:05:15 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:05:15 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:05:52 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:05:52 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:05:52 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:05:54 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:05:54 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:05:54 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:05:54 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:05:54 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:05:54 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:05:54 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:05:54 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:05:54 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:05:54 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:05:54 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:05:54 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:05:55 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:05:55 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:05:55 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:05:59 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:05:59 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:05:59 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:06:02 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:06:02 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:06:02 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:06:18 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:06:18 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:06:18 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:06:19 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:06:19 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:06:19 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:06:19 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:06:19 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:06:19 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:06:20 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:06:20 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:06:20 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:06:20 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:06:20 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:06:20 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:06:21 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:06:21 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:06:21 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:06:21 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:06:21 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:06:21 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:06:21 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:06:21 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:06:21 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:06:21 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:06:21 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:06:21 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:09:06 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:09:06 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:09:06 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:09:33 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:09:33 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:09:33 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:15:28 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:15:28 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:15:28 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:15:29 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:23:25 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:23:25 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:23:25 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:23:28 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:23:28 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:23:28 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:28:56 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:28:56 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:28:56 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:28:58 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:28:58 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:28:58 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:29:54 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php:72
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php(72): mysqli_stmt->bind_param('sssisissii', 'General Mathema...', 'Introduction to...', 3, 'BSGE', 19, 1, '1st', 'MT', 'Room 105', 'Secret', 30)
+#1 C:\xampp\htdocs\enrollment_system\registrar\dashboard.php(195): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\registrar\pages\subjects.php on line 72
+[03-Apr-2026 09:47:50 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:47:50 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:47:50 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:49:46 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:49:46 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:49:46 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:50:52 Europe/Berlin] PHP Warning:  Undefined array key "middle_name" in C:\xampp\htdocs\enrollment_system\student\pages\profile.php on line 76
+[03-Apr-2026 09:50:52 Europe/Berlin] PHP Warning:  Undefined array key "birthdate" in C:\xampp\htdocs\enrollment_system\student\pages\profile.php on line 78
+[03-Apr-2026 09:50:52 Europe/Berlin] PHP Warning:  Undefined array key "gender" in C:\xampp\htdocs\enrollment_system\student\pages\profile.php on line 81
+[03-Apr-2026 09:57:06 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:57:06 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:57:06 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:57:12 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:57:12 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:57:12 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:57:20 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:57:20 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:57:20 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:57:51 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:57:51 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:57:51 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 09:58:54 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 09:58:54 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 09:58:54 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 10:06:05 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 10:06:05 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 10:06:05 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 10:06:10 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 10:06:10 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 10:06:10 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 10:06:18 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 10:06:18 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 10:06:18 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 10:06:22 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 10:06:22 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 10:06:22 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 10:06:27 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 10:06:27 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 10:06:27 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 10:06:32 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 10:06:32 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 10:06:32 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 10:06:39 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 10:06:39 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 10:06:39 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 10:06:46 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 10:06:46 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 10:06:46 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 10:07:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'middlename' in 'field list' in C:\xampp\htdocs\enrollment_system\student\pages\profile.php:6
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\student\pages\profile.php(6): mysqli->query('SELECT id, stud...')
+#1 C:\xampp\htdocs\enrollment_system\student\dashboard.php(142): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\student\pages\profile.php on line 6
+[03-Apr-2026 10:08:35 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 10:08:35 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 10:08:35 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 10:08:37 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 10:08:37 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 10:08:37 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[03-Apr-2026 10:08:42 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[03-Apr-2026 10:08:42 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[03-Apr-2026 10:08:42 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[04-Apr-2026 05:17:00 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[04-Apr-2026 05:17:00 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[04-Apr-2026 05:17:00 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[04-Apr-2026 05:17:21 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[04-Apr-2026 05:17:21 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[04-Apr-2026 05:17:21 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[04-Apr-2026 05:17:23 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 479
+[04-Apr-2026 05:17:23 Europe/Berlin] PHP Warning:  Undefined variable $edit_subject_id in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 509
+[04-Apr-2026 05:17:23 Europe/Berlin] PHP Warning:  Undefined variable $enrolled_count in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 523
+[04-Apr-2026 05:29:17 Europe/Berlin] PHP Warning:  Undefined array key "last_login" in C:\xampp\htdocs\enrollment_system\teacher\pages\profile.php on line 87
+[04-Apr-2026 05:37:05 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry ' 'GE101-0-1- '1' for key 'unique_subject' in C:\xampp\htdocs\enrollment_system\temp_import_subjects.php:106
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\temp_import_subjects.php(106): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\temp_import_subjects.php on line 106

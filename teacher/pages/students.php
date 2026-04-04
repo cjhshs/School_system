@@ -1,29 +1,29 @@
 <?php
 require_once '../config.php';
 
-$user = $conn->query("SELECT * FROM system_users WHERE id = " . intval($_SESSION['user_id']))->fetch_assoc();
-$teacher_name = $user['first_name'] . ' ' . $user['last_name'];
+$teacher_id = intval($_SESSION['user_id']);
 $subject_id = isset($_GET['subject_id']) ? intval($_GET['subject_id']) : null;
-$search = isset($_GET['search']) ? trim($conn->real_escape_string($_GET['search'])) : '';
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 $search_sql = '';
 if (!empty($search)) {
-    $search_sql = " AND (s.student_number LIKE '%$search%' OR s.firstname LIKE '%$search%' OR s.lastname LIKE '%$search%')";
+    $search_escaped = $conn->real_escape_string($search);
+    $search_sql = " AND (s.student_number LIKE '%$search_escaped%' OR s.firstname LIKE '%$search_escaped%' OR s.lastname LIKE '%$search_escaped%')";
 }
 
 if ($subject_id) {
-    $subject = $conn->query("SELECT * FROM subjects WHERE id = $subject_id")->fetch_assoc();
-    $result = $conn->query("SELECT s.* 
+    $subject = $conn->query("SELECT id, subject_code, description, units, schedule, room, max_students, is_active FROM subjects WHERE id = $subject_id")->fetch_assoc();
+    $result = $conn->query("SELECT s.id, s.student_number, s.firstname, s.lastname, s.email 
         FROM students s 
         JOIN student_subjects ss ON s.id = ss.student_id 
         WHERE ss.subject_id = $subject_id AND ss.status = 'Enrolled' $search_sql
         ORDER BY s.lastname, s.firstname");
 } else {
-    $result = $conn->query("SELECT DISTINCT s.*, sub.id as subject_id, sub.subject_code, sub.description 
+    $result = $conn->query("SELECT DISTINCT s.id, s.student_number, s.firstname, s.lastname, s.email, sub.id as subject_id, sub.subject_code, sub.description 
         FROM students s 
         JOIN student_subjects ss ON s.id = ss.student_id
         JOIN subjects sub ON ss.subject_id = sub.id
-        WHERE sub.instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%' $search_sql
+        WHERE sub.instructor_id = $teacher_id $search_sql
         ORDER BY sub.subject_code, s.lastname");
 }
 $students = $result;

@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $employee_id = generateEmployeeId($conn, $role_id);
             $username = $employee_id; // Username = Employee ID
             $email = trim($_POST['email']);
-            $password = trim($_POST['password']); // Plain text password
+            $plain_password = trim($_POST['password']);
             $first_name = trim($_POST['first_name']);
             $last_name = trim($_POST['last_name']);
             $department_id = !empty($_POST['department_id']) ? intval($_POST['department_id']) : null;
@@ -46,21 +46,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             
             if (!$error) {
-                $plain_password = $_POST['password'];
+                $hashed_password = password_hash($plain_password, PASSWORD_DEFAULT);
+                $encrypted_password = encryptPassword($plain_password);
                 $created_by = $_SESSION['user_id'];
                 
-                $sql = "INSERT INTO system_users (username, email, password, role_id, first_name, last_name, department_id, employee_id, created_by, is_active) 
-                        VALUES ('$username', '$email', '$plain_password', $role_id, '$first_name', '$last_name', " . ($department_id ? $department_id : "NULL") . ", '$employee_id', $created_by, 1)";
+                $stmt = $conn->prepare("INSERT INTO system_users (username, email, password, password_encrypted, role_id, first_name, last_name, department_id, employee_id, created_by, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
+                $dept_val = $department_id ? $department_id : null;
+                $stmt->bind_param("ssssissisi", $username, $email, $hashed_password, $encrypted_password, $role_id, $first_name, $last_name, $dept_val, $employee_id, $created_by);
                 
-                if ($conn->query($sql)) {
+                if ($stmt->execute()) {
                     $dept_name = '';
                     if ($department_id) {
                         $dept = $conn->query("SELECT name FROM departments WHERE id = $department_id")->fetch_assoc();
                         $dept_name = " | Department: {$dept['name']}";
                     }
-                    $message = "User created! Username/ID: <strong>$employee_id</strong> | Password: <strong>{$_POST['password']}</strong>$dept_name";
+                    $message = "User created! Username/ID: <strong>$employee_id</strong> | Password: <strong>" . htmlspecialchars($plain_password) . "</strong>$dept_name";
                 } else {
-                    $error = "Error: " . $conn->error;
+                    $error = "Error: " . $stmt->error;
                 }
             }
         } elseif ($_POST['action'] === 'delete') {
@@ -111,6 +113,7 @@ $available_departments = $conn->query("SELECT d.* FROM departments d WHERE d.id 
     </div>
     <div class="card-body">
         <form method="POST" class="form-row">
+    <?php echo csrf_field(); ?>
             <input type="hidden" name="action" value="add">
             <input type="hidden" name="username" value="">
             <div class="form-group">
@@ -131,7 +134,7 @@ $available_departments = $conn->query("SELECT d.* FROM departments d WHERE d.id 
                     <option value="">Select Role</option>
                     <?php $roles = $conn->query("SELECT * FROM roles ORDER BY hierarchy_level DESC");
                     while ($role = $roles->fetch_assoc()): ?>
-                        <option value="<?php echo $role['id']; ?>"><?php echo $role['display_name']; ?></option>
+                        <option value="<?php echo $role['id']; ?>"><?php echo htmlspecialchars($role['display_name']); ?></option>
                     <?php endwhile; ?>
                 </select>
             </div>
@@ -215,7 +218,7 @@ $available_departments = $conn->query("SELECT d.* FROM departments d WHERE d.id 
             <tbody>
                 <?php while ($user = $users->fetch_assoc()): ?>
                 <tr>
-                    <td><code><?php echo $user['employee_id'] ?: '-'; ?></code></td>
+                    <td><code><?php echo htmlspecialchars($user['employee_id'] ?: '-'); ?></code></td>
                     <td>
                         <div class="d-flex align-items-center gap-2">
                             <div class="avatar"><?php echo strtoupper(substr($user['first_name'], 0, 1)); ?></div>
@@ -226,13 +229,15 @@ $available_departments = $conn->query("SELECT d.* FROM departments d WHERE d.id 
                         </div>
                     </td>
                     <td><?php echo htmlspecialchars($user['username']); ?></td>
-                    <td><span class="badge badge-<?php echo match($user['role_name']) { 'Super Admin' => 'danger', 'Registrar' => 'primary', 'Dean' => 'warning', 'Finance' => 'success', 'Teacher' => 'info', default => 'secondary' }; ?>"><?php echo $user['role_name']; ?></span></td>
+                    <td><span class="badge badge-<?php echo match($user['role_name']) { 'Super Admin' => 'danger', 'Registrar' => 'primary', 'Dean' => 'warning', 'Finance' => 'success', 'Teacher' => 'info', default => 'secondary' }; ?>"><?php echo htmlspecialchars($user['role_name']); ?></span></td>
                     <td><?php echo $user['dept_name'] ? htmlspecialchars($user['dept_name']) : '<span class="text-muted">-</span>'; ?></td>
                     <td><span class="status <?php echo $user['is_active'] ? 'active' : 'inactive'; ?>"><?php echo $user['is_active'] ? 'Active' : 'Inactive'; ?></span></td>
                     <td>
                         <div class="action-buttons">
                             <?php if ($user['id'] != $_SESSION['user_id']): ?>
+                                <button type="button" class="btn btn-icon btn-ghost text-info" title="View Password" onclick="viewPassword(<?php echo $user['id']; ?>, '<?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>')"><i class="fas fa-eye"></i></button>
                                 <form method="POST" class="d-inline" onsubmit="return confirmDelete(this);">
+    <?php echo csrf_field(); ?>
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
                                     <button type="submit" class="btn btn-icon btn-ghost text-danger" title="Delete"><i class="fas fa-trash"></i></button>
@@ -244,6 +249,29 @@ $available_departments = $conn->query("SELECT d.* FROM departments d WHERE d.id 
                 <?php endwhile; ?>
             </tbody>
         </table>
+    </div>
+</div>
+
+<!-- View Password Modal -->
+<div class="modal fade" id="viewPasswordModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-key me-2"></i>User Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="text-muted mb-2">Password for <strong id="modalUserName"></strong></p>
+                <div class="input-group">
+                    <input type="text" class="form-control text-center fw-bold" id="modalPassword" readonly style="font-size: 1.2rem; letter-spacing: 1px;">
+                    <button class="btn btn-outline-primary" type="button" onclick="copyPassword()" title="Copy"><i class="fas fa-copy"></i></button>
+                </div>
+                <div id="passwordError" class="text-danger mt-2" style="display: none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -274,6 +302,58 @@ function confirmDelete(form) {
         form.submit();
     }
     return false;
+}
+
+function viewPassword(userId, userName) {
+    document.getElementById('modalUserName').textContent = userName;
+    document.getElementById('modalPassword').value = 'Loading...';
+    document.getElementById('passwordError').style.display = 'none';
+    
+    const modal = new bootstrap.Modal(document.getElementById('viewPasswordModal'));
+    modal.show();
+    
+    const formData = new FormData();
+    formData.append('action', 'view_password');
+    formData.append('user_id', userId);
+    
+    fetch('/enrollment_system/superadmin/ajax.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.text();
+    })
+    .then(text => {
+        try {
+            const data = JSON.parse(text);
+            if (data.success) {
+                document.getElementById('modalPassword').value = data.password;
+            } else {
+                document.getElementById('modalPassword').value = '';
+                document.getElementById('passwordError').textContent = data.message;
+                document.getElementById('passwordError').style.display = 'block';
+            }
+        } catch(e) {
+            document.getElementById('modalPassword').value = '';
+            document.getElementById('passwordError').textContent = 'Invalid server response.';
+            document.getElementById('passwordError').style.display = 'block';
+        }
+    })
+    .catch(err => {
+        document.getElementById('modalPassword').value = '';
+        document.getElementById('passwordError').textContent = 'Failed to retrieve password: ' + err.message;
+        document.getElementById('passwordError').style.display = 'block';
+    });
+}
+
+function copyPassword() {
+    const pwdField = document.getElementById('modalPassword');
+    navigator.clipboard.writeText(pwdField.value).then(() => {
+        const btn = pwdField.nextElementSibling;
+        btn.innerHTML = '<i class="fas fa-check"></i>';
+        setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy"></i>'; }, 1500);
+    });
 }
 
 document.getElementById('searchUsers')?.addEventListener('keyup', function() {

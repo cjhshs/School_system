@@ -16,10 +16,17 @@ if (isset($_POST['add_payment'])) {
     $student = $conn->query("SELECT id FROM students WHERE student_number = '$student_number'")->fetch_assoc();
     
     if ($student) {
-        $stmt = $conn->prepare("INSERT INTO payments (student_id, amount, payment_method, reference_number, or_number, payment_date, received_by, remarks) VALUES (?, ?, ?, ?, ?, CURDATE(), ?, ?)");
-        $user = $conn->query("SELECT first_name, last_name FROM system_users WHERE id = " . intval($_SESSION['user_id']))->fetch_assoc();
-        $received_by = $user['first_name'] . ' ' . $user['last_name'];
-        $stmt->bind_param("idsssss", $student['id'], $amount, $payment_method, $reference, $or_number, $received_by, $remarks);
+        $sid = $student['id'];
+        $total_fees_row = $conn->query("SELECT COALESCE(SUM(amount), 0) as total FROM student_fees WHERE student_id = $sid")->fetch_assoc();
+        $total_fees = floatval($total_fees_row['total']);
+        $paid_row = $conn->query("SELECT COALESCE(SUM(payment_amount), 0) as total FROM payments WHERE student_id = $sid")->fetch_assoc();
+        $total_paid = floatval($paid_row['total']);
+        $remaining_balance = max(0, $total_fees - $total_paid);
+        $new_balance = max(0, $remaining_balance - $amount);
+        
+        $received_by = intval($_SESSION['user_id']);
+        $stmt = $conn->prepare("INSERT INTO payments (student_id, payment_amount, total_fees, balance, payment_method, or_number, payment_date, received_by, notes) VALUES (?, ?, ?, ?, ?, ?, CURDATE(), ?, ?)");
+        $stmt->bind_param("idddssis", $sid, $amount, $total_fees, $new_balance, $payment_method, $or_number, $received_by, $remarks);
         
         if ($stmt->execute()) {
             $message = '<div class="alert alert-success"><i class="fas fa-check-circle me-2"></i>Payment recorded successfully!</div>';
@@ -33,11 +40,12 @@ if (isset($_POST['add_payment'])) {
 
 // Get all students with balances
 $students = $conn->query("
-    SELECT s.student_number, s.firstname, s.lastname, s.email, s.course_code,
+    SELECT s.id, s.student_number, s.firstname, s.lastname, s.email, c.code as course_code,
            COALESCE(SUM(sf.amount), 0) as total_fee,
-           COALESCE((SELECT SUM(p.amount) FROM payments p WHERE p.student_id = s.id), 0) as paid,
-           (COALESCE(SUM(sf.amount), 0) - COALESCE((SELECT SUM(p.amount) FROM payments p WHERE p.student_id = s.id), 0)) as balance
+           COALESCE((SELECT SUM(p.payment_amount) FROM payments p WHERE p.student_id = s.id), 0) as paid,
+           (COALESCE(SUM(sf.amount), 0) - COALESCE((SELECT SUM(p.payment_amount) FROM payments p WHERE p.student_id = s.id), 0)) as balance
     FROM students s
+    LEFT JOIN courses c ON s.course_id = c.id
     LEFT JOIN student_fees sf ON s.id = sf.student_id
     GROUP BY s.id
     ORDER BY balance DESC
@@ -61,6 +69,7 @@ $students = $conn->query("
             </div>
             <div class="card-body">
                 <form method="POST">
+    <?php echo csrf_field(); ?>
                     <div class="mb-3">
                         <label>Student Number *</label>
                         <input type="text" name="student_number" class="form-control" required placeholder="e.g., 2020-1001">
@@ -133,16 +142,16 @@ $students = $conn->query("
                             ?>
                             <tr>
                                 <td><?php echo $counter++; ?></td>
-                                <td><?php echo $row['student_number']; ?></td>
-                                <td><?php echo $row['firstname'] . ' ' . $row['lastname']; ?></td>
-                                <td><?php echo $row['course_code'] ?? '-'; ?></td>
+                                <td><?php echo htmlspecialchars($row['student_number']); ?></td>
+                                <td><?php echo htmlspecialchars($row['firstname'] . ' ' . $row['lastname']); ?></td>
+                                <td><?php echo htmlspecialchars($row['course_code'] ?? '-'); ?></td>
                                 <td>₱<?php echo number_format($row['total_fee'], 2); ?></td>
                                 <td class="text-success">₱<?php echo number_format($row['paid'], 2); ?></td>
                                 <td class="<?php echo $row['balance'] > 0 ? 'text-danger fw-bold' : 'text-success'; ?>">
                                     ₱<?php echo number_format($row['balance'], 2); ?>
                                 </td>
                                 <td>
-                                    <a href="dashboard.php?page=student_detail&id=<?php echo $row['student_number']; ?>" class="btn btn-sm btn-primary" title="View">
+                                    <a href="dashboard.php?page=student_detail&id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary" title="View">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </td>

@@ -1,5 +1,6 @@
 <?php
 require_once '../config.php';
+require_once dirname(__DIR__) . '/includes/cache.php';
 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'finance') {
     header('Location: login.php');
@@ -11,7 +12,7 @@ $user_name = $_SESSION['username'];
 
 // Get stats
 $total_students = $conn->query("SELECT COUNT(*) as c FROM students")->fetch_assoc()['c'];
-$total_payments = $conn->query("SELECT COALESCE(SUM(amount), 0) as c FROM payments WHERE YEAR(payment_date) = YEAR(CURDATE())")->fetch_assoc()['c'];
+$total_payments = $conn->query("SELECT COALESCE(SUM(payment_amount), 0) as c FROM payments WHERE YEAR(payment_date) = YEAR(CURDATE())")->fetch_assoc()['c'];
 $pending_payments = $conn->query("SELECT COUNT(*) as c FROM students WHERE enrollment_status = 'Pending'")->fetch_assoc()['c'];
 $recent_payments = $conn->query("SELECT COUNT(*) as c FROM payments WHERE DATE(payment_date) = CURDATE()")->fetch_assoc()['c'];
 ?>
@@ -72,6 +73,11 @@ $recent_payments = $conn->query("SELECT COUNT(*) as c FROM payments WHERE DATE(p
                             <i class="fas fa-chart-bar"></i><span>Reports</span>
                         </a>
                     </div>
+                    <div class="nav-item">
+                        <a href="dashboard.php?page=permits" class="nav-link <?php echo $page == 'permits' ? 'active' : ''; ?>">
+                            <i class="fas fa-id-card"></i><span>Permits</span>
+                        </a>
+                    </div>
             </nav>
 
             <div class="sidebar-footer">
@@ -122,6 +128,9 @@ $recent_payments = $conn->query("SELECT COUNT(*) as c FROM payments WHERE DATE(p
                         break;
                     case 'student_detail':
                         include 'pages/student_detail.php';
+                        break;
+                    case 'permits':
+                        include 'pages/permits.php';
                         break;
                     default:
                         ?>
@@ -242,7 +251,7 @@ $recent_payments = $conn->query("SELECT COUNT(*) as c FROM payments WHERE DATE(p
                                                 </div>
                                             </td>
                                             <td><code><?php echo htmlspecialchars($payment['or_number']); ?></code></td>
-                                            <td class="text-success fw-bold">₱<?php echo number_format($payment['amount'], 2); ?></td>
+                                            <td class="text-success fw-bold">₱<?php echo number_format($payment['payment_amount'], 2); ?></td>
                                             <td><?php echo htmlspecialchars($payment['payment_method']); ?></td>
                                             <td><span class="status active">Completed</span></td>
                                         </tr>

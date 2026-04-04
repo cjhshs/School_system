@@ -8,6 +8,33 @@ if (isset($_POST['update_status'])) {
     $status = $conn->real_escape_string($_POST['status']);
     $update_sql = "UPDATE enrollments SET status = '$status' WHERE id = $id";
     if ($conn->query($update_sql)) {
+        // Sync student enrollment_status and fees
+        $enrollment = $conn->query("SELECT e.student_id, s.course_id, c.code as course_code FROM enrollments e JOIN students s ON e.student_id = s.id LEFT JOIN courses c ON s.course_id = c.id WHERE e.id = $id")->fetch_assoc();
+        if ($enrollment) {
+            $student_status = match($status) {
+                'Confirmed' => 'Enrolled',
+                'Cancelled' => 'Pending',
+                default => 'Pending'
+            };
+            $sid = intval($enrollment['student_id']);
+            $conn->query("UPDATE students SET enrollment_status = '$student_status' WHERE id = $sid");
+            
+            // Sync student fees from tuition_fees template
+            if ($status === 'Confirmed' && !empty($enrollment['course_code'])) {
+                $course_code = $enrollment['course_code'];
+                $tuition = $conn->query("SELECT total_per_unit FROM tuition_fees WHERE course_code = '$course_code' LIMIT 1")->fetch_assoc();
+                if ($tuition) {
+                    $total = floatval($tuition['total_per_unit']);
+                    $check = $conn->query("SELECT id FROM student_fees WHERE student_id = $sid AND fee_name = 'Tuition Fee'");
+                    if ($check->num_rows > 0) {
+                        $row = $check->fetch_assoc();
+                        $conn->query("UPDATE student_fees SET amount = $total WHERE id = " . $row['id']);
+                    } else {
+                        $conn->query("INSERT INTO student_fees (student_id, fee_name, amount, is_paid) VALUES ($sid, 'Tuition Fee', $total, 0)");
+                    }
+                }
+            }
+        }
         $message = '<div class="alert alert-success">Status updated!</div>';
     } else {
         $message = '<div class="alert alert-danger">Error updating status: ' . htmlspecialchars($conn->error) . '</div>';
@@ -57,12 +84,13 @@ $enrollments = $conn->query("SELECT e.*, s.firstname, s.lastname, s.student_numb
                     <tbody>
                         <?php while($row = $enrollments->fetch_assoc()): ?>
                         <tr>
-                            <td><?php echo $row['student_number'] ?? '-'; ?></td>
-                            <td><?php echo ($row['lastname'] ?? '') . ', ' . ($row['firstname'] ?? ''); ?></td>
-                            <td><?php echo $row['course_name'] ?? '-'; ?></td>
+                            <td><?php echo htmlspecialchars($row['student_number'] ?? '-'); ?></td>
+                            <td><?php echo htmlspecialchars(($row['lastname'] ?? '') . ', ' . ($row['firstname'] ?? '')); ?></td>
+                            <td><?php echo htmlspecialchars($row['course_name'] ?? '-'); ?></td>
                             <td><?php echo $row['year_level'] ?? '-'; ?></td>
                             <td>
                                 <form method="POST" style="display:inline;">
+    <?php echo csrf_field(); ?>
                                     <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                     <input type="hidden" name="update_status" value="1">
                                     <select name="status" class="form-select form-select-sm" style="width:auto;display:inline;" onchange="this.form.submit()">
@@ -75,6 +103,7 @@ $enrollments = $conn->query("SELECT e.*, s.firstname, s.lastname, s.student_numb
                             <td><?php echo $row['created_at'] ? date('M d, Y', strtotime($row['created_at'])) : '-'; ?></td>
                             <td>
                                 <form method="POST" style="display:inline;">
+    <?php echo csrf_field(); ?>
                                     <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                     <button type="submit" name="delete_enrollment" class="btn btn-sm btn-danger" onclick="return confirm('Delete this enrollment?')">Delete</button>
                                 </form>

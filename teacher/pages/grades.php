@@ -1,16 +1,15 @@
 <?php
 require_once '../config.php';
 
-$user = $conn->query("SELECT * FROM system_users WHERE id = " . intval($_SESSION['user_id']))->fetch_assoc();
-$teacher_name = $user['first_name'] . ' ' . $user['last_name'];
+$teacher_id = intval($_SESSION['user_id']);
 
-$subjects = $conn->query("SELECT DISTINCT s.* FROM subjects s WHERE s.instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%'");
+$subjects = $conn->query("SELECT s.id, s.subject_code, s.description, s.units, s.schedule, s.room, s.max_students, s.is_active FROM subjects s WHERE s.instructor_id = $teacher_id");
 
 $all_grades = $conn->query("SELECT g.*, s.firstname, s.lastname, s.student_number, sub.subject_code, sub.description
     FROM grades g
     JOIN students s ON g.student_id = s.id
     JOIN subjects sub ON g.subject_id = sub.id
-    WHERE sub.instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%'
+    WHERE g.teacher_id = $teacher_id
     ORDER BY sub.subject_code, s.lastname");
 ?>
 

@@ -35,19 +35,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $middle_name = trim($_POST['middle_name'] ?? '');
         $last_name = trim($_POST['last_name']);
         $email = trim($_POST['email']);
-        $password = $_POST['password'];
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $plain_password = $_POST['password'];
+        $hashed_password = password_hash($plain_password, PASSWORD_DEFAULT);
+        $encrypted_password = encryptPassword($plain_password);
         
-        $check = $conn->query("SELECT id FROM system_users WHERE email = '$email' OR username = '$employee_id'");
-        if ($check && $check->num_rows > 0) {
+        $check = $conn->prepare("SELECT id FROM system_users WHERE email = ? OR username = ?");
+        $check->bind_param("ss", $email, $employee_id);
+        $check->execute();
+        if ($check->get_result()->num_rows > 0) {
             $message = "Email or username already exists!";
             $message_type = 'danger';
         } else {
-            $stmt = $conn->prepare("INSERT INTO system_users (username, email, password, role_id, first_name, last_name, department_id, employee_id, created_by) VALUES (?, ?, ?, 5, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssssss", $employee_id, $email, $hashed_password, $first_name, $last_name, $dept_id, $employee_id, $_SESSION['user_id']);
+            $stmt = $conn->prepare("INSERT INTO system_users (username, email, password, password_encrypted, role_id, first_name, last_name, department_id, employee_id, created_by) VALUES (?, ?, ?, ?, 4, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssssss", $employee_id, $email, $hashed_password, $encrypted_password, $first_name, $last_name, $dept_id, $employee_id, $_SESSION['user_id']);
             
             if ($stmt->execute()) {
-                $message = "Teacher added!<br>Employee ID: <strong>$employee_id</strong><br>Password: <strong>$password</strong>";
+                $message = "Teacher added!<br>Employee ID: <strong>$employee_id</strong><br>Password: <strong>" . htmlspecialchars($plain_password) . "</strong>";
                 $message_type = 'success';
             } else {
                 $message = "Error: " . $conn->error;
@@ -88,6 +91,7 @@ $teachers = $conn->query("SELECT * FROM system_users WHERE role_id = 4 AND depar
             </div>
             <div class="card-body">
                 <form method="POST">
+    <?php echo csrf_field(); ?>
                     <input type="hidden" name="add_teacher" value="1">
                     <div class="form-group">
                         <label class="form-label">First Name *</label>
@@ -107,7 +111,10 @@ $teachers = $conn->query("SELECT * FROM system_users WHERE role_id = 4 AND depar
                     </div>
                     <div class="form-group">
                         <label class="form-label">Password *</label>
-                        <input type="password" name="password" class="form-control" required minlength="6" value="password123">
+                        <div class="input-group">
+                            <input type="password" name="password" id="teacherPassword" class="form-control" required minlength="6" value="password123">
+                            <button type="button" class="btn btn-outline-secondary" onclick="generateTeacherPwd()"><i class="fas fa-magic"></i></button>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary w-100"><i class="fas fa-plus me-2"></i>Add Teacher</button>
                 </form>
@@ -152,7 +159,10 @@ $teachers = $conn->query("SELECT * FROM system_users WHERE role_id = 4 AND depar
                                 </span>
                             </td>
                             <td>
+                                <button type="button" class="btn btn-sm btn-outline-info" title="View Password" onclick="viewTeacherPassword(<?php echo $t['id']; ?>, '<?php echo htmlspecialchars($t['first_name'] . ' ' . $t['last_name']); ?>')"><i class="fas fa-eye"></i></button>
+                                <button type="button" class="btn btn-sm btn-outline-warning" title="Reset Password" onclick="showTeacherReset(<?php echo $t['id']; ?>, '<?php echo htmlspecialchars($t['first_name'] . ' ' . $t['last_name']); ?>')"><i class="fas fa-key"></i></button>
                                 <form method="POST" class="d-inline">
+    <?php echo csrf_field(); ?>
                                     <input type="hidden" name="toggle_status" value="1">
                                     <input type="hidden" name="teacher_id" value="<?php echo $t['id']; ?>">
                                     <input type="hidden" name="current_status" value="<?php echo $t['is_active']; ?>">
@@ -180,21 +190,72 @@ $teachers = $conn->query("SELECT * FROM system_users WHERE role_id = 4 AND depar
     </div>
 </div>
 
+<!-- View Password Modal -->
+<div class="modal fade" id="viewTeacherPasswordModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-key me-2"></i>Teacher Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="text-muted mb-2">Password for <strong id="modalTeacherName"></strong></p>
+                <p class="mb-2">Username: <code id="modalTeacherUsername"></code></p>
+                <div class="input-group">
+                    <input type="text" class="form-control text-center fw-bold" id="modalTeacherPassword" readonly style="font-size: 1.2rem; letter-spacing: 1px;">
+                    <button class="btn btn-outline-primary" type="button" onclick="copyTeacherPassword()" title="Copy"><i class="fas fa-copy"></i></button>
+                </div>
+                <div id="teacherPasswordError" class="text-danger mt-2" style="display: none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reset Password Modal -->
+<div class="modal fade" id="resetTeacherPasswordModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-key me-2"></i>Reset Teacher Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted">Reset password for <strong id="resetTeacherName"></strong></p>
+                <div class="mb-3">
+                    <label class="form-label">New Password</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="resetTeacherNewPassword" minlength="6" required placeholder="Min 6 characters">
+                        <button class="btn btn-outline-secondary" type="button" onclick="generateResetTeacherPwd()"><i class="fas fa-magic"></i></button>
+                    </div>
+                </div>
+                <div id="resetTeacherError" class="text-danger mt-2" style="display: none;"></div>
+                <div id="resetTeacherSuccess" class="text-success mt-2" style="display: none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-warning" id="resetTeacherBtn" onclick="resetTeacherPassword()"><i class="fas fa-save me-1"></i>Reset</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+var currentResetTeacherId = 0;
+
 document.querySelectorAll('.search-input').forEach(input => {
     input.addEventListener('input', function() {
         const tableId = this.getAttribute('data-table');
         const table = document.getElementById(tableId);
         if (!table) return;
-        
         const filter = this.value.toLowerCase();
         const rows = table.querySelectorAll('tbody tr');
-        
         rows.forEach(row => {
             const text = row.textContent.toLowerCase();
             row.style.display = text.includes(filter) ? '' : 'none';
         });
-        
         const clearBtn = this.parentElement.querySelector('.search-clear');
         clearBtn.style.display = filter ? 'block' : 'none';
     });
@@ -204,5 +265,126 @@ function clearSearch(btn) {
     const input = btn.parentElement.querySelector('.search-input');
     input.value = '';
     input.dispatchEvent(new Event('input'));
+}
+
+function generateTeacherPwd() {
+    const chars = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+    let pwd = '';
+    for (let i = 0; i < 8; i++) pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+    document.getElementById('teacherPassword').value = pwd;
+}
+
+function viewTeacherPassword(teacherId, teacherName) {
+    document.getElementById('modalTeacherName').textContent = teacherName;
+    document.getElementById('modalTeacherPassword').value = 'Loading...';
+    document.getElementById('teacherPasswordError').style.display = 'none';
+    
+    const modal = new bootstrap.Modal(document.getElementById('viewTeacherPasswordModal'));
+    modal.show();
+    
+    const formData = new FormData();
+    formData.append('action', 'view_teacher_password');
+    formData.append('teacher_id', teacherId);
+    
+    fetch('/enrollment_system/dean/ajax.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(text => {
+        try {
+            const data = JSON.parse(text);
+            if (data.success) {
+                document.getElementById('modalTeacherUsername').textContent = data.username;
+                document.getElementById('modalTeacherPassword').value = data.password;
+            } else {
+                document.getElementById('modalTeacherPassword').value = '';
+                document.getElementById('teacherPasswordError').textContent = data.message;
+                document.getElementById('teacherPasswordError').style.display = 'block';
+            }
+        } catch(e) {
+            document.getElementById('modalTeacherPassword').value = '';
+            document.getElementById('teacherPasswordError').textContent = 'Invalid server response.';
+            document.getElementById('teacherPasswordError').style.display = 'block';
+        }
+    })
+    .catch(err => {
+        document.getElementById('modalTeacherPassword').value = '';
+        document.getElementById('teacherPasswordError').textContent = 'Failed: ' + err.message;
+        document.getElementById('teacherPasswordError').style.display = 'block';
+    });
+}
+
+function copyTeacherPassword() {
+    const pwdField = document.getElementById('modalTeacherPassword');
+    navigator.clipboard.writeText(pwdField.value).then(() => {
+        const btn = pwdField.nextElementSibling;
+        btn.innerHTML = '<i class="fas fa-check"></i>';
+        setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy"></i>'; }, 1500);
+    });
+}
+
+function showTeacherReset(teacherId, teacherName) {
+    currentResetTeacherId = teacherId;
+    document.getElementById('resetTeacherName').textContent = teacherName;
+    document.getElementById('resetTeacherNewPassword').value = '';
+    document.getElementById('resetTeacherError').style.display = 'none';
+    document.getElementById('resetTeacherSuccess').style.display = 'none';
+    document.getElementById('resetTeacherBtn').disabled = false;
+    
+    const modal = new bootstrap.Modal(document.getElementById('resetTeacherPasswordModal'));
+    modal.show();
+}
+
+function generateResetTeacherPwd() {
+    const chars = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+    let pwd = '';
+    for (let i = 0; i < 8; i++) pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+    document.getElementById('resetTeacherNewPassword').value = pwd;
+}
+
+function resetTeacherPassword() {
+    const newPwd = document.getElementById('resetTeacherNewPassword').value;
+    if (newPwd.length < 6) {
+        document.getElementById('resetTeacherError').textContent = 'Password must be at least 6 characters.';
+        document.getElementById('resetTeacherError').style.display = 'block';
+        return;
+    }
+    
+    document.getElementById('resetTeacherBtn').disabled = true;
+    document.getElementById('resetTeacherError').style.display = 'none';
+    
+    const formData = new FormData();
+    formData.append('action', 'reset_teacher_password');
+    formData.append('teacher_id', currentResetTeacherId);
+    formData.append('new_password', newPwd);
+    
+    fetch('/enrollment_system/dean/ajax.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(text => {
+        try {
+            const data = JSON.parse(text);
+            if (data.success) {
+                document.getElementById('resetTeacherSuccess').textContent = 'Password reset to: ' + newPwd;
+                document.getElementById('resetTeacherSuccess').style.display = 'block';
+            } else {
+                document.getElementById('resetTeacherError').textContent = data.message;
+                document.getElementById('resetTeacherError').style.display = 'block';
+                document.getElementById('resetTeacherBtn').disabled = false;
+            }
+        } catch(e) {
+            document.getElementById('resetTeacherError').textContent = 'Invalid server response.';
+            document.getElementById('resetTeacherError').style.display = 'block';
+            document.getElementById('resetTeacherBtn').disabled = false;
+        }
+    })
+    .catch(err => {
+        document.getElementById('resetTeacherError').textContent = 'Failed: ' + err.message;
+        document.getElementById('resetTeacherError').style.display = 'block';
+        document.getElementById('resetTeacherBtn').disabled = false;
+    });
 }
 </script>

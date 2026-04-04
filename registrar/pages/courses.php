@@ -43,6 +43,7 @@ $departments = $conn->query("SELECT * FROM departments WHERE is_active = 1 ORDER
             </div>
             <div class="card-body">
                 <form method="POST">
+    <?php echo csrf_field(); ?>
                     <div class="mb-3">
                         <label>Department</label>
                         <select name="department_id" class="form-select" required>
@@ -94,12 +95,13 @@ $departments = $conn->query("SELECT * FROM departments WHERE is_active = 1 ORDER
                         ?>
                         <tr>
                             <td><?php echo $counter++; ?></td>
-                            <td><?php echo $row['code']; ?></td>
-                            <td><?php echo $row['name']; ?></td>
-                            <td><?php echo $row['dept_name'] ?? '-'; ?></td>
-                            <td><?php echo $row['major'] ?: '-'; ?></td>
+                            <td><?php echo htmlspecialchars($row['code']); ?></td>
+                            <td><?php echo htmlspecialchars($row['name']); ?></td>
+                            <td><?php echo htmlspecialchars($row['dept_name'] ?? '-'); ?></td>
+                            <td><?php echo htmlspecialchars($row['major'] ?: '-'); ?></td>
                             <td>
                                 <form method="POST" style="display:inline;">
+    <?php echo csrf_field(); ?>
                                     <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                     <button type="submit" name="delete_course" class="btn btn-sm btn-danger" title="Delete" onclick="return confirm('Delete this course?')">
                                         <i class="fas fa-trash"></i>

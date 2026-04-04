@@ -1,5 +1,6 @@
 <?php
 require_once '../config.php';
+require_once dirname(__DIR__) . '/includes/cache.php';
 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'cashier') {
     header('Location: login.php');
@@ -27,9 +28,11 @@ include '../includes/portal_layout_start.php';
 $today = date('Y-m-d');
 $today_payments = $conn->query("SELECT COUNT(*) as cnt, COALESCE(SUM(payment_amount), 0) as total FROM payments WHERE payment_date = '$today'")->fetch_assoc();
 $total_payments = $conn->query("SELECT COUNT(*) as cnt, COALESCE(SUM(payment_amount), 0) as total FROM payments")->fetch_assoc();
-$pending_balance = $conn->query("SELECT COALESCE(SUM(balance), 0) as total FROM (
-    SELECT (tf.tuition_amount + tf.miscellaneous_amount + COALESCE((SELECT SUM(amount) FROM course_fees WHERE course_code = tf.course_code), 0) - COALESCE((SELECT SUM(payment_amount) FROM payments p JOIN students s ON p.student_id = s.id WHERE s.course_id = (SELECT id FROM courses WHERE code = tf.course_code LIMIT 1)), 0)) as balance FROM tuition_fees tf
-) sub WHERE balance > 0")->fetch_assoc();
+$pending_balance = $conn->query("SELECT COALESCE(SUM(sf.amount - COALESCE(p.paid, 0)), 0) as total FROM (
+    SELECT student_id, SUM(amount) as amount FROM student_fees GROUP BY student_id
+) sf LEFT JOIN (
+    SELECT student_id, SUM(payment_amount) as paid FROM payments GROUP BY student_id
+) p ON sf.student_id = p.student_id WHERE sf.amount > COALESCE(p.paid, 0)")->fetch_assoc();
 
 switch($current_page) {
     case 'payments':
@@ -115,7 +118,7 @@ switch($current_page) {
                                         <td><?php echo htmlspecialchars($r['student_number']); ?><br><small><?php echo htmlspecialchars($r['firstname'] . ' ' . $r['lastname']); ?></small></td>
                                         <td class="text-success fw-bold">₱<?php echo number_format($r['payment_amount'], 2); ?></td>
                                         <td><?php echo date('M d, Y', strtotime($r['payment_date'])); ?></td>
-                                        <td><a href="?page=receipt&id=<?php echo $r['id']; ?>" class="btn btn-sm btn-outline-primary"><i class="fas fa-print"></i></td>
+                                        <td><a href="?page=receipts" class="btn btn-sm btn-outline-primary"><i class="fas fa-print"></i></a></td>
                                     </tr>
                                     <?php endwhile; else: ?>
                                     <tr><td colspan="5" class="text-center text-muted">No transactions yet</td></tr>

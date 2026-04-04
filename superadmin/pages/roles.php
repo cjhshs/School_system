@@ -69,7 +69,7 @@ while ($p = $permissions->fetch_assoc()) {
                     <th style="width: 200px;">Permission</th>
                     <?php $roles = $conn->query("SELECT * FROM roles ORDER BY hierarchy_level DESC"); while ($role = $roles->fetch_assoc()): ?>
                         <th class="text-center" style="min-width: 90px;">
-                            <?php echo $role['display_name']; ?>
+                            <?php echo htmlspecialchars($role['display_name']); ?>
                             <br><small class="text-muted">Lvl <?php echo $role['hierarchy_level']; ?></small>
                         </th>
                     <?php endwhile; ?>
@@ -89,6 +89,7 @@ while ($p = $permissions->fetch_assoc()) {
                     ?>
                                 <td class="text-center">
                                     <form method="POST" class="d-inline">
+    <?php echo csrf_field(); ?>
                                         <input type="hidden" name="action" value="toggle_permission">
                                         <input type="hidden" name="role_id" value="<?php echo $role['id']; ?>">
                                         <input type="hidden" name="permission_id" value="<?php echo $perm['id']; ?>">

@@ -12,15 +12,15 @@ if (isset($_POST['delete_payment'])) {
 
 // Get all payments
 $payments = $conn->query("
-    SELECT p.*, s.student_number, s.firstname, s.lastname 
+    SELECT p.*, s.student_number, s.firstname, s.lastname, s.id as sid
     FROM payments p 
     LEFT JOIN students s ON p.student_id = s.id 
     ORDER BY p.payment_date DESC
 ");
 
 // Stats
-$total_collected = $conn->query("SELECT COALESCE(SUM(amount), 0) as c FROM payments")->fetch_assoc()['c'];
-$today_collected = $conn->query("SELECT COALESCE(SUM(amount), 0) as c FROM payments WHERE DATE(payment_date) = CURDATE()")->fetch_assoc()['c'];
+$total_collected = $conn->query("SELECT COALESCE(SUM(payment_amount), 0) as c FROM payments")->fetch_assoc()['c'];
+$today_collected = $conn->query("SELECT COALESCE(SUM(payment_amount), 0) as c FROM payments WHERE DATE(payment_date) = CURDATE()")->fetch_assoc()['c'];
 ?>
 
 <div class="page-header">
@@ -115,24 +115,29 @@ $today_collected = $conn->query("SELECT COALESCE(SUM(amount), 0) as c FROM payme
                             <div class="avatar"><?php echo strtoupper(substr($row['firstname'], 0, 1)); ?></div>
                             <div>
                                 <div class="fw-semibold"><?php echo htmlspecialchars(($row['firstname'] ?? 'N/A') . ' ' . ($row['lastname'] ?? '')); ?></div>
-                                <small class="text-muted"><?php echo $row['student_number'] ?? 'N/A'; ?></small>
+                                <small class="text-muted"><?php echo htmlspecialchars($row['student_number'] ?? 'N/A'); ?></small>
                             </div>
                         </div>
                     </td>
                     <td><code><?php echo htmlspecialchars($row['or_number']); ?></code></td>
                     <td><span class="badge badge-secondary"><?php echo htmlspecialchars($row['payment_method']); ?></span></td>
-                    <td><?php echo $row['reference_number'] ?: '-'; ?></td>
-                    <td class="text-success fw-bold">₱<?php echo number_format($row['amount'], 2); ?></td>
+                    <td><?php echo !empty($row['reference_number']) ? htmlspecialchars($row['reference_number']) : '-'; ?></td>
+                    <td class="text-success fw-bold">₱<?php echo number_format($row['payment_amount'], 2); ?></td>
                     <td><?php echo htmlspecialchars($row['received_by']); ?></td>
                     <td>
                         <div class="action-buttons">
-                            <a href="print_receipt.php?id=<?php echo $row['id']; ?>" target="_blank" class="btn btn-icon btn-ghost" title="Print Receipt">
+                            <?php if ($row['sid']): ?>
+                            <a href="print_receipt.php?id=<?php echo $row['student_id']; ?>" target="_blank" class="btn btn-icon btn-ghost" title="Print Receipt">
                                 <i class="fas fa-print"></i>
                             </a>
                             <a href="dashboard.php?page=student_detail&id=<?php echo $row['student_id']; ?>" class="btn btn-icon btn-ghost" title="View Student">
                                 <i class="fas fa-eye"></i>
                             </a>
+                            <?php else: ?>
+                            <span class="text-muted"><small>Student deleted</small></span>
+                            <?php endif; ?>
                             <form method="POST" class="d-inline" onsubmit="return confirmDelete(this);">
+    <?php echo csrf_field(); ?>
                                 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                 <button type="submit" name="delete_payment" class="btn btn-icon btn-ghost text-danger" title="Delete">
                                     <i class="fas fa-trash"></i>

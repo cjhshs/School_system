@@ -1,11 +1,13 @@
 <?php
 require_once '../config.php';
 
-$teacher_id = $_SESSION['user_id'];
-$user = $conn->query("SELECT * FROM system_users WHERE id = $teacher_id")->fetch_assoc();
-$teacher_name = $user['first_name'] . ' ' . $user['last_name'];
+$teacher_id = intval($_SESSION['user_id']);
 
-$subjects = $conn->query("SELECT DISTINCT s.* FROM subjects s WHERE s.instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%'");
+$subjects = $conn->query("SELECT s.id, s.subject_code, s.description, s.units, s.schedule, s.room, s.max_students, s.is_active, c.name as course_name 
+    FROM subjects s 
+    LEFT JOIN courses c ON s.course_code = c.code 
+    WHERE s.instructor_id = $teacher_id 
+    ORDER BY s.subject_code");
 ?>
 
 <h2><i class="fas fa-book me-2"></i>My Subjects</h2>

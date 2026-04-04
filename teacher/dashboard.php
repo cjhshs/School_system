@@ -1,5 +1,6 @@
 <?php
 require_once '../config.php';
+require_once dirname(__DIR__) . '/includes/cache.php';
 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'teacher') {
     header('Location: login.php');
@@ -11,19 +12,18 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 $user_name = $_SESSION['username'];
 
 // Get teacher info
-$user = $conn->query("SELECT * FROM system_users WHERE id = " . intval($teacher_id))->fetch_assoc();
+$user = $conn->query("SELECT id, first_name, last_name, email, employee_id FROM system_users WHERE id = " . intval($teacher_id))->fetch_assoc();
 $teacher_name = $user['first_name'] . ' ' . $user['last_name'];
 
 // Get stats
-$my_subjects = $conn->query("SELECT DISTINCT s.* FROM subjects s WHERE s.instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%'");
+$my_subjects = $conn->query("SELECT s.id, s.subject_code, s.description FROM subjects s WHERE s.instructor_id = $teacher_id");
 $subject_count = $my_subjects ? $my_subjects->num_rows : 0;
 $my_students = $conn->query("SELECT COUNT(DISTINCT ss.student_id) as c FROM student_subjects ss 
                               JOIN subjects s ON ss.subject_id = s.id 
-                              WHERE s.instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%'")->fetch_assoc()['c'];
-$pending_grades = $conn->query("SELECT COUNT(*) as c FROM grades g 
-                                JOIN subjects s ON g.subject_id = s.id 
-                                WHERE s.instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%' 
-                                AND g.grade_status = 'Draft'")->fetch_assoc()['c'];
+                              WHERE s.instructor_id = $teacher_id")->fetch_assoc()['c'];
+$pending_grades = $conn->query("SELECT COUNT(*) as c FROM grades 
+                                WHERE teacher_id = $teacher_id 
+                                AND grade_status = 'Draft'")->fetch_assoc()['c'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -241,10 +241,10 @@ $pending_grades = $conn->query("SELECT COUNT(*) as c FROM grades g
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $subjects = $conn->query("SELECT DISTINCT s.*, 
+                                        $subjects = $conn->query("SELECT s.id, s.subject_code, s.description, s.units, s.schedule, s.room, s.max_students, s.is_active,
                                             (SELECT COUNT(*) FROM student_subjects ss WHERE ss.subject_id = s.id) as student_count
                                             FROM subjects s 
-                                            WHERE s.instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%'");
+                                            WHERE s.instructor_id = $teacher_id");
                                         if ($subjects && $subjects->num_rows > 0):
                                             while ($subject = $subjects->fetch_assoc()):
                                         ?>

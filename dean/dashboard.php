@@ -1,5 +1,6 @@
 <?php
 require_once "../config.php";
+require_once dirname(__DIR__) . '/includes/cache.php';
 
 if (!isset($_SESSION["user_id"]) || $_SESSION["user_role"] !== "dean") {
     header("Location: login.php");

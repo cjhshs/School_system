@@ -74,17 +74,17 @@ $total_amount = $conn->query("SELECT COALESCE(SUM(payment_amount), 0) as total
                     <?php if ($receipts && $receipts->num_rows > 0): ?>
                         <?php while ($r = $receipts->fetch_assoc()): ?>
                         <tr>
-                            <td><code><?php echo $r['or_number']; ?></code></td>
+                            <td><code><?php echo htmlspecialchars($r['or_number']); ?></code></td>
                             <td>
                                 <strong><?php echo htmlspecialchars($r['student_number']); ?></strong><br>
                                 <small><?php echo htmlspecialchars($r['firstname'] . ' ' . $r['lastname']); ?></small>
                             </td>
                             <td><?php echo htmlspecialchars($r['course_code'] ?? 'N/A'); ?></td>
                             <td class="text-success fw-bold">₱<?php echo number_format($r['payment_amount'], 2); ?></td>
-                            <td><?php echo $r['payment_method']; ?></td>
+                            <td><?php echo htmlspecialchars($r['payment_method']); ?></td>
                             <td><?php echo date('M d, Y', strtotime($r['payment_date'])); ?></td>
                             <td>
-                                <a href="?page=receipt&id=<?php echo $r['id']; ?>" class="btn btn-sm btn-outline-primary" target="_blank">
+                                <a href="print_receipt.php?id=<?php echo $r['id']; ?>" class="btn btn-sm btn-outline-primary" target="_blank">
                                     <i class="fas fa-print"></i>
                                 </a>
                             </td>

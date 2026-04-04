@@ -3,26 +3,31 @@ require_once '../config.php';
 
 $message = '';
 $message_type = '';
+$dean_id = $_SESSION['user_id'];
+$dean = $conn->query("SELECT department_id FROM system_users WHERE id = $dean_id")->fetch_assoc();
+$dept_id = $dean['department_id'] ?? 0;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['update_passing_grade'])) {
         $department_id = intval($_POST['department_id']);
         $passing_grade = floatval($_POST['passing_grade']);
-        $conn->query("UPDATE departments SET passing_grade = $passing_grade WHERE id = $department_id");
-        $message = "Passing grade updated to $passing_grade%";
-        $message_type = 'success';
-    }
-    
-    if (isset($_POST['update_all_passing'])) {
-        $passing_grade = floatval($_POST['passing_grade']);
-        $conn->query("UPDATE departments SET passing_grade = $passing_grade");
-        $message = "All departments updated to $passing_grade%";
-        $message_type = 'success';
+        if ($department_id === $dept_id) {
+            $stmt = $conn->prepare("UPDATE departments SET passing_grade = ? WHERE id = ?");
+            $stmt->bind_param("di", $passing_grade, $department_id);
+            $stmt->execute();
+            logActivity($conn, $dean_id, 'update_passing_grade', "Set passing grade to $passing_grade% for dept $department_id");
+            $message = "Passing grade updated to $passing_grade%";
+            $message_type = 'success';
+        } else {
+            $message = "You can only update your own department's settings.";
+            $message_type = 'danger';
+        }
     }
 }
 
-$departments = $conn->query("SELECT * FROM departments ORDER BY name");
+$departments = $conn->query("SELECT * FROM departments WHERE id = $dept_id ORDER BY name");
 $default_passing = $departments->fetch_assoc()['passing_grade'] ?? 75;
+$departments->data_seek(0);
 $departments->data_seek(0);
 ?>
 
@@ -43,6 +48,7 @@ $departments->data_seek(0);
             </div>
             <div class="card-body">
                 <form method="POST">
+    <?php echo csrf_field(); ?>
                     <div class="mb-3">
                         <label class="form-label">Select Department</label>
                         <select name="department_id" class="form-select">
@@ -91,16 +97,7 @@ $departments->data_seek(0);
                 <h5 class="mb-0"><i class="fas fa-globe me-2"></i>Update All Departments</h5>
             </div>
             <div class="card-body">
-                <form method="POST">
-                    <p class="text-muted">Set the same passing grade for all departments.</p>
-                    <div class="input-group mb-3">
-                        <input type="number" name="passing_grade" class="form-control" value="75" min="50" max="100" step="0.5" required>
-                        <span class="input-group-text">%</span>
-                        <button type="submit" name="update_all_passing" class="btn btn-secondary">
-                            <i class="fas fa-save me-1"></i>Apply to All
-                        </button>
-                    </div>
-                </form>
+                <p class="text-muted mb-0">Bulk updates are disabled for security. Update each department individually.</p>
             </div>
         </div>
     </div>

@@ -1,13 +1,12 @@
 <?php
-$teacher_id = $_SESSION['user_id'];
-$user = $conn->query("SELECT * FROM system_users WHERE id = " . intval($teacher_id))->fetch_assoc();
-$teacher_name = $user['first_name'] . ' ' . $user['last_name'];
+$teacher_id = intval($_SESSION['user_id']);
+$user = $conn->query("SELECT id, first_name, last_name, email, employee_id, department_id FROM system_users WHERE id = $teacher_id")->fetch_assoc();
 
 // Get all subjects handled by this teacher
-$all_subjects = $conn->query("SELECT s.*, c.name as course_name, c.department_id
+$all_subjects = $conn->query("SELECT s.id, s.subject_code, s.description, s.units, s.schedule, s.room, s.max_students, s.is_active, c.name as course_name
     FROM subjects s 
     LEFT JOIN courses c ON s.course_code = c.code 
-    WHERE s.instructor LIKE '%" . $conn->real_escape_string($teacher_name) . "%'
+    WHERE s.instructor_id = $teacher_id
     ORDER BY s.year_level, s.semester");
 
 $subject_count = $all_subjects ? $all_subjects->num_rows : 0;
@@ -172,6 +171,7 @@ if (isset($_POST['change_password'])) {
             </div>
             <div class="card-body">
                 <form method="POST">
+    <?php echo csrf_field(); ?>
                     <div class="row g-3">
                         <div class="col-md-12">
                             <label class="form-label">Current Password</label>

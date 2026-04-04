@@ -6,8 +6,8 @@ if (!isset($_GET['id'])) {
     exit;
 }
 
-$student_number = $_GET['id'];
-$student = $conn->query("SELECT * FROM students WHERE student_number = '$student_number'")->fetch_assoc();
+$student_id = intval($_GET['id']);
+$student = $conn->query("SELECT s.*, c.code as course_code, c.name as course_name FROM students s LEFT JOIN courses c ON s.course_id = c.id WHERE s.id = $student_id")->fetch_assoc();
 
 if (!$student) {
     echo '<div class="alert alert-danger">Student not found.</div>';
@@ -37,7 +37,7 @@ while($f = $fees->fetch_assoc()) {
     $total_amount += $f['amount'];
 }
 
-$total_paid = $conn->query("SELECT COALESCE(SUM(amount), 0) as total FROM payments WHERE student_id = " . $student['id'])->fetch_assoc()['total'];
+$total_paid = $conn->query("SELECT COALESCE(SUM(payment_amount), 0) as total FROM payments WHERE student_id = " . $student['id'])->fetch_assoc()['total'];
 $balance = $total_amount - $total_paid;
 ?>
 
@@ -59,10 +59,10 @@ $balance = $total_amount - $total_paid;
                 <h5><i class="fas fa-user me-2"></i>Student Info</h5>
             </div>
             <div class="card-body">
-                <p><strong>Student Number:</strong> <?php echo $student['student_number']; ?></p>
-                <p><strong>Name:</strong> <?php echo $student['firstname'] . ' ' . $student['lastname']; ?></p>
-                <p><strong>Course:</strong> <?php echo $student['course_code'] ?? '-'; ?></p>
-                <p><strong>Year Level:</strong> <?php echo $student['year_level']; ?></p>
+                <p><strong>Student Number:</strong> <?php echo htmlspecialchars($student['student_number']); ?></p>
+                <p><strong>Name:</strong> <?php echo htmlspecialchars($student['firstname'] . ' ' . $student['lastname']); ?></p>
+                <p><strong>Course:</strong> <?php echo htmlspecialchars($student['course_code'] ?? '-'); ?></p>
+                <p><strong>Year Level:</strong> <?php echo htmlspecialchars($student['year_level']); ?></p>
                 <p><strong>Email:</strong> <?php echo $student['email']; ?></p>
             </div>
         </div>
@@ -115,7 +115,7 @@ $balance = $total_amount - $total_paid;
                         <tbody>
                             <?php while($f = $fees->fetch_assoc()): ?>
                             <tr>
-                                <td><?php echo $f['fee_name']; ?></td>
+                                <td><?php echo htmlspecialchars($f['fee_name']); ?></td>
                                 <td class="text-end">₱<?php echo number_format($f['amount'], 2); ?></td>
                             </tr>
                             <?php endwhile; ?>
@@ -153,8 +153,8 @@ $balance = $total_amount - $total_paid;
                             <?php while($p = $payments->fetch_assoc()): ?>
                             <tr>
                                 <td><?php echo date('M d, Y', strtotime($p['payment_date'])); ?></td>
-                                <td><?php echo $p['or_number']; ?></td>
-                                <td class="text-success fw-bold">₱<?php echo number_format($p['amount'], 2); ?></td>
+                                <td><?php echo htmlspecialchars($p['or_number']); ?></td>
+                                <td class="text-success fw-bold">₱<?php echo number_format($p['payment_amount'], 2); ?></td>
                             </tr>
                             <?php endwhile; ?>
                         </tbody>

@@ -1,14 +1,12 @@
 <?php
 require_once '../config.php';
 
-$message = '';
-
-// CSV Export
+// CSV Export MUST run before any HTML output
 if (isset($_GET['export']) && $_GET['export'] == 'csv') {
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment; filename="subjects.csv"');
     
-    $subjects = $conn->query("SELECT s.*, c.name as course_name, c.code as course_code FROM subjects s LEFT JOIN courses c ON s.course_code = c.code ORDER BY c.code, s.semester, s.subject_code");
+    $subjects = $conn->query("SELECT s.subject_code, s.description, s.units, s.course_code, s.year_level, s.semester, s.schedule, s.room, s.instructor, s.max_students, s.is_active, c.name as course_name, c.code as course_code FROM subjects s LEFT JOIN courses c ON s.course_code = c.code ORDER BY c.code, s.semester, s.subject_code");
     
     $output = fopen('php://output', 'w');
     fputcsv($output, ['Code', 'Description', 'Units', 'Course', 'Year', 'Semester', 'Schedule', 'Room', 'Instructor', 'Max Students', 'Status']);
@@ -32,27 +30,59 @@ if (isset($_GET['export']) && $_GET['export'] == 'csv') {
     exit;
 }
 
+$message = '';
+
 // Handle form submissions
 if (isset($_POST['add_subject'])) {
-    $subject_code = $conn->real_escape_string($_POST['subject_code']);
-    $description = $conn->real_escape_string($_POST['description']);
+    $description = trim($_POST['description']);
     $units = intval($_POST['units']);
-    $course_code = $conn->real_escape_string($_POST['course_code']);
-    $semester = $conn->real_escape_string($_POST['semester']);
+    $course_code = trim($_POST['course_code']);
+    $semester = trim($_POST['semester']);
     $year_level = intval($_POST['year_level']);
-    $schedule = $conn->real_escape_string($_POST['schedule']);
-    $room = $conn->real_escape_string($_POST['room']);
-    $instructor = $conn->real_escape_string($_POST['instructor']);
     $max_students = intval($_POST['max_students']);
     
-    // Inline insert to avoid complex binding
-    $sql = "INSERT INTO subjects (subject_code, description, units, course_code, year_level, semester, schedule, room, instructor, max_students, is_active) VALUES ('$subject_code', '$description', $units, '$course_code', $year_level, '$semester', '$schedule', '$room', '$instructor', $max_students, 1)";
-    $conn->query($sql);
+    // Auto-generate subject code from description
+    $words = explode(' ', $description);
+    $prefix = strtoupper(substr(preg_replace('/[^a-zA-Z]/', '', $words[0]), 0, 4));
+    $num = $conn->query("SELECT COUNT(*) as c FROM subjects WHERE course_code = '$course_code' AND year_level = $year_level AND semester = '$semester'")->fetch_assoc()['c'] + 1;
+    $subject_code = $prefix . str_pad($num, 3, '0', STR_PAD_LEFT);
     
-    if ($conn->affected_rows > 0) {
-        $message = '<div class="alert alert-success">Subject added successfully!</div>';
+    if (empty($course_code)) {
+        $message = '<div class="alert alert-danger">Please select a valid course!</div>';
     } else {
-        $message = '<div class="alert alert-danger">Error adding subject: ' . $conn->error . '</div>';
+        // Get department_id from the selected course
+        $course_data = $conn->query("SELECT id, department_id FROM courses WHERE code = '$course_code' LIMIT 1")->fetch_assoc();
+        $dept_id = $course_data ? intval($course_data['department_id']) : null;
+        
+        if (!$dept_id) {
+            $message = '<div class="alert alert-warning">Course "' . htmlspecialchars($course_code) . '" has no department assigned. Please fix the course first.</div>';
+        } else {
+    
+    // Check for duplicate
+    $check = $conn->prepare("SELECT id FROM subjects WHERE subject_code = ? AND course_code = ? AND year_level = ? AND semester = ?");
+    $check->bind_param("ssis", $subject_code, $course_code, $year_level, $semester);
+    $check->execute();
+    $check_result = $check->get_result();
+    $exists = $check_result->fetch_assoc();
+    $check->close();
+    
+    if ($exists) {
+        $message = '<div class="alert alert-warning">Subject already exists for this course/year/semester!</div>';
+    } else {
+        try {
+            $stmt = $conn->prepare("INSERT INTO subjects (subject_code, description, units, course_code, department_id, year_level, semester, max_students, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)");
+            $stmt->bind_param("sssisii", $subject_code, $description, $units, $course_code, $dept_id, $year_level, $semester, $max_students);
+            if ($stmt->execute()) {
+                $message = '<div class="alert alert-success">Subject added successfully!</div>';
+            } else {
+                $message = '<div class="alert alert-warning">Subject may already exist. Please refresh and check the list.</div>';
+            }
+            $stmt->close();
+        } catch (Exception $e) {
+            $message = '<div class="alert alert-warning">Subject already exists. Please refresh and check the list.</div>';
+        }
+        }
+    }
     }
 }
 
@@ -92,10 +122,7 @@ $courses = $conn->query("SELECT DISTINCT code, name FROM courses ORDER BY code")
             </div>
             <div class="card-body">
                 <form method="POST">
-                    <div class="mb-2">
-                        <label>Subject Code *</label>
-                        <input type="text" name="subject_code" class="form-control" required placeholder="e.g., MATH101">
-                    </div>
+    <?php echo csrf_field(); ?>
                     <div class="mb-2">
                         <label>Description *</label>
                         <input type="text" name="description" class="form-control" required placeholder="e.g., College Mathematics">
@@ -109,7 +136,7 @@ $courses = $conn->query("SELECT DISTINCT code, name FROM courses ORDER BY code")
                         <select name="course_code" class="form-select" required>
                             <option value="">Select Course</option>
                             <?php while($c = $courses->fetch_assoc()): ?>
-                                <option value="<?php echo $c['code']; ?>"><?php echo $c['code']; ?></option>
+                                <option value="<?php echo $c['code']; ?>"><?php echo htmlspecialchars($c['code'] . ' - ' . $c['name']); ?></option>
                             <?php endwhile; ?>
                         </select>
                     </div>
@@ -131,20 +158,8 @@ $courses = $conn->query("SELECT DISTINCT code, name FROM courses ORDER BY code")
                         </select>
                     </div>
                     <div class="mb-2">
-                        <label>Schedule</label>
-                        <input type="text" name="schedule" class="form-control" placeholder="e.g., MWF 9:00-10:00">
-                    </div>
-                    <div class="mb-2">
-                        <label>Room</label>
-                        <input type="text" name="room" class="form-control" placeholder="e.g., Room 101">
-                    </div>
-                    <div class="mb-2">
-                        <label>Instructor</label>
-                        <input type="text" name="instructor" class="form-control" placeholder="e.g., Mr. Smith">
-                    </div>
-                    <div class="mb-2">
                         <label>Max Students</label>
-                        <input type="number" name="max_students" class="form-control" value="30" min="1">
+                        <input type="number" name="max_students" class="form-control" value="40" min="1">
                     </div>
                     <button type="submit" name="add_subject" class="btn btn-primary w-100">Add Subject</button>
                 </form>
@@ -186,9 +201,9 @@ $courses = $conn->query("SELECT DISTINCT code, name FROM courses ORDER BY code")
                             ?>
                             <tr>
                                 <td><?php echo $counter++; ?></td>
-                                <td><strong><?php echo $row['subject_code']; ?></strong></td>
-                                <td><?php echo $row['description']; ?></td>
-                                <td><span class="badge bg-info"><?php echo $row['units']; ?></span></td>
+                                <td><strong><?php echo htmlspecialchars($row['subject_code']); ?></strong></td>
+                                <td><?php echo htmlspecialchars($row['description']); ?></td>
+                                <td><span class="badge bg-info"><?php echo htmlspecialchars($row['units']); ?></span></td>
                                 <td><?php echo ($row['course_name'] ?? '') . ' (' . ($row['course_code'] ?? '-') . ')'; ?></td>
                                 <td><?php echo $row['year_level']; ?></td>
                                 <td><?php echo $row['semester']; ?></td>
@@ -198,6 +213,7 @@ $courses = $conn->query("SELECT DISTINCT code, name FROM courses ORDER BY code")
                                 <td><?php echo $row['max_students']; ?></td>
                                 <td>
                                     <form method="POST" style="display:inline;">
+    <?php echo csrf_field(); ?>
                                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                         <input type="hidden" name="current_status" value="<?php echo $row['is_active']; ?>">
                                         <button type="submit" name="toggle_status" class="btn btn-sm btn-<?php echo $row['is_active'] ? 'success' : 'secondary'; ?>" title="<?php echo $row['is_active'] ? 'Deactivate' : 'Activate'; ?>">
@@ -207,6 +223,7 @@ $courses = $conn->query("SELECT DISTINCT code, name FROM courses ORDER BY code")
                                 </td>
                                 <td>
                                     <form method="POST" style="display:inline;">
+    <?php echo csrf_field(); ?>
                                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                         <button type="submit" name="delete_subject" class="btn btn-sm btn-danger" title="Delete" onclick="return confirm('Delete this subject?')">
                                             <i class="fas fa-trash"></i>

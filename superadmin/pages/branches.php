@@ -65,6 +65,7 @@ $branches = $conn->query("SELECT * FROM branches ORDER BY is_main DESC, name ASC
     </div>
     <div class="card-body">
         <form method="POST" class="form-row">
+    <?php echo csrf_field(); ?>
             <input type="hidden" name="action" value="add">
             <div class="form-group">
                 <label class="form-label">Branch Code</label>
@@ -131,6 +132,7 @@ $branches = $conn->query("SELECT * FROM branches ORDER BY is_main DESC, name ASC
                     <td>
                         <?php if (!$branch['is_main']): ?>
                             <form method="POST" class="d-inline" onsubmit="return confirm('Delete this branch?');">
+    <?php echo csrf_field(); ?>
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="id" value="<?php echo $branch['id']; ?>">
                                 <button type="submit" class="btn btn-icon btn-ghost text-danger" title="Delete">

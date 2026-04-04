@@ -189,13 +189,15 @@ CREATE TABLE subjects (
     lab_units DECIMAL(3,1) DEFAULT 0,
     year_level INT DEFAULT 1,
     semester VARCHAR(20), -- 1st, 2nd, Summer
-    instructor VARCHAR(255),
+    instructor VARCHAR(255), -- Legacy field, kept for backward compatibility
+    instructor_id INT, -- FK to system_users.id (preferred)
     room VARCHAR(50),
     schedule VARCHAR(100),
     max_students INT DEFAULT 40,
     is_active TINYINT(1) DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE SET NULL,
+    FOREIGN KEY (instructor_id) REFERENCES system_users(id) ON DELETE SET NULL,
     UNIQUE KEY unique_subject (subject_code, course_code, year_level, semester)
 );
 
@@ -255,6 +257,7 @@ CREATE TABLE students (
     previous_school_address VARCHAR(500),
     
     password VARCHAR(255),
+    password_encrypted TEXT,
     is_active TINYINT(1) DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -267,6 +270,7 @@ CREATE TABLE system_users (
     username VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    password_encrypted TEXT,
     role_id INT NOT NULL,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
@@ -517,6 +521,70 @@ CREATE TABLE notifications (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES system_users(id)
 );
+
+-- ================================================
+-- TUITION & PERMITS
+-- ================================================
+
+CREATE TABLE tuition_installments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT NOT NULL,
+    total_tuition DECIMAL(10,2) NOT NULL,
+    per_period DECIMAL(10,2) NOT NULL,
+    school_year VARCHAR(9) NOT NULL,
+    semester VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_installment (student_id, school_year, semester)
+);
+
+CREATE TABLE permits (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT NOT NULL,
+    term VARCHAR(20) NOT NULL,
+    period VARCHAR(20) NOT NULL,
+    school_year VARCHAR(9) NOT NULL,
+    semester VARCHAR(20) NOT NULL,
+    total_tuition DECIMAL(10,2) NOT NULL,
+    amount_due DECIMAL(10,2) NOT NULL,
+    total_paid DECIMAL(10,2) NOT NULL,
+    status ENUM('Valid', 'Not Valid') NOT NULL DEFAULT 'Not Valid',
+    issued_by INT,
+    issued_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+    FOREIGN KEY (issued_by) REFERENCES system_users(id)
+);
+
+-- ================================================
+-- INDEXES FOR PERFORMANCE
+-- ================================================
+
+CREATE INDEX idx_payments_student_id ON payments(student_id);
+CREATE INDEX idx_payments_date ON payments(payment_date);
+CREATE INDEX idx_payments_received_by ON payments(received_by);
+CREATE INDEX idx_student_fees_student ON student_fees(student_id);
+CREATE INDEX idx_enrollments_status ON enrollments(status);
+CREATE INDEX idx_enrollments_student ON enrollments(student_id);
+CREATE INDEX idx_permits_student ON permits(student_id);
+CREATE INDEX idx_grades_student_subject ON grades(student_id, subject_id);
+CREATE INDEX idx_grades_status ON grades(grade_status);
+CREATE INDEX idx_grades_teacher ON grades(teacher_id);
+CREATE INDEX idx_students_enrollment ON students(enrollment_status);
+CREATE INDEX idx_students_course ON students(course_id);
+CREATE INDEX idx_subjects_course ON subjects(course_code);
+CREATE INDEX idx_system_users_role ON system_users(role_id);
+CREATE INDEX idx_system_users_dept ON system_users(department_id);
+CREATE INDEX idx_activity_logs_user ON activity_logs(user_id);
+CREATE INDEX idx_activity_logs_date ON activity_logs(created_at);
+
+-- ================================================
+-- FOREIGN KEY CONSTRAINTS
+-- ================================================
+
+ALTER TABLE payments ADD CONSTRAINT fk_payments_received_by FOREIGN KEY (received_by) REFERENCES system_users(id) ON DELETE SET NULL;
+ALTER TABLE student_fees ADD CONSTRAINT fk_student_fees_student FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE;
+ALTER TABLE permits ADD CONSTRAINT fk_permits_issued_by FOREIGN KEY (issued_by) REFERENCES system_users(id) ON DELETE SET NULL;
+ALTER TABLE grades ADD CONSTRAINT fk_grades_teacher FOREIGN KEY (teacher_id) REFERENCES system_users(id) ON DELETE SET NULL;
 
 -- ================================================
 -- ADD SAMPLE DATA

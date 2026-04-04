@@ -7,7 +7,7 @@ $enrollment = $conn->query("SELECT * FROM enrollments WHERE student_id = $studen
 ?>
 <div class="row">
     <div class="col-md-12">
-        <h3>Welcome, <?php echo $student['firstname']; ?>!</h3>
+        <h3>Welcome, <?php echo htmlspecialchars($student['firstname']); ?>!</h3>
         <p class="text-muted">Here's your enrollment summary</p>
     </div>
 </div>
@@ -19,7 +19,7 @@ $enrollment = $conn->query("SELECT * FROM enrollments WHERE student_id = $studen
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="text-uppercase">Student Number</h6>
-                        <h4><?php echo $student['student_number']; ?></h4>
+                        <h4><?php echo htmlspecialchars($student['student_number']); ?></h4>
                     </div>
                     <i class="fas fa-id-card fa-3x opacity-50"></i>
                 </div>
@@ -32,7 +32,7 @@ $enrollment = $conn->query("SELECT * FROM enrollments WHERE student_id = $studen
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="text-uppercase">Enrollment Status</h6>
-                        <h4><?php echo $enrollment['status'] ?? 'Not Enrolled'; ?></h4>
+                        <h4><?php echo htmlspecialchars($enrollment['status'] ?? 'Not Enrolled'); ?></h4>
                     </div>
                     <i class="fas fa-clipboard-check fa-3x opacity-50"></i>
                 </div>
@@ -45,7 +45,7 @@ $enrollment = $conn->query("SELECT * FROM enrollments WHERE student_id = $studen
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h6 class="text-uppercase">Current Year</h6>
-                        <h4><?php echo $student['year_level']; ?> Year</h4>
+                        <h4><?php echo htmlspecialchars($student['year_level']); ?> Year</h4>
                     </div>
                     <i class="fas fa-layer-group fa-3x opacity-50"></i>
                 </div>
@@ -64,23 +64,23 @@ $enrollment = $conn->query("SELECT * FROM enrollments WHERE student_id = $studen
                 <table class="table table-borderless">
                     <tr>
                         <td><strong>Course:</strong></td>
-                        <td><?php echo $student['course_code'] ?? 'Not assigned'; ?></td>
+                        <td><?php echo htmlspecialchars($student['course_code'] ?? 'Not assigned'); ?></td>
                     </tr>
                     <tr>
                         <td><strong>Major:</strong></td>
-                        <td><?php echo $student['major'] ?? 'N/A'; ?></td>
+                        <td><?php echo htmlspecialchars($student['major'] ?? 'N/A'); ?></td>
                     </tr>
                     <tr>
                         <td><strong>Year Level:</strong></td>
-                        <td><?php echo $student['year_level']; ?> Year</td>
+                        <td><?php echo htmlspecialchars($student['year_level']); ?> Year</td>
                     </tr>
                     <tr>
                         <td><strong>School Year:</strong></td>
-                        <td><?php echo $enrollment['school_year'] ?? 'N/A'; ?></td>
+                        <td><?php echo htmlspecialchars($enrollment['school_year'] ?? 'N/A'); ?></td>
                     </tr>
                     <tr>
                         <td><strong>Semester:</strong></td>
-                        <td><?php echo $enrollment['semester'] ?? 'N/A'; ?></td>
+                        <td><?php echo htmlspecialchars($enrollment['semester'] ?? 'N/A'); ?></td>
                     </tr>
                 </table>
             </div>

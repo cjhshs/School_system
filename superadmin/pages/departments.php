@@ -127,7 +127,8 @@ $edit_dept = null;
 if ($edit_dept_id) {
     $edit_dept = $conn->query("SELECT * FROM departments WHERE id = $edit_dept_id")->fetch_assoc();
 }
-<?php include __DIR__ . '/../../registrar/pages/move_courses_inline.php'; ?>
+include __DIR__ . '/../../registrar/pages/move_courses_inline.php';
+?>
 
 <style>
 .dept-card {
@@ -317,6 +318,7 @@ if ($edit_dept_id) {
         <div class="dept-title"><i class="fas fa-plus-circle"></i> Step 1: Create New Department</div>
     </div>
     <form method="POST" class="row g-3">
+    <?php echo csrf_field(); ?>
         <input type="hidden" name="action" value="create_department">
         <div class="col-md-6">
             <label class="form-label">Department Name</label>
@@ -373,6 +375,7 @@ if ($edit_dept_id) {
                 <?php endif; ?>
                 
                 <form method="POST">
+    <?php echo csrf_field(); ?>
                     <input type="hidden" name="action" value="assign_dean">
                     <input type="hidden" name="department_id" value="<?php echo $edit_dept_id; ?>">
                     <div class="mb-3">
@@ -413,6 +416,7 @@ if ($edit_dept_id) {
                 </div>
                 
                 <form method="POST">
+    <?php echo csrf_field(); ?>
                     <input type="hidden" name="action" value="assign_courses">
                     <input type="hidden" name="department_id" value="<?php echo $edit_dept_id; ?>">
                     <div class="mb-3" style="max-height: 200px; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px; padding: 10px;">
@@ -447,6 +451,7 @@ if ($edit_dept_id) {
     <!-- Delete Department -->
     <div class="mt-3 pt-3 border-top">
         <form method="POST" onsubmit="return confirm('Delete this department? Courses will become unassigned.');">
+    <?php echo csrf_field(); ?>
             <input type="hidden" name="action" value="delete_department">
             <input type="hidden" name="department_id" value="<?php echo $edit_dept_id; ?>">
             <button type="submit" class="btn btn-danger btn-sm">

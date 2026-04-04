@@ -1,6 +1,7 @@
 <?php
 require_once '../config.php';
 require_once '../includes/rbac.php';
+require_once '../includes/cache.php';
 
 if (!isset($_SESSION['student_id'])) {
     header('Location: login.php');

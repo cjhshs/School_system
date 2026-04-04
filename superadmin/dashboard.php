@@ -28,20 +28,32 @@ $user_name = $_SESSION['username'];
 $user_role = $_SESSION['user_role'];
 
 include '../includes/portal_layout_start.php';
+require_once dirname(__DIR__) . '/includes/cache.php';
 
-// Get statistics
-$total_users = $conn->query("SELECT COUNT(*) as count FROM system_users")->fetch_assoc()['count'];
-$total_deans = $conn->query("SELECT COUNT(*) as count FROM system_users WHERE role_id = 3")->fetch_assoc()['count'];
-$total_teachers = $conn->query("SELECT COUNT(*) as count FROM system_users WHERE role_id = 4")->fetch_assoc()['count'];
-$total_students = $conn->query("SELECT COUNT(*) as count FROM students")->fetch_assoc()['count'];
-$total_departments = $conn->query("SELECT COUNT(*) as count FROM departments")->fetch_assoc()['count'];
+// Get statistics with caching (30 second TTL)
+$stats = Cache::get('superadmin_stats');
+if (!$stats) {
+    $stats = [
+        'total_users' => $conn->query("SELECT COUNT(*) as c FROM system_users")->fetch_assoc()['c'],
+        'total_deans' => $conn->query("SELECT COUNT(*) as c FROM system_users WHERE role_id = 3")->fetch_assoc()['c'],
+        'total_teachers' => $conn->query("SELECT COUNT(*) as c FROM system_users WHERE role_id = 4")->fetch_assoc()['c'],
+        'total_students' => $conn->query("SELECT COUNT(*) as c FROM students")->fetch_assoc()['c'],
+        'total_departments' => $conn->query("SELECT COUNT(*) as c FROM departments")->fetch_assoc()['c'],
+    ];
+    Cache::set('superadmin_stats', $stats, 30);
+}
+$total_users = $stats['total_users'];
+$total_deans = $stats['total_deans'];
+$total_teachers = $stats['total_teachers'];
+$total_students = $stats['total_students'];
+$total_departments = $stats['total_departments'];
 
-// Recent activity (table may not exist)
+// Recent activity
 $recent_logs = null;
 try {
-    $recent_logs = $conn->query("SELECT * FROM activity_logs ORDER BY created_at DESC LIMIT 5");
+    $recent_logs = $conn->query("SELECT al.*, su.username, su.first_name, su.last_name FROM activity_logs al LEFT JOIN system_users su ON al.user_id = su.id ORDER BY al.created_at DESC LIMIT 5");
 } catch (Exception $e) {
-    // Table doesn't exist, will show empty state
+    // Table doesn't exist
 }
 
 switch($page) {

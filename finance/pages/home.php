@@ -3,9 +3,9 @@ require_once '../config.php';
 
 // Get finance stats
 $total_students = $conn->query("SELECT COUNT(*) as count FROM students")->fetch_assoc()['count'];
-$total_collected = $conn->query("SELECT COALESCE(SUM(amount), 0) as total FROM payments WHERE MONTH(payment_date) = MONTH(CURDATE())")->fetch_assoc()['total'];
+$total_collected = $conn->query("SELECT COALESCE(SUM(payment_amount), 0) as total FROM payments WHERE MONTH(payment_date) = MONTH(CURDATE())")->fetch_assoc()['total'];
 $total_balance = $conn->query("
-    SELECT COALESCE(SUM(sf.amount), 0) - COALESCE((SELECT SUM(p.amount) FROM payments p), 0) as balance 
+    SELECT COALESCE(SUM(sf.amount), 0) - COALESCE((SELECT SUM(p.payment_amount) FROM payments p), 0) as balance 
     FROM student_fees sf
 ")->fetch_assoc()['balance'];
 
@@ -21,8 +21,8 @@ $recent_payments = $conn->query("
 $pending_students = $conn->query("
     SELECT s.student_number, s.firstname, s.lastname, 
            COALESCE(SUM(sf.amount), 0) as total_fee,
-           COALESCE((SELECT SUM(p.amount) FROM payments p WHERE p.student_id = s.id), 0) as paid,
-           (COALESCE(SUM(sf.amount), 0) - COALESCE((SELECT SUM(p.amount) FROM payments p WHERE p.student_id = s.id), 0)) as balance
+           COALESCE((SELECT SUM(p.payment_amount) FROM payments p WHERE p.student_id = s.id), 0) as paid,
+           (COALESCE(SUM(sf.amount), 0) - COALESCE((SELECT SUM(p.payment_amount) FROM payments p WHERE p.student_id = s.id), 0)) as balance
     FROM students s
     LEFT JOIN student_fees sf ON s.id = sf.student_id
     GROUP BY s.id
@@ -99,7 +99,7 @@ $pending_students = $conn->query("
                             <tr>
                                 <td><?php echo date('M d, Y', strtotime($row['payment_date'])); ?></td>
                                 <td><?php echo $row['student_number'] . '<br><small>' . $row['firstname'] . ' ' . $row['lastname'] . '</small>'; ?></td>
-                                <td class="text-success fw-bold">₱<?php echo number_format($row['amount'], 2); ?></td>
+                                <td class="text-success fw-bold">₱<?php echo number_format($row['payment_amount'], 2); ?></td>
                             </tr>
                             <?php endwhile; ?>
                         </tbody>

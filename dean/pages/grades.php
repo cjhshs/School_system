@@ -2,25 +2,41 @@
 require_once '../config.php';
 
 $message = '';
+$dean_id = $_SESSION['user_id'];
+$dean = $conn->query("SELECT department_id FROM system_users WHERE id = $dean_id")->fetch_assoc();
+$dept_id = $dean['department_id'] ?? 0;
 
 if (isset($_GET['approve'])) {
     $grade_id = intval($_GET['approve']);
-    $conn->query("UPDATE grades SET grade_status = 'Approved', approved_at = NOW() WHERE id = $grade_id");
-    $message = "Grade approved!";
+    $stmt = $conn->prepare("UPDATE grades g JOIN subjects s ON g.subject_id = s.id JOIN courses c ON s.course_code = c.code SET g.grade_status = 'Approved', g.approved_at = NOW() WHERE g.id = ? AND c.department_id = ?");
+    $stmt->bind_param("ii", $grade_id, $dept_id);
+    $stmt->execute();
+    if ($stmt->affected_rows > 0) {
+        logActivity($conn, $dean_id, 'approve_grade', "Approved grade ID: $grade_id");
+        $message = "Grade approved!";
+    } else {
+        $message = "Grade not found or not in your department.";
+    }
 }
 
 if (isset($_GET['approve_all'])) {
-    $conn->query("UPDATE grades SET grade_status = 'Approved', approved_at = NOW() WHERE grade_status = 'Submitted'");
-    $message = "All pending grades approved!";
+    $stmt = $conn->prepare("UPDATE grades g JOIN subjects s ON g.subject_id = s.id JOIN courses c ON s.course_code = c.code SET g.grade_status = 'Approved', g.approved_at = NOW() WHERE g.grade_status = 'Submitted' AND c.department_id = ?");
+    $stmt->bind_param("i", $dept_id);
+    $stmt->execute();
+    $count = $stmt->affected_rows;
+    if ($count > 0) {
+        logActivity($conn, $dean_id, 'approve_all_grades', "Approved $count grades for department $dept_id");
+    }
+    $message = "$count pending grade(s) approved for your department!";
 }
 
 $pending_grades = $conn->query("SELECT g.*, s.firstname, s.lastname, s.student_number, sub.subject_code, sub.description,
-    t.first_name as teacher_first, t.last_name as teacher_last
+    su.first_name as teacher_first, su.last_name as teacher_last
     FROM grades g
     JOIN students s ON g.student_id = s.id
     JOIN subjects sub ON g.subject_id = sub.id
-    LEFT JOIN teachers t ON g.teacher_id = t.id
-    WHERE g.grade_status = 'Submitted'
+    LEFT JOIN system_users su ON g.teacher_id = su.id
+    WHERE g.grade_status = 'Submitted' AND sub.course_code IN (SELECT code FROM courses WHERE department_id = $dept_id)
     ORDER BY sub.subject_code, s.lastname");
 
 $default_passing = $conn->query("SELECT AVG(passing_grade) as avg_grade FROM departments")->fetch_assoc()['avg_grade'] ?? 75;

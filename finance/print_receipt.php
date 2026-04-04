@@ -6,20 +6,20 @@ if (!isset($_GET['id'])) {
     exit;
 }
 
-$student_id = $_GET['id'];
-$student = $conn->query("SELECT * FROM students WHERE id = $student_id")->fetch_assoc();
+$student_id = intval($_GET['id']);
+$student = $conn->query("SELECT id, student_number, firstname, lastname, year_level FROM students WHERE id = $student_id")->fetch_assoc();
 
 if (!$student) {
-    echo '<div class="alert alert-danger">Student not found.</div>';
+    echo '<div class="alert alert-danger">Student not found (ID: ' . htmlspecialchars($student_id) . '). They may have been deleted.</div>';
+    echo '<a href="dashboard.php?page=payments">Back to Payments</a>';
     exit;
 }
 
 // Get fees
 $fees = $conn->query("
-    SELECT sf.*, ft.name as fee_name 
-    FROM student_fees sf 
-    LEFT JOIN fee_types ft ON sf.fee_type_id = ft.id 
-    WHERE sf.student_id = $student_id
+    SELECT fee_name, amount 
+    FROM student_fees 
+    WHERE student_id = $student_id
 ");
 
 // Get payments
@@ -35,11 +35,11 @@ $total_amount = 0;
 if ($fees) {
     while ($f = $fees->fetch_assoc()) {
         $fees_data[] = $f;
-        $total_amount += $f['amount'];
+        $total_amount += floatval($f['amount'] ?? 0);
     }
 }
 
-$total_paid = $conn->query("SELECT COALESCE(SUM(amount), 0) as total FROM payments WHERE student_id = $student_id")->fetch_assoc()['total'];
+$total_paid = $conn->query("SELECT COALESCE(SUM(payment_amount), 0) as total FROM payments WHERE student_id = $student_id")->fetch_assoc()['total'];
 $balance = $total_amount - $total_paid;
 ?>
 <!DOCTYPE html>
@@ -100,7 +100,7 @@ $balance = $total_amount - $total_paid;
         <tbody>
             <?php foreach ($fees_data as $fee): ?>
             <tr>
-                <td><?php echo htmlspecialchars($fee['fee_name']); ?></td>
+                <td><?php echo htmlspecialchars($fee['fee_name'] ?? 'Tuition Fee'); ?></td>
                 <td class="text-right">₱<?php echo number_format($fee['amount'], 2); ?></td>
             </tr>
             <?php endforeach; ?>
@@ -134,7 +134,7 @@ $balance = $total_amount - $total_paid;
                 <td><?php echo date('M d, Y', strtotime($p['payment_date'])); ?></td>
                 <td><?php echo htmlspecialchars($p['or_number'] ?? '-'); ?></td>
                 <td><?php echo htmlspecialchars($p['reference_number'] ?? '-'); ?></td>
-                <td class="text-right">₱<?php echo number_format($p['amount'], 2); ?></td>
+                <td class="text-right">₱<?php echo number_format($p['payment_amount'], 2); ?></td>
             </tr>
             <?php 
                 endwhile;

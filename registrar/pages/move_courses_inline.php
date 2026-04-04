@@ -1,6 +1,6 @@
 <?php
 // Inline Move Courses panel for Departments (Phase A)
-require_once '../../config.php';
+require_once __DIR__ . '/../../config.php';
 
 if (!isset($_SESSION['user_id'])) {
     echo '<div class="alert alert-warning">Please login to move courses.</div>';

@@ -101,6 +101,7 @@ $courses = $conn->query("SELECT * FROM courses WHERE department_id = $dept_id OR
             </div>
             <div class="card-body">
                 <form method="POST">
+    <?php echo csrf_field(); ?>
                     <input type="hidden" name="update_department" value="1">
                     <div class="form-group">
                         <label class="form-label">Minimum Passing Grade (%)</label>

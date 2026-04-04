@@ -1,9 +1,10 @@
 <?php
 require_once '../config.php';
+require_once dirname(dirname(__DIR__)) . '/includes/file_upload.php';
 
 $student_id = $_SESSION['student_id'];
-$student = $conn->query("SELECT * FROM students WHERE id = $student_id")->fetch_assoc();
-$enrollment = $conn->query("SELECT * FROM enrollments WHERE student_id = $student_id ORDER BY created_at DESC LIMIT 1")->fetch_assoc();
+$student = $conn->query("SELECT id, student_number, firstname, middle_name, lastname, email, phone, address, city, province, barangay, zipcode, course_id, year_level, gender, birthdate, password, password_encrypted FROM students WHERE id = $student_id")->fetch_assoc();
+$enrollment = $conn->query("SELECT id, status, school_year, semester, created_at FROM enrollments WHERE student_id = $student_id ORDER BY created_at DESC LIMIT 1")->fetch_assoc();
 
 $message = '';
 
@@ -13,9 +14,12 @@ if (isset($_POST['change_password'])) {
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
     
-    // Verify current password
-    $stored_password = $student['password'];
-    $password_valid = password_verify($current_password, $stored_password);
+    $password_valid = false;
+    if (substr($student['password'], 0, 4) === '$2y$') {
+        $password_valid = password_verify($current_password, $student['password']);
+    } elseif ($current_password === $student['password']) {
+        $password_valid = true;
+    }
     
     if (!$password_valid) {
         $message = '<div class="alert alert-danger">Current password is incorrect.</div>';
@@ -25,9 +29,11 @@ if (isset($_POST['change_password'])) {
         $message = '<div class="alert alert-danger">Password must be at least 6 characters.</div>';
     } else {
         $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-        $conn->query("UPDATE students SET password = '$hashed_password' WHERE id = $student_id");
+        $encrypted = encryptPassword($new_password);
+        $stmt = $conn->prepare("UPDATE students SET password = ?, password_encrypted = ? WHERE id = ?");
+        $stmt->bind_param("ssi", $hashed_password, $encrypted, $student_id);
+        $stmt->execute();
         $message = '<div class="alert alert-success">Password changed successfully!</div>';
-        $student = $conn->query("SELECT * FROM students WHERE id = $student_id")->fetch_assoc();
     }
 }
 ?>
@@ -67,12 +73,12 @@ if (isset($_POST['change_password'])) {
                 <div class="row">
                     <div class="col-md-6">
                         <p><strong>First Name:</strong> <?php echo $student['firstname']; ?></p>
-                        <p><strong>Middle Name:</strong> <?php echo $student['middle_name'] ?: 'N/A'; ?></p>
+                        <p><strong>Middle Name:</strong> <?php echo $student['middle_name'] ?? 'N/A'; ?></p>
                         <p><strong>Last Name:</strong> <?php echo $student['lastname']; ?></p>
-                        <p><strong>Birth Date:</strong> <?php echo $student['birthdate'] ?: 'N/A'; ?></p>
+                        <p><strong>Birth Date:</strong> <?php echo $student['birthdate'] ?? 'N/A'; ?></p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Gender:</strong> <?php echo $student['gender'] ?: 'N/A'; ?></p>
+                        <p><strong>Gender:</strong> <?php echo $student['gender'] ?? 'N/A'; ?></p>
                     </div>
                 </div>
             </div>
@@ -104,6 +110,7 @@ if (isset($_POST['change_password'])) {
             </div>
             <div class="card-body">
                 <form method="POST">
+    <?php echo csrf_field(); ?>
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Current Password</label>

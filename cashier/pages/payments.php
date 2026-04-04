@@ -13,19 +13,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
         // Generate OR Number
         $or_number = 'OR-' . date('Ymd') . '-' . str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
         
-        // Get total fees for this student
-        $student = $conn->query("SELECT s.*, c.code as course_code FROM students s LEFT JOIN courses c ON s.course_id = c.id WHERE s.id = $student_id")->fetch_assoc();
+        // Get total fees from student_fees (actual per-student records)
+        $total_fees_row = $conn->query("SELECT COALESCE(SUM(amount), 0) as total FROM student_fees WHERE student_id = $student_id")->fetch_assoc();
+        $total_fees = floatval($total_fees_row['total']);
         
-        // Get tuition
-        $tuition = $conn->query("SELECT * FROM tuition_fees WHERE course_code = '{$student['course_code']}' AND year_level = {$student['year_level']}")->fetch_assoc();
+        // If no student_fees, fall back to tuition_fees template
+        if ($total_fees == 0) {
+            $student = $conn->query("SELECT s.*, c.code as course_code FROM students s LEFT JOIN courses c ON s.course_id = c.id WHERE s.id = $student_id")->fetch_assoc();
+            if ($student && $student['course_code']) {
+                $tuition = $conn->query("SELECT * FROM tuition_fees WHERE course_code = '{$student['course_code']}' AND year_level = {$student['year_level']}")->fetch_assoc();
+                $total_fees = $tuition ? ($tuition['tuition_amount'] + $tuition['miscellaneous_amount'] + $tuition['laboratory_amount'] + $tuition['other_fees']) : 0;
+                $course_fees = $conn->query("SELECT COALESCE(SUM(amount), 0) as total FROM course_fees WHERE course_code = '{$student['course_code']}'");
+                $total_fees += $course_fees->fetch_assoc()['total'];
+            }
+        }
         
-        $total_fees = $tuition ? ($tuition['tuition_amount'] + $tuition['miscellaneous_amount'] + $tuition['laboratory_amount'] + $tuition['other_fees']) : 0;
+        // Get total paid
+        $paid_row = $conn->query("SELECT COALESCE(SUM(payment_amount), 0) as total FROM payments WHERE student_id = $student_id")->fetch_assoc();
+        $total_paid = floatval($paid_row['total']);
+        $remaining_balance = max(0, $total_fees - $total_paid);
         
-        // Add course fees
-        $course_fees = $conn->query("SELECT COALESCE(SUM(amount), 0) as total FROM course_fees WHERE course_code = '{$student['course_code']}'");
-        $total_fees += $course_fees->fetch_assoc()['total'];
-        
-        $balance = max(0, $total_fees - $amount);
+        $balance = max(0, $remaining_balance - $amount);
         
         $stmt = $conn->prepare("INSERT INTO payments (student_id, or_number, payment_amount, total_fees, balance, payment_method, payment_date, school_year, semester, received_by) VALUES (?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?)");
         $stmt->bind_param("isdddsssi", $student_id, $or_number, $amount, $total_fees, $balance, $payment_method, $school_year, $semester, $_SESSION['user_id']);
@@ -111,13 +119,17 @@ $school_years = $conn->query("SELECT * FROM school_years ORDER BY year DESC");
                 WHERE s.id = $student_id")->fetch_assoc();
             
             if ($student):
-                // Get tuition
-                $tuition = $conn->query("SELECT * FROM tuition_fees WHERE course_code = '{$student['course_code']}' AND year_level = {$student['year_level']}")->fetch_assoc();
-                $total_fees = $tuition ? ($tuition['tuition_amount'] + $tuition['miscellaneous_amount'] + $tuition['laboratory_amount'] + $tuition['other_fees']) : 0;
+                // Get total fees from student_fees (actual per-student records)
+                $total_fees_row = $conn->query("SELECT COALESCE(SUM(amount), 0) as total FROM student_fees WHERE student_id = $student_id")->fetch_assoc();
+                $total_fees = floatval($total_fees_row['total']);
                 
-                // Get course fees
-                $cf = $conn->query("SELECT COALESCE(SUM(amount), 0) as total FROM course_fees WHERE course_code = '{$student['course_code']}'")->fetch_assoc();
-                $total_fees += $cf['total'];
+                // If no student_fees, fall back to tuition_fees template
+                if ($total_fees == 0 && $student['course_code']) {
+                    $tuition = $conn->query("SELECT * FROM tuition_fees WHERE course_code = '{$student['course_code']}' AND year_level = {$student['year_level']}")->fetch_assoc();
+                    $total_fees = $tuition ? ($tuition['tuition_amount'] + $tuition['miscellaneous_amount'] + $tuition['laboratory_amount'] + $tuition['other_fees']) : 0;
+                    $cf = $conn->query("SELECT COALESCE(SUM(amount), 0) as total FROM course_fees WHERE course_code = '{$student['course_code']}'")->fetch_assoc();
+                    $total_fees += $cf['total'];
+                }
                 
                 // Get payments made
                 $paid = $conn->query("SELECT COALESCE(SUM(payment_amount), 0) as total FROM payments WHERE student_id = $student_id")->fetch_assoc();
@@ -145,6 +157,7 @@ $school_years = $conn->query("SELECT * FROM school_years ORDER BY year DESC");
                     
                     <h6 class="mb-3">Process Payment</h6>
                     <form method="POST">
+    <?php echo csrf_field(); ?>
                         <input type="hidden" name="action" value="process_payment">
                         <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                         <div class="row g-3">
