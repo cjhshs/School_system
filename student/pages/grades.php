@@ -13,10 +13,9 @@ if ($dept_result && $dept_result->num_rows > 0) {
 $enrolled_subjects = $conn->query("
     SELECT sub.id, sub.subject_code, sub.description, sub.units, sub.semester, sub.year_level,
            g.id as grade_id, g.prelim, g.midterm, g.final_exam, g.final_grade, g.remarks, g.grade_status
-    FROM student_subjects ss
-    JOIN subjects sub ON ss.subject_id = sub.id
-    LEFT JOIN grades g ON sub.id = g.subject_id AND g.student_id = $student_id
-    WHERE ss.student_id = $student_id
+    FROM grades g
+    JOIN subjects sub ON g.subject_id = sub.id
+    WHERE g.student_id = $student_id
     ORDER BY sub.semester, sub.subject_code
 ");
 

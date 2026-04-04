@@ -60,6 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['update_subject'])) {
+        error_log("DEAN UPDATE_SUBJECT: POST=" . print_r($_POST, true));
+        
         $subject_id = intval($_POST['subject_id']);
         $schedule = trim($_POST['schedule']);
         $room = trim($_POST['room']);
@@ -98,11 +100,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             
             if (!$message) {
-                $stmt = $conn->prepare("UPDATE subjects SET schedule = ?, room = ?, instructor_id = ?, max_students = ?, is_active = ? WHERE id = ?");
-                $stmt->bind_param("ssiiii", $schedule, $room, $instructor_id, $capacity, $is_open, $subject_id);
-                $stmt->execute();
-                $message = "Subject updated successfully!";
-                $message_type = 'success';
+                $schedule_val = $schedule ? "'" . $conn->real_escape_string($schedule) . "'" : "NULL";
+                $room_val = $room ? "'" . $conn->real_escape_string($room) . "'" : "NULL";
+                $instructor_val = $instructor_id ? intval($instructor_id) : "NULL";
+                $capacity_val = intval($capacity);
+                $is_open_val = intval($is_open);
+                $sid = intval($subject_id);
+                
+                $sql = "UPDATE subjects SET schedule = $schedule_val, room = $room_val, instructor_id = $instructor_val, max_students = $capacity_val, is_active = $is_open_val WHERE id = $sid";
+                if ($conn->query($sql)) {
+                    $message = "Subject updated successfully! Instructor: " . ($instructor_id ? "ID $instructor_id" : "None");
+                    $message_type = 'success';
+                } else {
+                    $message = "Error: " . $conn->error;
+                    $message_type = 'danger';
+                }
             }
         }
     }

@@ -6,59 +6,12 @@ $subject_id = isset($_GET['subject_id']) ? intval($_GET['subject_id']) : null;
 $message = '';
 $message_type = '';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $student_id = intval($_POST['student_id']);
-    $subject_id_post = intval($_POST['subject_id']);
-    $prelim = $_POST['prelim'] !== '' ? floatval($_POST['prelim']) : null;
-    $midterm = $_POST['midterm'] !== '' ? floatval($_POST['midterm']) : null;
-    $final_exam = $_POST['final_exam'] !== '' ? floatval($_POST['final_exam']) : null;
-    
-    $final_grade = null;
-    $remarks = 'Incomplete';
-    
-    if ($prelim !== null && $midterm !== null && $final_exam !== null) {
-        $final_grade = ($prelim + $midterm + $final_exam) / 3;
-        $passing_grade = 75;
-        $remarks = $final_grade >= $passing_grade ? 'Passed' : 'Failed';
-    }
-    
-    $check = $conn->query("SELECT id FROM grades WHERE student_id = $student_id AND subject_id = $subject_id_post");
-    
-    if ($check->num_rows > 0) {
-        $prelim_val = $prelim !== null ? $prelim : "NULL";
-        $midterm_val = $midterm !== null ? $midterm : "NULL";
-        $final_val = $final_exam !== null ? $final_exam : "NULL";
-        $avg_val = $final_grade !== null ? $final_grade : "NULL";
-        $remarks_esc = $conn->real_escape_string($remarks);
-        
-        $sql = "UPDATE grades SET prelim = $prelim_val, midterm = $midterm_val, final_exam = $final_val, 
-                final_grade = $avg_val, remarks = '$remarks_esc', teacher_id = $teacher_id, updated_at = NOW() 
-                WHERE student_id = $student_id AND subject_id = $subject_id_post";
-    } else {
-        $prelim_val = $prelim !== null ? $prelim : "NULL";
-        $midterm_val = $midterm !== null ? $midterm : "NULL";
-        $final_val = $final_exam !== null ? $final_exam : "NULL";
-        $avg_val = $final_grade !== null ? $final_grade : "NULL";
-        $remarks_esc = $conn->real_escape_string($remarks);
-        
-        $sql = "INSERT INTO grades (student_id, subject_id, teacher_id, prelim, midterm, final_exam, final_grade, remarks, status)
-                VALUES ($student_id, $subject_id_post, $teacher_id, $prelim_val, $midterm_val, $final_val, $avg_val, '$remarks_esc', 'Draft')";
-    }
-    
-    if ($conn->query($sql)) {
-        $message = 'Grade saved successfully!';
-        $message_type = 'success';
-    } else {
-        $message = 'Error saving grade: ' . $conn->error;
-        $message_type = 'danger';
-    }
-}
-
-if (isset($_GET['submit_grades']) && isset($_GET['subject_id'])) {
-    $sid = intval($_GET['subject_id']);
+if (isset($_POST['submit_grades']) && isset($_POST['subject_id'])) {
+    $sid = intval($_POST['subject_id']);
     $conn->query("UPDATE grades SET grade_status = 'Submitted', submitted_at = NOW() WHERE subject_id = $sid AND teacher_id = $teacher_id AND grade_status = 'Draft'");
     $message = 'Grades submitted for approval!';
     $message_type = 'success';
+    $subject_id = $sid;
 }
 
 if ($subject_id) {
@@ -80,9 +33,13 @@ if ($subject_id) {
     <div class="page-header-right">
         <a href="dashboard.php?page=grades" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i>Back</a>
         <?php if ($subject_id && isset($subject)): ?>
-        <a href="?page=grade_entry&subject_id=<?php echo $subject_id; ?>&submit_grades=1" class="btn btn-success" onclick="return confirm('Submit all grades for dean approval?')">
-            <i class="fas fa-paper-plane me-2"></i>Submit All Grades
-        </a>
+        <form method="POST" style="display:inline;">
+            <input type="hidden" name="submit_grades" value="1">
+            <input type="hidden" name="subject_id" value="<?php echo $subject_id; ?>">
+            <button type="submit" class="btn btn-success" onclick="return confirm('Submit all grades for dean approval?')">
+                <i class="fas fa-paper-plane me-2"></i>Submit All Grades
+            </button>
+        </form>
         <?php endif; ?>
     </div>
 </div>

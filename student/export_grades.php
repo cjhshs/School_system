@@ -18,10 +18,9 @@ if ($dept_result && $dept_result->num_rows > 0) {
 $grades = $conn->query("
     SELECT sub.subject_code, sub.description, sub.units, sub.semester, sub.year_level,
            g.prelim, g.midterm, g.final_exam, g.final_grade, g.remarks, g.grade_status, g.approved_at
-    FROM student_subjects ss
-    JOIN subjects sub ON ss.subject_id = sub.id
-    LEFT JOIN grades g ON sub.id = g.subject_id AND g.student_id = $student_id
-    WHERE ss.student_id = $student_id
+    FROM grades g
+    JOIN subjects sub ON g.subject_id = sub.id
+    WHERE g.student_id = $student_id
     ORDER BY sub.semester, sub.subject_code
 ");
 
@@ -37,7 +36,7 @@ if ($grades) {
         if ($row['units']) $total_units += $row['units'];
         if ($row['remarks'] == 'Passed') $passed_count++;
         elseif ($row['remarks'] == 'Failed') $failed_count++;
-        if ($row['status'] == 'Submitted') $pending_count++;
+        if ($row['grade_status'] == 'Submitted') $pending_count++;
     }
 }
 ?>
@@ -167,9 +166,9 @@ if ($grades) {
                 <?php $i = 1; foreach ($grades_array as $grade): ?>
                 <?php
                     $remark_class = '';
-                    if ($grade['status'] == 'Approved') {
+                    if ($grade['grade_status'] == 'Approved') {
                         $remark_class = $grade['remarks'] == 'Passed' ? 'passed' : 'failed';
-                    } elseif ($grade['status'] == 'Submitted') {
+                    } elseif ($grade['grade_status'] == 'Submitted') {
                         $remark_class = 'pending';
                     }
                 ?>
@@ -184,9 +183,9 @@ if ($grades) {
                     <td class="text-center"><strong><?php echo $grade['final_grade'] !== null ? number_format($grade['final_grade'], 2) : '-'; ?></strong></td>
                     <td class="text-center <?php echo $remark_class; ?>">
                         <?php
-                        if ($grade['status'] == 'Approved') {
+                        if ($grade['grade_status'] == 'Approved') {
                             echo $grade['remarks'];
-                        } elseif ($grade['status'] == 'Submitted') {
+                        } elseif ($grade['grade_status'] == 'Submitted') {
                             echo 'PENDING';
                         } elseif ($grade['grade_id'] = $grade['final_grade']) {
                             echo 'DRAFT';

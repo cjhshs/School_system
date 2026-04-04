@@ -1,246 +1,332 @@
 <?php
 require_once '../config.php';
 
-// CSV Export MUST run before any HTML output
-if (isset($_GET['export']) && $_GET['export'] == 'csv') {
-    header('Content-Type: text/csv');
-    header('Content-Disposition: attachment; filename="subjects.csv"');
-    
-    $subjects = $conn->query("SELECT s.subject_code, s.description, s.units, s.course_code, s.year_level, s.semester, s.schedule, s.room, s.instructor, s.max_students, s.is_active, c.name as course_name, c.code as course_code FROM subjects s LEFT JOIN courses c ON s.course_code = c.code ORDER BY c.code, s.semester, s.subject_code");
-    
-    $output = fopen('php://output', 'w');
-    fputcsv($output, ['Code', 'Description', 'Units', 'Course', 'Year', 'Semester', 'Schedule', 'Room', 'Instructor', 'Max Students', 'Status']);
-    
-    while ($row = $subjects->fetch_assoc()) {
-        fputcsv($output, [
-            $row['subject_code'],
-            $row['description'],
-            $row['units'],
-            $row['course_code'],
-            $row['year_level'],
-            $row['semester'],
-            $row['schedule'],
-            $row['room'],
-            $row['instructor'],
-            $row['max_students'],
-            $row['is_active'] ? 'Active' : 'Inactive'
-        ]);
-    }
-    fclose($output);
-    exit;
-}
-
 $message = '';
+$message_type = '';
 
-// Handle form submissions
-if (isset($_POST['add_subject'])) {
-    $description = trim($_POST['description']);
-    $units = intval($_POST['units']);
-    $course_code = trim($_POST['course_code']);
+// Handle opening/activating a subject
+if (isset($_POST['open_subject'])) {
+    $id = intval($_POST['subject_id']);
+    $schedule = trim($_POST['schedule']);
+    $room = trim($_POST['room']);
+    $max_students = intval($_POST['max_students']);
     $semester = trim($_POST['semester']);
     $year_level = intval($_POST['year_level']);
-    $max_students = intval($_POST['max_students']);
     
-    // Auto-generate subject code from description
-    $words = explode(' ', $description);
-    $prefix = strtoupper(substr(preg_replace('/[^a-zA-Z]/', '', $words[0]), 0, 4));
-    $num = $conn->query("SELECT COUNT(*) as c FROM subjects WHERE course_code = '$course_code' AND year_level = $year_level AND semester = '$semester'")->fetch_assoc()['c'] + 1;
-    $subject_code = $prefix . str_pad($num, 3, '0', STR_PAD_LEFT);
-    
-    if (empty($course_code)) {
-        $message = '<div class="alert alert-danger">Please select a valid course!</div>';
+    $stmt = $conn->prepare("UPDATE subjects SET schedule = ?, room = ?, max_students = ?, semester = ?, year_level = ?, is_active = 1 WHERE id = ?");
+    $stmt->bind_param("ssiisi", $schedule, $room, $max_students, $semester, $year_level, $id);
+    if ($stmt->execute()) {
+        $message = "Subject opened successfully!";
+        $message_type = 'success';
     } else {
-        // Get department_id from the selected course
-        $course_data = $conn->query("SELECT id, department_id FROM courses WHERE code = '$course_code' LIMIT 1")->fetch_assoc();
-        $dept_id = $course_data ? intval($course_data['department_id']) : null;
-        
-        if (!$dept_id) {
-            $message = '<div class="alert alert-warning">Course "' . htmlspecialchars($course_code) . '" has no department assigned. Please fix the course first.</div>';
-        } else {
-    
-    // Check for duplicate
-    $check = $conn->prepare("SELECT id FROM subjects WHERE subject_code = ? AND course_code = ? AND year_level = ? AND semester = ?");
-    $check->bind_param("ssis", $subject_code, $course_code, $year_level, $semester);
-    $check->execute();
-    $check_result = $check->get_result();
-    $exists = $check_result->fetch_assoc();
-    $check->close();
-    
-    if ($exists) {
-        $message = '<div class="alert alert-warning">Subject already exists for this course/year/semester!</div>';
-    } else {
-        try {
-            $stmt = $conn->prepare("INSERT INTO subjects (subject_code, description, units, course_code, department_id, year_level, semester, max_students, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)");
-            $stmt->bind_param("sssisii", $subject_code, $description, $units, $course_code, $dept_id, $year_level, $semester, $max_students);
-            if ($stmt->execute()) {
-                $message = '<div class="alert alert-success">Subject added successfully!</div>';
-            } else {
-                $message = '<div class="alert alert-warning">Subject may already exist. Please refresh and check the list.</div>';
-            }
-            $stmt->close();
-        } catch (Exception $e) {
-            $message = '<div class="alert alert-warning">Subject already exists. Please refresh and check the list.</div>';
-        }
-        }
-    }
+        $message = "Error: " . $stmt->error;
+        $message_type = 'danger';
     }
 }
 
-if (isset($_POST['delete_subject'])) {
-    $id = intval($_POST['id']);
-    $conn->query("DELETE FROM subjects WHERE id = $id");
-    $message = '<div class="alert alert-success">Subject deleted!</div>';
+// Handle closing/deactivating a subject
+if (isset($_POST['close_subject'])) {
+    $id = intval($_POST['subject_id']);
+    $conn->query("UPDATE subjects SET is_active = 0 WHERE id = $id");
+    $message = "Subject closed.";
+    $message_type = 'warning';
 }
 
-if (isset($_POST['toggle_status'])) {
-    $id = intval($_POST['id']);
-    $current_status = $_POST['current_status'];
-    $new_status = $current_status ? 0 : 1;
-    $conn->query("UPDATE subjects SET is_active = $new_status WHERE id = $id");
-    $message = '<div class="alert alert-success">Status updated!</div>';
+// Get all subjects with course and instructor info
+$filter_course = isset($_GET['course']) ? $_GET['course'] : '';
+$filter_sem = isset($_GET['semester']) ? $_GET['semester'] : '';
+$filter_year = isset($_GET['year_level']) ? intval($_GET['year_level']) : 0;
+
+$where = [];
+$params = [];
+$types = '';
+
+if ($filter_course) {
+    $where[] = "s.course_code = ?";
+    $params[] = $filter_course;
+    $types .= 's';
+}
+if ($filter_sem) {
+    $where[] = "s.semester = ?";
+    $params[] = $filter_sem;
+    $types .= 's';
+}
+if ($filter_year) {
+    $where[] = "s.year_level = ?";
+    $params[] = $filter_year;
+    $types .= 'i';
 }
 
-// Get data
-$subjects = $conn->query("SELECT s.*, c.name as course_name, c.code as course_code FROM subjects s LEFT JOIN courses c ON s.course_code = c.code ORDER BY c.code, s.semester, s.subject_code");
+$where_sql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
+
+$subjects_sql = "SELECT s.id, s.subject_code, s.description, s.units, s.course_code, s.department_id, 
+    s.year_level, s.semester, s.schedule, s.room, s.instructor_id, s.max_students, s.is_active,
+    c.name as course_name,
+    CONCAT(u.first_name, ' ', u.last_name) as instructor_name
+    FROM subjects s 
+    LEFT JOIN courses c ON s.course_code = c.code 
+    LEFT JOIN system_users u ON s.instructor_id = u.id
+    $where_sql
+    ORDER BY c.code, s.semester, s.subject_code";
+
+if ($where) {
+    $stmt = $conn->prepare($subjects_sql);
+    if ($params) {
+        $stmt->bind_param($types, ...$params);
+    }
+    $stmt->execute();
+    $subjects = $stmt->get_result();
+} else {
+    $subjects = $conn->query($subjects_sql);
+}
+
+// Get counts
+$total = $conn->query("SELECT COUNT(*) as c FROM subjects")->fetch_assoc()['c'];
+$active = $conn->query("SELECT COUNT(*) as c FROM subjects WHERE is_active = 1")->fetch_assoc()['c'];
+$inactive = $conn->query("SELECT COUNT(*) as c FROM subjects WHERE is_active = 0")->fetch_assoc()['c'];
+$assigned = $conn->query("SELECT COUNT(*) as c FROM subjects WHERE instructor_id IS NOT NULL")->fetch_assoc()['c'];
+
+// Get all courses for filter
 $courses = $conn->query("SELECT DISTINCT code, name FROM courses ORDER BY code");
-
-// Debug prints removed
 ?>
 
-<div class="row">
-    <div class="col-md-12">
-        <h2>Manage Subjects</h2>
-        <?php echo $message; ?>
+<div class="page-header">
+    <div class="page-header-left">
+        <h1><i class="fas fa-book me-2"></i>Subject Management</h1>
+        <p>Open subjects, assign schedules, and manage enrollment</p>
     </div>
 </div>
 
-<div class="row mt-3">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h5>Add New Subject</h5>
-            </div>
+<?php if ($message): ?>
+    <div class="alert alert-<?php echo $message_type; ?> alert-dismissible fade show">
+        <i class="fas fa-<?php echo $message_type == 'success' ? 'check-circle' : ($message_type == 'warning' ? 'exclamation-triangle' : 'times-circle'); ?> me-2"></i>
+        <?php echo $message; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endif; ?>
+
+<!-- Stats -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
             <div class="card-body">
-                <form method="POST">
-    <?php echo csrf_field(); ?>
-                    <div class="mb-2">
-                        <label>Description *</label>
-                        <input type="text" name="description" class="form-control" required placeholder="e.g., College Mathematics">
-                    </div>
-                    <div class="mb-2">
-                        <label>Units *</label>
-                        <input type="number" name="units" class="form-control" required min="1" max="10" value="3">
-                    </div>
-                    <div class="mb-2">
-                        <label>Course *</label>
-                        <select name="course_code" class="form-select" required>
-                            <option value="">Select Course</option>
-                            <?php while($c = $courses->fetch_assoc()): ?>
-                                <option value="<?php echo $c['code']; ?>"><?php echo htmlspecialchars($c['code'] . ' - ' . $c['name']); ?></option>
-                            <?php endwhile; ?>
-                        </select>
-                    </div>
-                    <div class="mb-2">
-                        <label>Year Level *</label>
-                        <select name="year_level" class="form-select" required>
-                            <option value="1">1st Year</option>
-                            <option value="2">2nd Year</option>
-                            <option value="3">3rd Year</option>
-                            <option value="4">4th Year</option>
-                        </select>
-                    </div>
-                    <div class="mb-2">
-                        <label>Semester *</label>
-                        <select name="semester" class="form-select" required>
-                            <option value="1st">1st Semester</option>
-                            <option value="2nd">2nd Semester</option>
-                            <option value="Summer">Summer</option>
-                        </select>
-                    </div>
-                    <div class="mb-2">
-                        <label>Max Students</label>
-                        <input type="number" name="max_students" class="form-control" value="40" min="1">
-                    </div>
-                    <button type="submit" name="add_subject" class="btn btn-primary w-100">Add Subject</button>
-                </form>
+                <h3 class="text-primary"><?php echo $total; ?></h3>
+                <p class="text-muted mb-0">Total Subjects</p>
             </div>
         </div>
     </div>
-    
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                <h5>All Subjects</h5>
-                <a href="?page=subjects&export=csv" class="btn btn-sm btn-success"><i class="fas fa-download"></i> Export CSV</a>
-            </div>
+    <div class="col-md-3">
+        <div class="card text-center">
             <div class="card-body">
-                <div class="search-wrapper"><i class="fas fa-search search-icon"></i><input type="text" class="search-input" data-table="subjectsTable" placeholder="Search..."><button type="button" class="search-clear" onclick="clearSearch(this)"><i class="fas fa-times"></i></button></div>
-                <div class="table-responsive">
-                    <table class="table table-striped" id="subjectsTable">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Code</th>
-                                <th>Description</th>
-                                <th>Units</th>
-                                <th>Course</th>
-                                <th>Year</th>
-                                <th>Sem</th>
-                                <th>Schedule</th>
-                                <th>Room</th>
-                                <th>Instructor</th>
-                                <th>Cap</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                            $counter = 1;
-                            while($row = $subjects->fetch_assoc()): 
-                            ?>
-                            <tr>
-                                <td><?php echo $counter++; ?></td>
-                                <td><strong><?php echo htmlspecialchars($row['subject_code']); ?></strong></td>
-                                <td><?php echo htmlspecialchars($row['description']); ?></td>
-                                <td><span class="badge bg-info"><?php echo htmlspecialchars($row['units']); ?></span></td>
-                                <td><?php echo ($row['course_name'] ?? '') . ' (' . ($row['course_code'] ?? '-') . ')'; ?></td>
-                                <td><?php echo $row['year_level']; ?></td>
-                                <td><?php echo $row['semester']; ?></td>
-                                <td><small><?php echo $row['schedule'] ?: '-'; ?></small></td>
-                                <td><?php echo $row['room'] ?: '-'; ?></td>
-                                <td><?php echo $row['instructor'] ?: '-'; ?></td>
-                                <td><?php echo $row['max_students']; ?></td>
-                                <td>
-                                    <form method="POST" style="display:inline;">
-    <?php echo csrf_field(); ?>
-                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                        <input type="hidden" name="current_status" value="<?php echo $row['is_active']; ?>">
-                                        <button type="submit" name="toggle_status" class="btn btn-sm btn-<?php echo $row['is_active'] ? 'success' : 'secondary'; ?>" title="<?php echo $row['is_active'] ? 'Deactivate' : 'Activate'; ?>">
-                                            <i class="fas fa-<?php echo $row['is_active'] ? 'check-circle' : 'times-circle'; ?>"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                                <td>
-                                    <form method="POST" style="display:inline;">
-    <?php echo csrf_field(); ?>
-                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                        <button type="submit" name="delete_subject" class="btn btn-sm btn-danger" title="Delete" onclick="return confirm('Delete this subject?')">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                        <tfoot class="table-light">
-                            <tr>
-                                <td colspan="12"><strong>Total Subjects: <?php echo $counter - 1; ?></strong></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                <h3 class="text-success"><?php echo $active; ?></h3>
+                <p class="text-muted mb-0">Open</p>
             </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-warning"><?php echo $assigned; ?></h3>
+                <p class="text-muted mb-0">With Instructor</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-secondary"><?php echo $inactive; ?></h3>
+                <p class="text-muted mb-0">Closed</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filters -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="GET" class="row g-2 align-items-end">
+            <input type="hidden" name="page" value="subjects">
+            <div class="col-md-3">
+                <label class="form-label small">Course</label>
+                <select name="course" class="form-select form-select-sm">
+                    <option value="">All Courses</option>
+                    <?php $courses->data_seek(0); while($c = $courses->fetch_assoc()): ?>
+                        <option value="<?php echo $c['code']; ?>" <?php echo $filter_course === $c['code'] ? 'selected' : ''; ?>><?php echo htmlspecialchars($c['code'] . ' - ' . $c['name']); ?></option>
+                    <?php endwhile; ?>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small">Semester</label>
+                <select name="semester" class="form-select form-select-sm">
+                    <option value="">All</option>
+                    <option value="1st" <?php echo $filter_sem === '1st' ? 'selected' : ''; ?>>1st</option>
+                    <option value="2nd" <?php echo $filter_sem === '2nd' ? 'selected' : ''; ?>>2nd</option>
+                    <option value="Summer" <?php echo $filter_sem === 'Summer' ? 'selected' : ''; ?>>Summer</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small">Year Level</label>
+                <select name="year_level" class="form-select form-select-sm">
+                    <option value="">All</option>
+                    <option value="1" <?php echo $filter_year === 1 ? 'selected' : ''; ?>>1st Year</option>
+                    <option value="2" <?php echo $filter_year === 2 ? 'selected' : ''; ?>>2nd Year</option>
+                    <option value="3" <?php echo $filter_year === 3 ? 'selected' : ''; ?>>3rd Year</option>
+                    <option value="4" <?php echo $filter_year === 4 ? 'selected' : ''; ?>>4th Year</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-sm btn-primary w-100"><i class="fas fa-filter me-1"></i>Filter</button>
+            </div>
+            <div class="col-md-2">
+                <a href="?page=subjects" class="btn btn-sm btn-outline-secondary w-100"><i class="fas fa-times me-1"></i>Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Subjects Table -->
+<div class="card">
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0"><i class="fas fa-list me-2"></i>All Subjects</h5>
+    </div>
+    <div class="card-body">
+        <div class="search-wrapper mb-3"><i class="fas fa-search search-icon"></i><input type="text" class="search-input" data-table="subjectsTable" placeholder="Search subjects..."><button type="button" class="search-clear" onclick="clearSearch(this)"><i class="fas fa-times"></i></button></div>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id="subjectsTable">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Units</th>
+                        <th>Course</th>
+                        <th>Year</th>
+                        <th>Sem</th>
+                        <th>Schedule</th>
+                        <th>Room</th>
+                        <th>Instructor</th>
+                        <th>Cap</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while($row = $subjects->fetch_assoc()): ?>
+                    <tr class="<?php echo $row['is_active'] ? '' : 'table-secondary'; ?>">
+                        <td><strong><?php echo htmlspecialchars($row['subject_code']); ?></strong></td>
+                        <td><?php echo htmlspecialchars($row['description']); ?></td>
+                        <td><span class="badge bg-info"><?php echo $row['units']; ?></span></td>
+                        <td><small><?php echo htmlspecialchars($row['course_code']); ?></small></td>
+                        <td><?php echo $row['year_level']; ?></td>
+                        <td><?php echo $row['semester']; ?></td>
+                        <td><small><?php echo $row['schedule'] ?: '<span class="text-muted">TBA</span>'; ?></small></td>
+                        <td><small><?php echo $row['room'] ?: '<span class="text-muted">TBA</span>'; ?></small></td>
+                        <td>
+                            <?php if ($row['instructor_name']): ?>
+                                <span class="text-success"><i class="fas fa-user-check me-1"></i><?php echo htmlspecialchars($row['instructor_name']); ?></span>
+                            <?php else: ?>
+                                <span class="text-muted"><i class="fas fa-user-slash me-1"></i>Unassigned</span>
+                            <?php endif; ?>
+                        </td>
+                        <td><?php echo $row['max_students']; ?></td>
+                        <td>
+                            <?php if ($row['is_active']): ?>
+                                <span class="badge bg-success">Open</span>
+                            <?php else: ?>
+                                <span class="badge bg-secondary">Closed</span>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <!-- Open/Edit Button -->
+                            <button type="button" class="btn btn-sm btn-<?php echo $row['is_active'] ? 'warning' : 'success'; ?>" 
+                                data-bs-toggle="modal" data-bs-target="#openModal<?php echo $row['id']; ?>" 
+                                title="<?php echo $row['is_active'] ? 'Edit' : 'Open'; ?>">
+                                <i class="fas fa-<?php echo $row['is_active'] ? 'edit' : 'door-open'; ?>"></i>
+                            </button>
+                            
+                            <?php if ($row['is_active']): ?>
+                            <form method="POST" class="d-inline" onsubmit="return confirm('Close this subject?');">
+                                <input type="hidden" name="subject_id" value="<?php echo $row['id']; ?>">
+                                <button type="submit" name="close_subject" class="btn btn-sm btn-outline-danger" title="Close">
+                                    <i class="fas fa-door-closed"></i>
+                                </button>
+                            </form>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    
+                    <!-- Open/Edit Modal -->
+                    <div class="modal fade" id="openModal<?php echo $row['id']; ?>" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="POST">
+                                    <div class="modal-header bg-<?php echo $row['is_active'] ? 'warning' : 'success'; ?> text-white">
+                                        <h5 class="modal-title">
+                                            <i class="fas fa-<?php echo $row['is_active'] ? 'edit' : 'door-open'; ?> me-2"></i>
+                                            <?php echo $row['is_active'] ? 'Edit' : 'Open'; ?>: <?php echo htmlspecialchars($row['subject_code'] . ' - ' . $row['description']); ?>
+                                        </h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" name="subject_id" value="<?php echo $row['id']; ?>">
+                                        
+                                        <div class="mb-3">
+                                            <label class="form-label">Schedule</label>
+                                            <input type="text" name="schedule" class="form-control" 
+                                                value="<?php echo htmlspecialchars($row['schedule'] ?? ''); ?>" 
+                                                placeholder="e.g., MWF 8:00-9:00">
+                                            <small class="text-muted">Format: Days Time-End (e.g., MWF 8:00-9:00, TTH 10:00-11:30)</small>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <label class="form-label">Room</label>
+                                            <input type="text" name="room" class="form-control" 
+                                                value="<?php echo htmlspecialchars($row['room'] ?? ''); ?>" 
+                                                placeholder="e.g., Room 101">
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <label class="form-label">Year Level</label>
+                                                <select name="year_level" class="form-select">
+                                                    <?php for ($y = 1; $y <= 4; $y++): ?>
+                                                        <option value="<?php echo $y; ?>" <?php echo $row['year_level'] == $y ? 'selected' : ''; ?>><?php echo $y; ?><?php echo $y == 1 ? 'st' : ($y == 2 ? 'nd' : ($y == 3 ? 'rd' : 'th')); ?> Year</option>
+                                                    <?php endfor; ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label class="form-label">Semester</label>
+                                                <select name="semester" class="form-select">
+                                                    <option value="1st" <?php echo $row['semester'] === '1st' ? 'selected' : ''; ?>>1st</option>
+                                                    <option value="2nd" <?php echo $row['semester'] === '2nd' ? 'selected' : ''; ?>>2nd</option>
+                                                    <option value="Summer" <?php echo $row['semester'] === 'Summer' ? 'selected' : ''; ?>>Summer</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label class="form-label">Capacity</label>
+                                                <input type="number" name="max_students" class="form-control" 
+                                                    value="<?php echo $row['max_students'] ?? 40; ?>" min="1" max="100">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="alert alert-info small mb-0">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            <strong>Note:</strong> After opening, the Dean will assign an instructor and enroll students.
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" name="open_subject" class="btn btn-<?php echo $row['is_active'] ? 'warning' : 'success'; ?>">
+                                            <i class="fas fa-<?php echo $row['is_active'] ? 'save' : 'door-open'; ?> me-1"></i>
+                                            <?php echo $row['is_active'] ? 'Update' : 'Open Subject'; ?>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -378,3 +378,147 @@ Stack trace:
 #0 C:\xampp\htdocs\enrollment_system\temp_import_subjects.php(106): mysqli_stmt->execute()
 #1 {main}
   thrown in C:\xampp\htdocs\enrollment_system\temp_import_subjects.php on line 106
+[04-Apr-2026 06:00:48 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\enrollment_system\dean\dashboard.php:119) in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 27
+[04-Apr-2026 06:00:48 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\enrollment_system\dean\dashboard.php:119) in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 45
+[04-Apr-2026 06:01:05 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\enrollment_system\dean\dashboard.php:119) in C:\xampp\htdocs\enrollment_system\dean\pages\subjects.php on line 45
+[04-Apr-2026 06:01:15 Europe/Berlin] DEAN UPDATE_SUBJECT: POST=Array
+(
+    [_csrf] => a01f46ae16eb0e83f9d604cab71d1872f5b4464d0cf7070e26bf80273cd200d1
+    [subject_id] => 2541
+    [days] => MWF
+    [start_time] => 11:00
+    [end_time] => 12:00
+    [room] => FG602
+    [instructor_id] => 24
+    [schedule] => MWF 11:00 AM-12:00 PM
+    [capacity] => 40
+    [is_open] => on
+    [update_subject] => 
+)
+
+[04-Apr-2026 06:03:02 Europe/Berlin] PHP Warning:  Undefined array key "semester" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 12
+[04-Apr-2026 06:03:02 Europe/Berlin] PHP Warning:  Undefined array key "school_year" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 13
+[04-Apr-2026 06:03:02 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'status' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:40
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(40): mysqli->prepare('INSERT INTO gra...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 40
+[04-Apr-2026 06:03:41 Europe/Berlin] PHP Warning:  Undefined array key "semester" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 12
+[04-Apr-2026 06:03:41 Europe/Berlin] PHP Warning:  Undefined array key "school_year" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 13
+[04-Apr-2026 06:03:41 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'status' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:40
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(40): mysqli->prepare('INSERT INTO gra...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 40
+[04-Apr-2026 06:03:42 Europe/Berlin] PHP Warning:  Undefined array key "semester" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 12
+[04-Apr-2026 06:03:42 Europe/Berlin] PHP Warning:  Undefined array key "school_year" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 13
+[04-Apr-2026 06:03:42 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'status' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:40
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(40): mysqli->prepare('INSERT INTO gra...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 40
+[04-Apr-2026 06:03:42 Europe/Berlin] PHP Warning:  Undefined array key "semester" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 12
+[04-Apr-2026 06:03:42 Europe/Berlin] PHP Warning:  Undefined array key "school_year" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 13
+[04-Apr-2026 06:03:42 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'status' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:40
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(40): mysqli->prepare('INSERT INTO gra...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 40
+[04-Apr-2026 06:03:43 Europe/Berlin] PHP Warning:  Undefined array key "semester" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 12
+[04-Apr-2026 06:03:43 Europe/Berlin] PHP Warning:  Undefined array key "school_year" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 13
+[04-Apr-2026 06:03:43 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'status' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:40
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(40): mysqli->prepare('INSERT INTO gra...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 40
+[04-Apr-2026 06:03:43 Europe/Berlin] PHP Warning:  Undefined array key "semester" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 12
+[04-Apr-2026 06:03:43 Europe/Berlin] PHP Warning:  Undefined array key "school_year" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 13
+[04-Apr-2026 06:03:43 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'status' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:40
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(40): mysqli->prepare('INSERT INTO gra...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 40
+[04-Apr-2026 06:06:45 Europe/Berlin] PHP Warning:  Undefined array key "semester" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 12
+[04-Apr-2026 06:06:45 Europe/Berlin] PHP Warning:  Undefined array key "school_year" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 13
+[04-Apr-2026 06:06:45 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'status' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:40
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(40): mysqli->prepare('INSERT INTO gra...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 40
+[04-Apr-2026 06:07:16 Europe/Berlin] PHP Warning:  Undefined array key "semester" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 12
+[04-Apr-2026 06:07:16 Europe/Berlin] PHP Warning:  Undefined array key "school_year" in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 13
+[04-Apr-2026 06:07:16 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'status' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:40
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(40): mysqli->prepare('INSERT INTO gra...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 40
+[04-Apr-2026 06:11:29 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'school_year' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:15
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(15): mysqli->query('SELECT semester...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 15
+[04-Apr-2026 06:11:31 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'school_year' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:15
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(15): mysqli->query('SELECT semester...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 15
+[04-Apr-2026 06:11:31 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'school_year' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:15
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(15): mysqli->query('SELECT semester...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 15
+[04-Apr-2026 06:11:31 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'school_year' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:15
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(15): mysqli->query('SELECT semester...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 15
+[04-Apr-2026 06:11:48 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'school_year' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:15
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(15): mysqli->query('SELECT semester...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 15
+[04-Apr-2026 06:11:51 Europe/Berlin] PHP Warning:  Undefined array key "student_id" in C:\xampp\htdocs\enrollment_system\teacher\pages\grade_entry.php on line 10
+[04-Apr-2026 06:11:51 Europe/Berlin] PHP Warning:  Undefined array key "prelim" in C:\xampp\htdocs\enrollment_system\teacher\pages\grade_entry.php on line 12
+[04-Apr-2026 06:11:51 Europe/Berlin] PHP Warning:  Undefined array key "prelim" in C:\xampp\htdocs\enrollment_system\teacher\pages\grade_entry.php on line 12
+[04-Apr-2026 06:11:51 Europe/Berlin] PHP Warning:  Undefined array key "midterm" in C:\xampp\htdocs\enrollment_system\teacher\pages\grade_entry.php on line 13
+[04-Apr-2026 06:11:51 Europe/Berlin] PHP Warning:  Undefined array key "midterm" in C:\xampp\htdocs\enrollment_system\teacher\pages\grade_entry.php on line 13
+[04-Apr-2026 06:11:51 Europe/Berlin] PHP Warning:  Undefined array key "final_exam" in C:\xampp\htdocs\enrollment_system\teacher\pages\grade_entry.php on line 14
+[04-Apr-2026 06:11:51 Europe/Berlin] PHP Warning:  Undefined array key "final_exam" in C:\xampp\htdocs\enrollment_system\teacher\pages\grade_entry.php on line 14
+[04-Apr-2026 06:11:51 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'status' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\pages\grade_entry.php:48
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\pages\grade_entry.php(48): mysqli->query('INSERT INTO gra...')
+#1 C:\xampp\htdocs\enrollment_system\teacher\dashboard.php(140): include('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\pages\grade_entry.php on line 48
+[04-Apr-2026 06:13:37 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'school_year' in 'field list' in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:15
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(15): mysqli->query('SELECT semester...')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 15
+[04-Apr-2026 06:18:04 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:45
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(45): mysqli_stmt->bind_param('iisddssss', 13, 2541, 24, 90.0, 90.0, 90.0, 90.0, 'Passed', '1', '2026-2027')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 45
+[04-Apr-2026 06:18:06 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php:45
+Stack trace:
+#0 C:\xampp\htdocs\enrollment_system\teacher\save_grade.php(45): mysqli_stmt->bind_param('iisddssss', 13, 2541, 24, 90.0, 90.0, 90.0, 90.0, 'Passed', '1', '2026-2027')
+#1 {main}
+  thrown in C:\xampp\htdocs\enrollment_system\teacher\save_grade.php on line 45
+[04-Apr-2026 07:13:16 Europe/Berlin] Failed to log activity: Unknown column 'details' in 'field list'
+[04-Apr-2026 07:13:56 Europe/Berlin] Failed to log activity: Unknown column 'details' in 'field list'
+[04-Apr-2026 07:14:13 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 40
+[04-Apr-2026 07:14:13 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 40
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 40
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 170
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 172
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 187
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 189
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 170
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 172
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 187
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 189
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 170
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 172
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 187
+[04-Apr-2026 07:14:14 Europe/Berlin] PHP Warning:  Undefined array key "status" in C:\xampp\htdocs\enrollment_system\student\export_grades.php on line 189
