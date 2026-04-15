@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2026 at 05:38 PM
+-- Generation Time: Apr 04, 2026 at 07:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,16 +42,15 @@ CREATE TABLE `activity_logs` (
 --
 
 INSERT INTO `activity_logs` (`id`, `user_id`, `action`, `description`, `ip_address`, `user_agent`, `created_at`) VALUES
-(1, 4, 'login', 'User logged in', '', '', '2026-03-26 04:31:31'),
-(2, 4, 'login', 'User logged in', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', '2026-03-26 04:32:13'),
-(3, 4, 'login', 'User logged in', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', '2026-03-26 04:48:34'),
 (4, 1, 'login', 'User logged in', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', '2026-03-26 11:40:37'),
 (5, 1, 'login', 'User logged in', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', '2026-03-29 13:51:03'),
 (6, 1, 'login', 'User logged in', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', '2026-03-29 14:01:18'),
 (7, 1, 'login', 'User logged in', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', '2026-03-29 14:08:08'),
 (8, 1, 'login', 'User logged in', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', '2026-03-29 15:00:42'),
 (9, 1, 'login', 'User logged in', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', '2026-03-29 15:18:38'),
-(10, 1, 'login', 'User logged in', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', '2026-03-29 15:20:19');
+(10, 1, 'login', 'User logged in', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', '2026-03-29 15:20:19'),
+(11, 1, 'login', 'User logged in', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', '2026-03-30 06:45:39'),
+(12, 1, 'login', 'User logged in', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', '2026-03-30 07:02:38');
 
 -- --------------------------------------------------------
 
@@ -60961,37 +60960,37 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `code`, `name`, `department_id`, `major`, `total_units`, `years`, `is_active`) VALUES
-(1, 'BSCS', 'Bachelor of Science in Computer Science', 1, '', 0, 4, 1),
-(2, 'BSBA', 'Bachelor of Science in Business Administration', 2, '', 0, 4, 1),
-(3, 'BSCE', 'Bachelor of Science in Civil Engineering', 4, '', 0, 4, 1),
-(4, 'BSED', 'Bachelor of Secondary Education', 6, '', 0, 4, 1),
-(5, 'AB', 'Bachelor of Arts', 9, '', 0, 4, 1),
-(6, 'BSCE', 'Bachelor of Science in Civil Engineering', 4, '', 0, 4, 1),
-(7, 'BSCA', 'Bachelor of Science in Customs Administration', 7, '', 0, 4, 1),
+(1, 'BSCS', 'Bachelor of Science in Computer Science', 17, '', 0, 4, 1),
+(2, 'BSBA', 'Bachelor of Science in Business Administration', 0, '', 0, 4, 1),
+(3, 'BSCE', 'Bachelor of Science in Civil Engineering', 0, '', 0, 4, 1),
+(4, 'BSED', 'Bachelor of Secondary Education', 19, '', 0, 4, 1),
+(5, 'AB', 'Bachelor of Science in Nursing', 0, '', 0, 4, 1),
+(6, 'BSCE', 'Bachelor of Science in Civil Engineering', 0, '', 0, 4, 1),
+(7, 'BSCA', 'Bachelor of Science in Customs Administration', 0, '', 0, 4, 1),
 (8, 'BSSW', 'Bachelor of Science in Social Work', 10, '', 0, 4, 1),
-(9, 'AB', 'Bachelor of Arts', 9, 'Social Science', 0, 4, 1),
-(10, 'BSOA', 'Bachelor of Science in Office Administration', 7, 'Office Management', 0, 4, 1),
+(9, 'AB', 'Bachelor of Arts', 0, 'Social Science', 0, 4, 1),
+(10, 'BSOA', 'Bachelor of Science in Office Administration', 0, 'Office Management', 0, 4, 1),
 (11, 'AOA', 'Associate in Office Administration', 9, '', 0, 4, 1),
-(12, 'BSCR', 'Bachelor of Science in Criminology', 8, '', 0, 4, 1),
-(13, 'BSA', 'Bachelor of Science in Accountancy', 2, '', 0, 4, 1),
-(14, 'BEED', 'Bachelor of Elementary Education', 6, 'Filipino', 0, 4, 1),
-(15, 'BSED', 'Bachelor of Secondary Education', 6, 'Math', 0, 4, 1),
-(16, 'BSIT', 'Bachelor of Science in Information Technology', 1, '', 0, 4, 1),
-(17, 'BSIM', 'Bachelor of Science in Information Management', 1, '', 0, 4, 1),
-(18, 'ACT', 'Associate in Computer Technology', 4, '', 0, 4, 1),
-(19, 'CT', 'Computer System and Network Specialist', 4, '', 0, 4, 1),
-(20, 'MT', 'Medical Transcriptionist', 7, '', 0, 4, 1),
-(21, 'CC', 'Contact Center Services', 7, '', 0, 4, 1),
-(22, 'CHS', 'Computer Hardware Servicing NCII', 4, '', 0, 4, 1),
-(23, 'BSGE', 'Bachelor of Science in Geodetic Engineering', 4, '', 0, 4, 1),
+(12, 'BSCR', 'Bachelor of Science in Criminology', 18, '', 0, 4, 1),
+(13, 'BSA', 'Bachelor of Science in Accountancy', 0, '', 0, 4, 1),
+(14, 'BEED', 'Bachelor of Elementary Education', 19, 'Filipino', 0, 4, 1),
+(15, 'BSED', 'Bachelor of Secondary Education', 19, 'Math', 0, 4, 1),
+(16, 'BSIT', 'Bachelor of Science in Information Technology', 17, '', 0, 4, 1),
+(17, 'BSIM', 'Bachelor of Science in Information Management', 0, '', 0, 4, 1),
+(18, 'ACT', 'Associate in Computer Technology', 17, '', 0, 4, 1),
+(19, 'CT', 'Computer System and Network Specialist', 17, '', 0, 4, 1),
+(20, 'MT', 'Medical Transcriptionist', 0, '', 0, 4, 1),
+(21, 'CC', 'Contact Center Services', 0, '', 0, 4, 1),
+(22, 'CHS', 'Computer Hardware Servicing NCII', 0, '', 0, 4, 1),
+(23, 'BSGE', 'Bachelor of Science in Geodetic Engineering', 19, '', 0, 4, 1),
 (24, 'BSES', 'Bachelor of Science in Environmental Science', 0, '', 0, 4, 1),
 (25, 'BSMATH', 'Bachelor of Science in Mathematics', 10, '', 0, 4, 1),
-(26, 'BPE', 'Bachelor of Physical Education', 6, 'School Physical Education', 0, 4, 1),
+(26, 'BPE', 'Bachelor of Physical Education', 0, 'School Physical Education', 0, 4, 1),
 (27, 'BLIS', 'Bachelor of Library and Information Science', 10, '', 0, 4, 1),
-(28, 'BSMA', 'Bachelor of Science in Management Accounting', 7, '', 0, 4, 1),
-(29, 'BECED', 'Bachelor of Early Childhood Education', 6, '', 0, 4, 1),
-(30, 'BSIA', 'Bachelor of Science in Internal Auditing', 2, '', 0, 4, 1),
-(31, 'BSAIS', 'Bachelor of Science in Accounting Information System', 7, '', 0, 4, 1),
+(28, 'BSMA', 'Bachelor of Science in Management Accounting', 0, '', 0, 4, 1),
+(29, 'BECED', 'Bachelor of Early Childhood Education', 19, '', 0, 4, 1),
+(30, 'BSIA', 'Bachelor of Science in Internal Auditing', 0, '', 0, 4, 1),
+(31, 'BSAIS', 'Bachelor of Science in Accounting Information System', 17, '', 0, 4, 1),
 (32, 'SHS', 'Senior High School', 0, 'ABM', 0, 4, 1),
 (33, 'SHS', 'Senior High School', 9, 'HUMSS', 0, 4, 1),
 (34, 'SHS', 'Senior High School', 0, 'STEM', 0, 4, 1),
@@ -61028,6 +61027,28 @@ CREATE TABLE `course_fees` (
   `description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `course_fees`
+--
+
+INSERT INTO `course_fees` (`id`, `course_code`, `fee_name`, `amount`, `semester`, `is_required`, `description`) VALUES
+(1, 'BSCR', 'COurt', 211.00, 'All', 1, 'basketball palaro');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deans`
+--
+
+CREATE TABLE `deans` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `department_id` int(11) NOT NULL,
+  `appointment_date` date DEFAULT NULL,
+  `status` enum('Active','Inactive') DEFAULT 'Active',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -61049,13 +61070,9 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`id`, `name`, `code`, `dean_id`, `passing_grade`, `description`, `is_active`) VALUES
-(1, 'Computer Science', 'CS', 3, 75.00, NULL, 1),
-(2, 'Business Administration', 'BA', NULL, 75.00, NULL, 1),
-(3, 'Engineering', 'ENG', NULL, 75.00, NULL, 1),
-(4, 'Education', 'EDUC', NULL, 75.00, NULL, 1),
-(6, 'Teacher Education', 'TE', NULL, 75.00, NULL, 1),
-(7, 'Business & Management', 'BM', NULL, 75.00, NULL, 1),
-(8, 'Criminal Justice', 'CJ', NULL, 75.00, NULL, 1);
+(17, 'Computer Engineering Technology', 'CET', 16, 75.00, NULL, 1),
+(18, 'Criminology', 'CRIM', 19, 75.00, NULL, 1),
+(19, 'General Education', 'GE', 22, 75.00, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -61106,9 +61123,10 @@ CREATE TABLE `enrollments` (
 --
 
 INSERT INTO `enrollments` (`id`, `student_id`, `school_year`, `semester`, `course_id`, `year_level`, `enrollment_date`, `status`, `notes`, `created_at`) VALUES
-(6, 10, '2026-2027', '1', 23, 0, NULL, 'Pending', NULL, '2026-03-29 13:39:02'),
-(7, 11, '2026-2027', '1', 23, 0, NULL, 'Pending', NULL, '2026-03-29 13:44:02'),
-(8, 12, '2026-2027', '1', 4, 0, NULL, 'Pending', NULL, '2026-03-29 14:36:38');
+(6, 10, '2026-2027', '1', 23, 0, NULL, 'Confirmed', NULL, '2026-03-29 13:39:02'),
+(7, 11, '2026-2027', '1', 23, 0, NULL, 'Confirmed', NULL, '2026-03-29 13:44:02'),
+(8, 12, '2026-2027', '1', 4, 0, NULL, 'Confirmed', NULL, '2026-03-29 14:36:38'),
+(9, 13, '2026-2027', '1', 12, 0, NULL, 'Confirmed', NULL, '2026-03-30 06:52:08');
 
 -- --------------------------------------------------------
 
@@ -61185,6 +61203,13 @@ CREATE TABLE `grades` (
   `approved_by` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `grades`
+--
+
+INSERT INTO `grades` (`id`, `student_id`, `subject_id`, `teacher_id`, `school_year`, `semester`, `prelim`, `midterm`, `final_exam`, `final_grade`, `remarks`, `grade_status`, `submitted_at`, `approved_at`, `approved_by`, `created_at`) VALUES
+(1, 13, 2541, 24, '2026-2027', '1', 90.00, 90.00, 90.00, 90.00, 'Passed', 'Approved', '2026-04-04 13:13:18', '2026-04-04 13:13:56', NULL, '2026-04-04 05:13:16');
 
 -- --------------------------------------------------------
 
@@ -62877,6 +62902,15 @@ CREATE TABLE `payments` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `student_id`, `or_number`, `payment_amount`, `total_fees`, `balance`, `payment_method`, `payment_date`, `school_year`, `semester`, `received_by`, `notes`, `created_at`) VALUES
+(1, 13, 'OR-20260401-6652', 50000.00, 907736.00, 857736.00, 'Cash', '2026-04-01', '2025-2026', '1st', 6, NULL, '2026-04-01 03:22:03'),
+(2, 11, 'OR-20260403-9811', 25000.00, 56000.00, 31000.00, 'Cash', '2026-04-03', '2025-2026', '1st', 20, NULL, '2026-04-03 01:31:38'),
+(3, 13, 'OR-20260404-4097', 500000.00, 907525.00, 357525.00, 'Cash', '2026-04-04', '2025-2026', '1st', 6, NULL, '2026-04-04 05:27:42');
+
 -- --------------------------------------------------------
 
 --
@@ -62917,6 +62951,41 @@ INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
 (8, 'process_payments', 'Process payments'),
 (9, 'view_own_grades', 'View own grades'),
 (10, 'enroll_subjects', 'Enroll in subjects');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permits`
+--
+
+CREATE TABLE `permits` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `term` varchar(20) NOT NULL,
+  `period` varchar(20) NOT NULL,
+  `school_year` varchar(9) NOT NULL,
+  `semester` varchar(20) NOT NULL,
+  `total_tuition` decimal(10,2) NOT NULL,
+  `amount_due` decimal(10,2) NOT NULL,
+  `total_paid` decimal(10,2) NOT NULL,
+  `status` enum('Valid','Not Valid') NOT NULL DEFAULT 'Not Valid',
+  `issued_by` int(11) DEFAULT NULL,
+  `issued_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `permits`
+--
+
+INSERT INTO `permits` (`id`, `student_id`, `term`, `period`, `school_year`, `semester`, `total_tuition`, `amount_due`, `total_paid`, `status`, `issued_by`, `issued_at`) VALUES
+(1, 13, '1st Semester', 'Prelim', '2025-2026', '1st Semester', 0.00, 0.00, 50000.00, 'Valid', 17, '2026-04-02 22:29:38'),
+(2, 10, '1st Semester', 'Prelim', '2025-2026', '1st Semester', 31000.00, 5166.67, 0.00, 'Not Valid', 17, '2026-04-02 22:52:10'),
+(3, 11, '1st Semester', 'Midterm', '2025-2026', '1st Semester', 56000.00, 18666.66, 25000.00, 'Valid', 17, '2026-04-04 11:19:17'),
+(4, 11, '1st Semester', 'Final', '2025-2026', '1st Semester', 56000.00, 27999.99, 25000.00, 'Not Valid', 17, '2026-04-04 11:20:36'),
+(5, 11, '2nd Semester', 'Prelim', '2025-2026', '2nd Semester', 56000.00, 37333.32, 25000.00, 'Not Valid', 17, '2026-04-03 10:08:33'),
+(6, 11, '2nd Semester', 'Final', '2025-2026', '2nd Semester', 56000.00, 55999.98, 25000.00, 'Not Valid', 17, '2026-04-04 11:21:35'),
+(7, 13, '1st Semester', 'Final', '2025-2026', '1st Semester', 907525.00, 453762.51, 550000.00, 'Valid', 17, '2026-04-04 13:28:57'),
+(8, 13, '2nd Semester', 'Prelim', '2025-2026', '2nd Semester', 907525.00, 605016.68, 550000.00, 'Not Valid', 17, '2026-04-04 13:29:38');
 
 -- --------------------------------------------------------
 
@@ -63018,6 +63087,29 @@ INSERT INTO `provinces` (`id`, `province_code`, `province_name`, `region_id`) VA
 (80, NULL, 'Maguindanao', 1),
 (81, NULL, 'Sulu', 1),
 (82, NULL, 'Tawi-Tawi', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `raw_subjects`
+--
+
+CREATE TABLE `raw_subjects` (
+  `COURSE` varchar(20) DEFAULT NULL,
+  `SUBJECT` varchar(20) DEFAULT NULL,
+  `DESC` varchar(255) DEFAULT NULL,
+  `UNIT` int(11) DEFAULT NULL,
+  `TSTART` varchar(10) DEFAULT NULL,
+  `TEND` varchar(10) DEFAULT NULL,
+  `ROOM` varchar(50) DEFAULT NULL,
+  `LIMIT` int(11) DEFAULT NULL,
+  `INSTRUCTOR` varchar(100) DEFAULT NULL,
+  `DEPARTMENT` varchar(100) DEFAULT NULL,
+  `PROGRAM` varchar(100) DEFAULT NULL,
+  `SEM` varchar(10) DEFAULT NULL,
+  `SY` varchar(20) DEFAULT NULL,
+  `TERM` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -63136,12 +63228,12 @@ INSERT INTO `role_permissions` (`id`, `role_id`, `permission_id`) VALUES
 (9, 2, 3),
 (10, 2, 4),
 (11, 2, 7),
+(25, 3, 1),
 (12, 3, 4),
-(13, 3, 5),
 (14, 3, 7),
 (15, 4, 5),
-(16, 5, 6),
 (17, 5, 7),
+(27, 5, 8),
 (18, 6, 6),
 (19, 6, 8),
 (20, 7, 9),
@@ -63264,6 +63356,7 @@ CREATE TABLE `students` (
   `previous_school` varchar(255) DEFAULT NULL,
   `previous_school_address` varchar(500) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `password_encrypted` text DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -63271,10 +63364,11 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `student_number`, `firstname`, `lastname`, `middle_name`, `suffix`, `email`, `phone`, `gender`, `civil_status`, `birthdate`, `address`, `city`, `province`, `zipcode`, `barangay`, `guardian_name`, `guardian_relationship`, `guardian_phone`, `guardian_email`, `guardian_address`, `course_id`, `year_level`, `enrollment_status`, `enrollment_date`, `previous_school`, `previous_school_address`, `password`, `is_active`) VALUES
-(10, '202600001', 'Gwyneth', 'Callora', 'Buhi', '', 'gwynethcallora6@gmail.com', '878769', 'Male', 'Single', '2005-12-01', 'Calumpang, City of General Santos, South Cotabato, Region XII', 'City of General Santos', 'South Cotabato', '9500', NULL, 'gdfgd', 'Sibling', 'fgdfgdf', 'dfgdfg@gamil.com', 'dfgdfg', 23, 1, 'Pending', NULL, '', '', 'callora202600001', 1),
-(11, '202600002', 'juan', 'Santos', 'dela Cruz', '', 'gwynethcallora6@gmail.com', '878769', 'Male', 'Married', '2026-03-18', 'Poblacion, Tampakan, South Cotabato, Region XII', 'Tampakan', 'South Cotabato', '9507', 'Poblacion', 'gdfgd', '', '', 'dfgdfg@gamil.com', 'dfgdfg', 23, 1, 'Pending', '2026-03-29', 'city high', 'cityhigh', 'santos202600002', 1),
-(12, '202600003', 'dfsgdhfdgdf', 'Santos', 'dfgdfg', '', 'gwynethcallora6@gmail.com', '878769', 'Male', 'Single', '2026-03-18', 'Camutan, Antipas, Cotabato, Region XII', 'Antipas', 'Cotabato', '9414', 'Camutan', 'gdfgd', 'Mother', 'fgdfgdf', 'dfgdfg@gamil.com', 'dfgdfg', 4, 1, 'Pending', '2026-03-29', 'city high', 'cityhigh', 'santos202600003', 1);
+INSERT INTO `students` (`id`, `student_number`, `firstname`, `lastname`, `middle_name`, `suffix`, `email`, `phone`, `gender`, `civil_status`, `birthdate`, `address`, `city`, `province`, `zipcode`, `barangay`, `guardian_name`, `guardian_relationship`, `guardian_phone`, `guardian_email`, `guardian_address`, `course_id`, `year_level`, `enrollment_status`, `enrollment_date`, `previous_school`, `previous_school_address`, `password`, `password_encrypted`, `is_active`) VALUES
+(10, '202600001', 'Gwyneth', 'Callora', 'Buhi', '', 'gwynethcallora6@gmail.com', '878769', 'Male', 'Single', '2005-12-01', 'Calumpang, City of General Santos, South Cotabato, Region XII', 'City of General Santos', 'South Cotabato', '9500', NULL, 'gdfgd', 'Sibling', 'fgdfgdf', 'dfgdfg@gamil.com', 'dfgdfg', 23, 1, 'Enrolled', NULL, '', '', '$2y$10$3Id3S/IfKjPOykNprwebZeBElBXpqDQpI7uWurulCCNjMR7iC/BvK', 'REJBclgxUGhEaktkaGI3ay9DU2FMQ01IYmg5RkxmZHdpdHdIOURYRW1hWT06Oi4kIp3EmE1bdvF3cbktQPI=', 1),
+(11, '202600002', 'juan', 'Santos', 'dela Cruz', '', 'gwynethcallora6@gmail.com', '878769', 'Male', 'Married', '2026-03-18', 'Poblacion, Tampakan, South Cotabato, Region XII', 'Tampakan', 'South Cotabato', '9507', 'Poblacion', 'gdfgd', '', '', 'dfgdfg@gamil.com', 'dfgdfg', 23, 1, 'Enrolled', '2026-03-29', 'city high', 'cityhigh', '$2y$10$pIwBGY/TSFbwZFXg.qYPPuhQ8xrwJ2N1NPs543SArgVhZw3cM2uK.', 'TlVkOXlyTHMwTGk5Rm92b0l3MWVnUT09OjqPOVzQripcEe0XBRn8r/C7', 1),
+(12, '202600003', 'dfsgdhfdgdf', 'Santos', 'dfgdfg', '', 'gwynethcallora6@gmail.com', '878769', 'Male', 'Single', '2026-03-18', 'Camutan, Antipas, Cotabato, Region XII', 'Antipas', 'Cotabato', '9414', 'Camutan', 'gdfgd', 'Mother', 'fgdfgdf', 'dfgdfg@gamil.com', 'dfgdfg', 4, 1, 'Enrolled', '2026-03-29', 'city high', 'cityhigh', '$2y$10$r9wkrGF1blne4arDE7ZptOB8eLwZrda7AWd7S0AIFfplOV4Vgi0re', 'aXB0a1JZS040R1Y2MldHNlN3QjNCZz09OjqBqlvZADXlH+IDMQSN16W/', 1),
+(13, '202600004', 'laurence', 'ecenorio', 's', '', 'laurance@gmail.com', '09483034212`', 'Male', 'Single', '2005-12-01', 'Calumpang, City of General Santos, South Cotabato, Region XII', 'City of General Santos', 'South Cotabato', '9500', 'Calumpang', 'mama decenorio', 'Mother', '0922334456', 'callorajezelmae30@gmail.com', 'Zone 4', 12, 1, 'Enrolled', '2026-03-30', 'batomelong national highschool', 'batomelong national highschool', '$2y$10$yrs0YM206s.UxDKCSOJ.Y.XMl1euBETZJGk0s9S5cfyWNZwRhDQlq', 'bnhuMklQcFdKYUwzQm5HemJMdFEwNklPSGlac2szRWVXMU1nZ2ZhT1I2VT06OvM/rUCNplnAHJ3Tu2zzyMA=', 1);
 
 -- --------------------------------------------------------
 
@@ -63292,6 +63386,16 @@ CREATE TABLE `student_fees` (
   `is_paid` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `student_fees`
+--
+
+INSERT INTO `student_fees` (`id`, `student_id`, `fee_type_id`, `fee_name`, `amount`, `due_date`, `is_paid`) VALUES
+(1, 10, NULL, 'Tuition Fee', 31000.00, NULL, 0),
+(2, 11, NULL, 'Tuition Fee', 31000.00, NULL, 0),
+(3, 13, NULL, 'Tuition Fee', 907525.00, NULL, 0),
+(4, 11, NULL, 'Tuition Fee', 25000.00, NULL, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -63306,6 +63410,15 @@ CREATE TABLE `student_subjects` (
   `semester` varchar(20) DEFAULT NULL,
   `status` enum('Enrolled','Dropped','Completed') DEFAULT 'Enrolled'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_subjects`
+--
+
+INSERT INTO `student_subjects` (`id`, `student_id`, `subject_id`, `school_year`, `semester`, `status`) VALUES
+(1, 13, 3131, '2026-2027', '1st', 'Enrolled'),
+(2, 13, 3130, '2026-2027', '1st', 'Enrolled'),
+(3, 13, 2541, '2026-2027', '1st', 'Enrolled');
 
 -- --------------------------------------------------------
 
@@ -63323,6 +63436,7 @@ CREATE TABLE `subjects` (
   `year_level` int(11) DEFAULT 1,
   `semester` varchar(20) DEFAULT NULL,
   `instructor` varchar(255) DEFAULT NULL,
+  `instructor_id` int(11) DEFAULT NULL,
   `room` varchar(50) DEFAULT NULL,
   `schedule` varchar(100) DEFAULT NULL,
   `max_students` int(11) DEFAULT 40,
@@ -63333,12 +63447,415 @@ CREATE TABLE `subjects` (
 -- Dumping data for table `subjects`
 --
 
-INSERT INTO `subjects` (`id`, `subject_code`, `description`, `course_code`, `department_id`, `units`, `year_level`, `semester`, `instructor`, `room`, `schedule`, `max_students`, `is_active`) VALUES
-(1, 'CS101', 'Introduction to Programming', 'BSCS', 1, 3.0, 1, '1st', 'Juan Dela Cruz', NULL, NULL, 40, 1),
-(2, 'CS102', 'Data Structures', 'BSCS', 1, 3.0, 2, '1st', 'Juan Dela Cruz', NULL, NULL, 40, 1),
-(3, 'CS201', 'Database Management', 'BSCS', 1, 3.0, 2, '2nd', 'Juan Dela Cruz', NULL, NULL, 40, 1),
-(4, 'BA101', 'Principles of Management', 'BSBA', 2, 3.0, 1, '1st', NULL, NULL, NULL, 40, 1),
-(5, 'BA102', 'Business Mathematics', 'BSBA', 2, 3.0, 1, '2nd', NULL, NULL, NULL, 40, 1);
+INSERT INTO `subjects` (`id`, `subject_code`, `description`, `course_code`, `department_id`, `units`, `year_level`, `semester`, `instructor`, `instructor_id`, `room`, `schedule`, `max_students`, `is_active`) VALUES
+(2237, 'GE301', 'Art Appreciation', 'BSMA', 10, 3.0, 1, '1', NULL, NULL, 'AG208', '10:00-11:00', 30, 1),
+(2238, 'GE204', 'Ethics', 'BSMA', 10, 3.0, 1, '1', NULL, NULL, 'AG208', '12:00-13:00', 30, 1),
+(2239, 'MATH111', 'Precalculus', 'BSMA', 10, 5.0, 1, '1', NULL, NULL, 'AG208', '13:00-14:00', 30, 1),
+(2240, 'GE101', 'Purposive Communication', 'BSMA', 10, 3.0, 1, '1', NULL, NULL, 'AG208', '09:00-10:00', 30, 1),
+(2241, 'GE502', 'Enviromental Science', 'BSMA', 10, 3.0, 1, '1', NULL, NULL, 'AG208', '10:00-11:00', 30, 1),
+(2242, 'PE1', 'Movement Enhancement', 'BSMA', 10, 2.0, 1, '1', NULL, NULL, 'PC', '06:00-08:00', 50, 1),
+(2243, 'CWTS1', 'National Service Training Program 1', 'BSMA', 10, 3.0, 1, '1', NULL, NULL, 'AG208', '08:00-10:00', 30, 1),
+(2244, 'GE101', 'Purposive Communication', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '08:00-09:00', 45, 1),
+(2245, 'GE302', 'Indigenous Creative Crafs', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '08:00-09:00', 45, 1),
+(2246, 'GE204', 'Ethics', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '09:00-10:00', 45, 1),
+(2247, 'GE502', 'Enviromental Science', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '09:00-10:00', 45, 1),
+(2248, 'CC101', 'Introduction to Computing', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'COMA', '10:00-13:00', 40, 1),
+(2249, 'CC102', 'Computer Programming 1', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'COMA', '10:00-13:00', 40, 1),
+(2250, 'PE1', 'Movement Enhancement', 'BSIT', 17, 2.0, 1, '1', NULL, NULL, 'PC', '06:00-08:00', 50, 1),
+(2251, 'CWTS1', 'National Service Training Program 1', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'FG405', '08:00-11:00', 45, 1),
+(2252, 'GE201', 'Understanding the Self', 'BSSW', 10, 3.0, 1, '1', NULL, NULL, 'AG202', '08:00-09:00', 45, 1),
+(2253, 'GE202', 'Reading in Philippine History', 'BSSW', 10, 3.0, 1, '1', NULL, NULL, 'AG202', '09:00-10:00', 45, 1),
+(2254, 'GE401', 'Mathematics in the Modern World', 'BSSW', 10, 3.0, 1, '1', NULL, NULL, 'AG202', '12:00-13:00', 45, 1),
+(2255, 'SWP1', 'Knowledge & Philosophical Foundation of the Social Work Profession', 'BSSW', 10, 3.0, 1, '1', NULL, NULL, 'AG202', '11:00-12:00', 45, 1),
+(2256, 'PE1', 'Movement Enhancement', 'BSSW', 10, 2.0, 1, '1', NULL, NULL, 'PC', '06:00-08:00', 50, 1),
+(2257, 'NSTP1', 'National Service Training Program', 'BSSW', 10, 3.0, 1, '1', NULL, NULL, 'FG406', '13:00-16:00', 45, 1),
+(2258, 'GE203', 'The Contemporary World', 'BSSW', 10, 3.0, 1, '1', NULL, NULL, 'AG202', '11:00-12:00', 45, 1),
+(2266, 'GE101', 'Purposive Communication', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG212', '08:00-09:00', 37, 1),
+(2267, 'GE301', 'Arts Appreciation', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'FG512', '09:00-10:00', 45, 1),
+(2268, 'GE205', 'Life and Works of Rizal', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'FG512', '12:00-13:00', 45, 1),
+(2269, 'GE302', 'Indigenous Creative Crafts', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG212', '08:00-09:00', 37, 1),
+(2270, 'ESL1', 'Introduction to the English Language System', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG212', '09:00-10:00', 45, 1),
+(2271, 'PE1', 'Movement Enhancement', 'AB', 9, 2.0, 1, '1', NULL, NULL, 'PC', '06:00-08:00', 50, 1),
+(2272, 'NSTP1', 'National Service Training Program', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'FG410', '08:00-11:00', 45, 1),
+(2283, 'PSY101', 'Introduction to Psychology', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG207', '11:00-12:00', 37, 1),
+(2289, 'COM1', 'Communication Media', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG214', '11:00-12:00', 40, 1),
+(2290, 'COM2', 'Journalism Principles and Practice', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG214', '12:00-13:00', 40, 1),
+(2293, 'GE101', 'Purposive Communication', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG402', '07:00-08:00', 45, 1),
+(2294, 'GE301', 'Arts Appreciation', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG402', '08:00-09:00', 45, 1),
+(2295, 'GE204', 'Ethics', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG402', '11:00-12:00', 45, 1),
+(2296, 'GE206', 'Gender and Society', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG402', '07:00-08:00', 45, 1),
+(2297, 'GE503', 'Living in the IT Era', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'COMC', '11:00-12:00', 45, 1),
+(2298, 'PCFG1/PCFC1', 'The Child and Adolescent Learning Principles', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG402', '08:00-09:00', 45, 1),
+(2299, 'PE1', 'Movement Enhancement', 'BEED', 19, 2.0, 1, '1', NULL, NULL, 'PC', '06:00-08:00', 50, 1),
+(2300, 'NSTP1', 'National Service Training Program 1', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG402', '08:00-11:00', 45, 1),
+(2301, 'PRSG1', 'Principles of Teaching', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG402', '10:00-11:00', 45, 1),
+(2329, 'M100', 'History of Mathematics', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG403', '07:00-08:00', 45, 1),
+(2330, 'M101', 'College and Advance A;gebra', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG403', '08:00-09:00', 45, 1),
+(2331, 'M105', 'Elementary Statistics and Probability', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG403', '08:00-09:00', 45, 1),
+(2332, 'GE101', 'Purposive Communication', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG403', '09:00-10:00', 45, 1),
+(2333, 'GE301', 'Arts Appreciation', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG403', '11:00-12:00', 45, 1),
+(2334, 'GE204', 'Ethics', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG403', '09:00-10:00', 45, 1),
+(2335, 'PE1', 'Movement Enhancement', 'BSED', 19, 2.0, 1, '1', NULL, NULL, 'PC', '06:00-08:00', 50, 1),
+(2336, 'NSTP1', 'National Service Training Program 1', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG603', '08:00-10:30', 45, 1),
+(2337, 'CHEM1.0', 'Inorganic Chemistry Lecture', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '07:00-08:00', 45, 1),
+(2338, 'CHEM1.1', 'Inorganic Chemistry Lab', 'BSED', 19, 2.0, 1, '1', NULL, NULL, 'FG409', '08:00-09:00', 45, 1),
+(2339, 'SCI1', 'Earth Sciences', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '08:00-09:00', 45, 1),
+(2340, 'PRSS9', 'Mechanics', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '09:00-10:00', 45, 1),
+(2341, 'PCFS1', 'The Child and Adolescent Learning Principles', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG403', '12:00-13:00', 45, 1),
+(2345, 'GE206', 'Gender and Society', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG402', '09:00-10:00', 45, 1),
+(2346, 'GE503', 'Living in the IT Era', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'COMC', '10:00-11:00', 45, 1),
+(2347, 'PCFF1', 'The Child and Adolescent Learning Principles', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG403', '13:00-14:00', 45, 1),
+(2350, 'EL100', 'Introduction to Linnguistics', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG410', '10:00-11:00', 45, 1),
+(2351, 'EL102', 'Structure of English', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '13:00-14:00', 45, 1),
+(2357, 'PRSE7', 'Technical Correspondence', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG410', '13:00-14:00', 45, 1),
+(2366, 'GE101', 'Purposive Communication', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'FG303', '11:00-12:00', 45, 1),
+(2367, 'GE301', 'Art Appreciation', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'FG303', '10:00-11:00', 45, 1),
+(2368, 'SCF1', 'Philosopical and Socioanthropological Foundation of Physical Education and Sports', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'FG302', '10:00-11:00', 45, 1),
+(2369, 'SCF2', 'Anatomy and Physiology of Human Movement', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'FG302', '09:00-10:00', 45, 1),
+(2370, 'PCFB1', 'The Child and Adolescent Learners and Learning Principles', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'FG302', '11:00-12:00', 45, 1),
+(2371, 'PE1', 'Movement Enhancement', 'BPE', NULL, 2.0, 1, '1', NULL, NULL, 'PC', '06:00-08:00', 50, 1),
+(2372, 'NSTP1', 'National Service Training Program 1', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'FG512', '13:00-16:00', 45, 1),
+(2380, 'GE101', 'Purposive Communication', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG206', '08:00-09:00', 40, 1),
+(2381, 'GE201', 'Undestanding the Self', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG206', '08:00-09:00', 40, 1),
+(2382, 'GE202', 'Reading in Philippine History', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG206', '09:00-10:00', 40, 1),
+(2383, 'FIN11', 'Financial Markets', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG206', '14:00-15:00', 40, 1),
+(2384, 'ACCTG11', 'Financial Accounting and Reporting', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG206', '12:00-13:00', 40, 1),
+(2385, 'ADVMATH', 'Mathematics of Investment', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG206', '09:00-10:00', 40, 1),
+(2386, 'GE301', 'Art Appreciation', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG206', '10:00-11:00', 40, 1),
+(2387, 'ACCTG12', 'Conceptual Framework and Accounting Standards', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG206', '13:00-14:00', 40, 1),
+(2388, 'PE1', 'Movement Enhancement', 'BSA', NULL, 2.0, 1, '1', NULL, NULL, 'PC', '06:00-08:00', 40, 1),
+(2389, 'CWTS1', 'National Service Training Program 1', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG406', '08:00-11:00', 40, 1),
+(2398, 'NSTP1', 'National Service Training Program 1', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG605', '08:00-11:00', 40, 1),
+(2409, 'GE201', 'Undestanding the Self', 'BSA', NULL, 3.0, 1, '2', NULL, NULL, 'FG211', '12:00-13:00', 40, 1),
+(2412, 'GE101', 'Purposive Communication', 'BSA', NULL, 3.0, 1, '2', NULL, NULL, 'FG211', '13:00-14:00', 40, 1),
+(2417, 'GE202', 'Reading in Philippine History', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG306', '08:00-09:00', 45, 1),
+(2418, 'GE203', 'The Contemporary World', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG306', '09:00-10:00', 45, 1),
+(2419, 'ECON101', 'Basic Microeconomics', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG306', '10:00-11:00', 45, 1),
+(2420, 'GE201', 'Undestanding the Self', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG306', '12:00-13:00', 45, 1),
+(2421, 'GE205', 'Life and Works of Rizal', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG306', '09:00-10:00', 45, 1),
+(2422, 'MKTG1', 'Principles of Marketing', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG306', '10:00-11:00', 45, 1),
+(2423, 'MGT1', 'Principles of Management', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG306', '13:00-14:00', 45, 1),
+(2445, 'FIN101', 'Business Finance', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG307', '16:00-17:00', 45, 1),
+(2474, 'OM101', 'Clerical and Office Procedures', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG308', '15:00-16:00', 45, 1),
+(2475, 'SH101', 'Foundation of Shorthand', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG311', '16:00-17:00', 45, 1),
+(2478, 'COMPTYPE1', 'Intro to Keyboarding', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'COMB', '17:00-18:00', 40, 1),
+(2479, 'MATH100', 'Precalculus', 'BSCE', NULL, 6.0, 1, '1', NULL, NULL, 'EM301', '08:00-10:00', 50, 1),
+(2480, 'GE401', 'Mathematics in the Modern World', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'EM303', '10:00-11:00', 50, 1),
+(2481, 'MATH114', 'Calculus 1', 'BSCE', NULL, 4.0, 1, '1', NULL, NULL, 'EM301', '08:00-10:00', 50, 1),
+(2482, 'CHEM114', 'Chemistry For Engineers', 'BSCE', NULL, 4.0, 1, '1', NULL, NULL, 'EM301', '10:00-12:00', 50, 1),
+(2483, 'BES112', 'Civil Engineering Orientation', 'BSCE', NULL, 2.0, 1, '1', NULL, NULL, 'EM301', '11:00-12:00', 50, 1),
+(2484, 'PE1', 'Movement Enhancement', 'BSCE', NULL, 2.0, 1, '1', NULL, NULL, 'PC', '06:00-08:00', 55, 1),
+(2485, 'NSTP1', 'National Service Training Program 1', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'FG610', '08:00-11:00', 52, 1),
+(2491, 'GE101', 'Purposive Communication', 'BSES', NULL, 3.0, 1, '1', NULL, NULL, 'AG208', '08:00-09:00', 30, 1),
+(2492, 'MATH400', 'Pre-Calculus', 'BSES', NULL, 5.0, 1, '1', NULL, NULL, 'FG513', '10:00-11:00', 45, 1),
+(2493, 'PE1', 'Movement Enhancement', 'BSES', NULL, 2.0, 1, '1', NULL, NULL, 'PC', '06:00-08:00', 50, 1),
+(2494, 'CWTS1', 'National Service Training Program 1', 'BSES', NULL, 3.0, 1, '1', NULL, NULL, 'FG611', '08:00-11:00', 45, 1),
+(2495, 'EARTHSC1', 'Earth and Environmental Science', 'BSES', NULL, 3.0, 1, '1', NULL, NULL, 'BLAB', '09:00-10:00', 40, 1),
+(2496, 'GE205', 'Life and Works of Rizal', 'BSES', NULL, 3.0, 1, '1', NULL, NULL, 'BLAB', '10:00-11:00', 40, 1),
+(2497, 'CHEM1', 'General Chemistry', 'BSES', NULL, 5.0, 1, '1', NULL, NULL, 'BLAB', '07:00-09:00', 40, 1),
+(2498, 'EM4', 'Environmental Laws and Policy', 'BSES', NULL, 3.0, 1, '1', NULL, NULL, 'BLAB', '17:00-18:00', 40, 1),
+(2499, 'EM5', 'Environmental Economic Valuation', 'BSES', NULL, 3.0, 1, '1', NULL, NULL, 'BLAB', '18:00-19:00', 40, 1),
+(2500, 'ES4', 'The Environmental Impact Assessment System', 'BSES', NULL, 5.0, 1, '1', NULL, NULL, 'BLAB', '17:00-19:00', 40, 1),
+(2501, 'GE201', 'Undestanding the Self', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'FG205', '14:00-15:00', 45, 1),
+(2502, 'GE202', 'Reading in Philippine History', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'FG205', '15:00-16:00', 45, 1),
+(2503, 'GE203', 'The Contemporary World', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'FG205', '16:00-17:00', 45, 1),
+(2504, 'GE401', 'Mathematics in the Modern World', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'FG205', '13:00-14:00', 45, 1),
+(2505, 'GE101', 'Purposive Communication', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'FG205', '14:00-15:00', 45, 1),
+(2506, 'PE1', 'Movement Enhancement', 'BSCA', NULL, 2.0, 1, '1', NULL, NULL, 'PC', '10:00-12:00', 50, 1),
+(2507, 'NSTP1', 'National Service Training Program 1', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'FG604', '13:00-16:00', 30, 1),
+(2508, 'MATH1', 'College Algebra', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '07:00-08:00', 45, 1),
+(2535, 'GE401', 'Mathematics in the Modern World', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG602', '08:00-09:00', 50, 1),
+(2536, 'GE201', 'Undestanding the Self', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG602', '09:00-10:00', 50, 1),
+(2537, 'GE202', 'Reading in Philippine History', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG602', '10:00-11:00', 50, 1),
+(2538, 'GE203', 'The Contemporary World', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG602', '11:00-12:00', 50, 1),
+(2539, 'GE205', 'Life and Works of Rizal', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG602', '08:00-09:00', 50, 1),
+(2540, 'CRIM1', 'Introduction to Criminology', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG602', '09:00-10:00', 50, 1),
+(2541, 'CHEM1', 'General Chemistry', 'BSCR', 18, 3.0, 1, '1', NULL, 24, 'FG602', 'MWF 11:00 AM-12:00 PM', 40, 1),
+(2542, 'DEFTAC1', 'Fundamentals of Martial Arts', 'BSCR', 18, 2.0, 1, '1', NULL, NULL, 'FL01', '13:00-15:00', 100, 1),
+(2543, 'ROTC1', 'Military Science 11 & 12', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FL01', '13:00-17:00', 40, 1),
+(2544, 'ITC111', 'IT Fundamentals', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'COMB', '09:00-10:00', 40, 1),
+(2600, 'GE203', 'The Contemporary World', 'BSCS', NULL, 3.0, 1, '1', NULL, NULL, 'FG606', '20:00-21:00', 45, 1),
+(2611, 'FIELD1SW', 'Field Instruction 1', 'BSSW', 10, 6.0, 1, '1', NULL, NULL, 'AG210', '08:00-09:00', 37, 1),
+(2612, 'SPPS9', 'Seminar in Current Trend in Social Work Practice', 'BSSW', 10, 3.0, 1, '1', NULL, NULL, 'AG210', '18:00-19:00', 37, 1),
+(2615, 'MATH21', 'Complex Analysis', 'BSSW', 10, 3.0, 1, '1', NULL, NULL, 'FG604', '13:00-14:00', 30, 1),
+(2616, 'MATH22', 'Graph Theory and its application', 'BSSW', 10, 3.0, 1, '1', NULL, NULL, 'AG208', '12:00-13:00', 30, 1),
+(2617, 'MATH23', 'Actuarial Mathematics 1', 'BSSW', 10, 3.0, 1, '1', NULL, NULL, 'AG208', '14:00-15:00', 30, 1),
+(2618, 'FS411', 'Learning Assessment Strategies', 'BEED', 19, 1.0, 1, '1', NULL, NULL, 'EM306', '07:00-08:00', 45, 1),
+(2619, 'FS431', 'On becoming a Teacher', 'BEED', 19, 1.0, 1, '1', NULL, NULL, 'EM306', '08:00-09:00', 45, 1),
+(2620, 'PSE8', 'Prep. and Eval. of Insr. Mateials', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '17:00-18:00', 45, 1),
+(2621, 'PSE18', 'Directed Study in ECE', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '18:00-19:00', 45, 1),
+(2622, 'HE1', 'Home Economics and Livelihood Educ', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '19:00-20:00', 45, 1),
+(2623, 'PSE10', 'Observational Child Study', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG302', '16:00-17:00', 45, 1),
+(2624, 'DEVRDG413', 'Developmental Reading 2', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '17:00-18:00', 45, 1),
+(2625, 'PSE17', 'Trends and Issues in PSE', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '18:00-19:00', 45, 1),
+(2626, 'ST400', 'Seminar on Special Topics', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'EM306', '07:00-09:30', 45, 1),
+(2627, 'FS311', 'Technology in the Learning Envi.', 'BEED', 19, 1.0, 1, '1', NULL, NULL, 'EM306', '07:00-08:00', 45, 1),
+(2628, 'MATH202', 'Plane Geometry', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '15:00-16:00', 45, 1),
+(2629, 'PS305', 'Astronomy', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG410', '17:00-18:00', 45, 1),
+(2630, 'PSE12', 'Classroom Management', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG205', '12:00-13:00', 45, 1),
+(2631, 'PSE13', 'Guidance and Counseling in PSE', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG410', '17:00-18:00', 45, 1),
+(2632, 'EDUC302', 'Curriculum Development', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG410', '15:00-16:00', 45, 1),
+(2636, 'NATSC313', 'Ecology', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG512', '15:00-16:00', 45, 1),
+(2637, 'MATH308', 'Problem Solving in Math', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG512', '14:00-15:00', 45, 1),
+(2639, 'HE413', 'Home Economics & Livelihood Ed.', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG302', '13:00-14:00', 45, 1),
+(2640, 'GE413', 'Prep & Eval of Instruc Materials', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG302', '14:00-15:00', 45, 1),
+(2641, 'ENGL433', 'Masterpiece of the world', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG302', '15:00-16:00', 45, 1),
+(2687, 'EL100', 'Introduction to Linnguistics', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG205', '10:00-11:00', 45, 1),
+(2688, 'EL102', 'Structure of English', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG405', '13:00-14:00', 45, 1),
+(2694, 'PRSE7', 'Technical Correspondence', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG205', '11:00-12:00', 45, 1),
+(2698, 'PCFF1', 'The Child and Adolescent Learning Principles', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG406', '13:00-14:00', 45, 1),
+(2716, 'PCFG1/PCFC1', 'The Child and Adolescent Learning Principles', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG402', '12:00-13:00', 45, 1),
+(2728, 'SWP1', 'Knowledge & Philosophical Foundation of the Social Work Profession', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'AG210', '12:30-15:00', 37, 1),
+(2729, 'GE401', 'Mathematics in the Modern World', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'AG210', '15:00-17:30', 37, 1),
+(2730, 'ROTC1', 'Military Science 11 & 12', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FL03', '13:00-17:00', 40, 1),
+(2732, 'DEFTAC1', 'Fundamentals of Martial Arts', 'BSED', NULL, 2.0, 1, '1', NULL, NULL, 'FL01', '06:00-08:00', 40, 1),
+(2733, 'CRIM1', 'Introduction to Criminology', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG406', '08:00-10:30', 45, 1),
+(2734, 'CHEM1', 'General Chemistry', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG406', '14:30-17:00', 45, 1),
+(2741, 'LIT1', 'Literature of the Philippines', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG214', '08:00-09:00', 37, 1),
+(2748, 'LIT1', 'Literature of the Philippines', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'FG409', '16:00-17:00', 45, 1),
+(2749, 'LIS101', 'Introduction to Library and Information Science', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'RA123', '17:00-18:00', 45, 1),
+(2750, 'SPT101', 'School/Academic Librianship', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'RA123', '17:00-18:00', 45, 1),
+(2781, 'PCFH1', 'The Child and Adolescent Learning Principles', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG513', '12:00-13:00', 45, 1),
+(2822, 'FS431', 'On becoming a Teacher', 'BSED', 19, 1.0, 1, '1', NULL, NULL, 'EM306', '07:00-08:00', 45, 1),
+(2823, 'ST400', 'Seminar on Multicultural Teaching', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'EM306', '20:00-21:00', 45, 1),
+(2824, 'ENGL413', 'Language curr. for sec.sch', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG410', '16:00-17:00', 45, 1),
+(2825, 'ENGL453', 'Intro to stylistics', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG205', '17:00-18:00', 45, 1),
+(2826, 'ENGL473', 'Translation and Editing of text', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG205', '18:00-19:00', 45, 1),
+(2827, 'ENGL493', 'Afro-Asian Literature', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG513', '16:00-17:00', 45, 1),
+(2828, 'ENGL494', 'Teaching Literature', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG513', '17:00-18:00', 45, 1),
+(2829, 'ENGL495', 'Preparation of instructional materials', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG513', '18:00-19:00', 45, 1),
+(2830, 'ENGL496', 'Campus Journalism', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG513', '19:00-20:00', 45, 1),
+(2831, 'FS411', 'Learning Assessment Strategies', 'BSED', 19, 1.0, 1, '1', NULL, NULL, 'EM306', '08:00-09:00', 45, 1),
+(2841, 'EDUC400', 'Practice Teaching', 'BSED', 19, 6.0, 1, '1', NULL, NULL, 'EM306', '11:00-12:00', 45, 1),
+(2854, 'FIL413', 'Paghahanda at Ebalwasyon ng kagamitan', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG406', '19:00-20:00', 45, 1),
+(2855, 'FIL433', 'Ang Fil. Sa Kur. Ng Batayang Eduk', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'RA120', '17:00-18:00', 50, 1),
+(2856, 'FIL453', 'Pagbasa ng mga obra maestrang pilipino', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG406', '20:00-21:00', 45, 1),
+(2857, 'FIL473', 'Pagpapahalagang Pampanitikan', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG406', '18:00-19:00', 45, 1),
+(2858, 'FIL493', 'Maikling Kwentong Filipino', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'RA119', '17:00-18:00', 50, 1),
+(2859, 'PEACEED', 'Peace Education', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG406', '19:00-20:00', 45, 1),
+(2863, 'PS413', 'Basic Electronics', 'BSED', 19, 4.0, 1, '1', NULL, NULL, 'RA121', '17:00-18:00', 50, 1),
+(2864, 'PS493', 'BioChemistry', 'BSED', 19, 5.0, 1, '1', NULL, NULL, 'FG410', '19:00-20:00', 45, 1),
+(2865, 'PS495', 'Prep. & Val. Of Instructional Materials', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '20:00-21:00', 45, 1),
+(2866, 'MATH305', 'Modern Geometry', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG512', '19:00-20:00', 45, 1),
+(2867, 'MATH402', 'Action in Research in Math Educ', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG406', '18:00-19:00', 45, 1),
+(2868, 'MATH403', 'Seminar on Technology in Math', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'RA127', '17:00-18:00', 50, 1),
+(2869, 'PS453', 'History & Philo of Sc.', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '15:00-16:00', 45, 1),
+(2870, 'MATH401', 'Seminar on Problem Solving in Math', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'RA118', '19:00-20:00', 50, 1),
+(2871, 'MATH304', 'Calculus 2', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'RA129', '17:00-18:00', 37, 1),
+(2872, 'PS433', 'Optics', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG402', '18:00-19:00', 45, 1),
+(2873, 'MATH307', 'Instrumentation in Math', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG403', '18:00-19:00', 45, 1),
+(2877, 'SPE116', 'Aquatics', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'RA128', '18:00-19:00', 50, 1),
+(2878, 'SPE119', 'Sports and Wellness Law', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'RA128', '17:00-18:00', 50, 1),
+(2880, 'SPE120', 'Applied Sports and Nutrition', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'FG410', '20:00-21:00', 45, 1),
+(2881, 'SPE118', 'Emergency Preparedness and Response Management', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'RA120', '17:00-18:00', 50, 1),
+(2882, 'DEVRDG413', 'Developmental Reading 2', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'FG405', '14:00-15:00', 45, 1),
+(2883, 'SPE117', 'Special PE sports & wellness', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'FG405', '15:00-16:00', 45, 1),
+(2884, 'FS431', 'On becoming a Teacher', 'BPE', NULL, 1.0, 1, '1', NULL, NULL, 'EM306', '07:00-08:00', 45, 1),
+(2885, 'FS411', 'Learning Assessment Strategies', 'BPE', NULL, 1.0, 1, '1', NULL, NULL, 'EM306', '07:00-08:00', 45, 1),
+(2886, 'ST400', 'Seminar on Special Topics', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'EM306', '15:30-18:00', 45, 1),
+(2887, 'SPE116', 'Aquatics', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'RA127', '18:00-19:00', 50, 1),
+(2889, 'SPE120', 'Applied Sports and Nutrition', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'RA120', '19:00-20:00', 50, 1),
+(2890, 'SPE118', 'Emergency Preparedness and Response Management', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'RA129', '17:00-18:00', 37, 1),
+(2891, 'DEVRDG413', 'Developmental Reading 2', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'RA129', '19:00-20:00', 37, 1),
+(2892, 'SPE117', 'Special PE sports & wellness', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'RA129', '18:00-19:00', 37, 1),
+(2897, 'SPE119', 'Sports and Wellness Law', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'FG402', '15:00-16:00', 45, 1),
+(2911, 'ACCTG43', 'Management Accounting', 'BSBA', NULL, 6.0, 1, '1', NULL, NULL, 'FG307', '12:00-13:00', 45, 1),
+(2912, 'MGT13', 'Social Responsibility & Good Governance', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'AG202', '13:00-14:00', 45, 1),
+(2913, 'MKTG10', 'Entrepreneurial Management', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG302', '16:00-17:00', 45, 1),
+(2914, 'FIN9', 'Strategic Financial Management', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG312', '18:00-19:00', 45, 1),
+(2915, 'MKTG9', 'Franchising', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG307', '15:00-16:00', 45, 1),
+(2916, 'FIN10', 'Financial Controllership', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG312', '16:00-17:00', 45, 1),
+(2919, 'BUSMATH4', 'Quantitative techniques in Business', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG312', '13:00-14:00', 40, 1),
+(2923, 'MKTG841', 'Sales Management', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG306', '18:00-19:00', 40, 1),
+(2924, 'MKTG11', 'Strategic Marketing Management', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG312', '16:00-17:00', 40, 1),
+(2934, 'BM5', 'Business Ethics including Public Realations', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG311', '17:00-18:00', 45, 1),
+(2935, 'BM7', 'Executive Leadership', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG311', '18:00-19:00', 45, 1),
+(2937, 'OPTNMGT5', 'Productivity and Quality Tools', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG311', '10:00-11:00', 45, 1),
+(2939, 'OPTNMGT6', 'Facilities Management', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG311', '12:00-13:00', 45, 1),
+(2941, 'MGT11', 'Total Quality Management', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG308', '18:00-19:00', 45, 1),
+(2942, 'HUM2', 'Philosophy of Man', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG312', '11:00-12:00', 45, 1),
+(2943, 'CDI6', 'Fire Technology and Arson Investigation', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG602', '14:00-15:00', 45, 1),
+(2944, 'CRIM5', 'Human Behavior & Cris Management', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG602', '15:00-16:00', 45, 1),
+(2945, 'FORSCI6', 'Legal Medicine', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG602', '17:00-18:00', 45, 1),
+(2946, 'CLJ5', 'Court Testimony', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG602', '18:00-19:00', 45, 1),
+(2975, 'IT500', 'On the Job Training', 'BSIT', 17, 9.0, 1, '1', NULL, NULL, 'ITE', '07:00-10:00', 37, 1),
+(2976, 'SPS411', 'Thesis I', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'COMA', '13:00-16:00', 40, 1),
+(2977, 'IT225', 'Data Ccmmunication and Networking', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '17:00-18:00', 45, 1),
+(2978, 'BCS416', 'Professional Ethics Values Education and Quality Processes', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '16:00-17:00', 45, 1),
+(2979, 'CSE412', 'CS Elective 3', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '16:00-17:00', 45, 1),
+(2980, 'SOCSC5', 'Life and Works of Rizal', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'AG206', '08:00-09:00', 45, 1),
+(2981, 'CUST8', 'Customs Law Review', 'BSCA', NULL, 5.0, 1, '1', NULL, NULL, 'AG206', '09:00-10:00', 45, 1),
+(2982, 'TARIFF7', 'Trade Remedies', 'BSCA', NULL, 4.0, 1, '1', NULL, NULL, 'AG206', '10:00-11:00', 45, 1),
+(2983, 'LAW1', 'Law on Obligation and Contracts', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'AG206', '08:00-09:00', 45, 1),
+(2984, 'MGT2', 'Human Behavior in Organization', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'AG206', '09:00-10:00', 45, 1),
+(2986, 'LAW1', 'Law on Obligation and Contracts', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'AG206', '15:00-16:00', 45, 1),
+(2988, 'SOCSC5', 'Life and Works of Rizal', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG205', '15:00-16:00', 45, 1),
+(2990, 'ACCTG43', 'Management Accounting', 'BSA', NULL, 6.0, 1, '1', NULL, NULL, 'FG211', '09:00-11:00', 45, 1),
+(2991, 'ACCTG41', 'Auditing Practice', 'BSA', NULL, 6.0, 1, '1', NULL, NULL, 'FG211', '09:00-11:00', 45, 1),
+(2992, 'ACCTG44', 'Accounting information system', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG211', '11:00-12:00', 45, 1),
+(2993, 'REV1', 'Practical Accounting 1 & 2/ Theory of Accounts', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'AG201', '15:00-17:00', 30, 1),
+(2996, 'LIT1', 'Literature of the Philippines', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG211', '08:00-09:00', 45, 1),
+(2997, 'BM4', 'Production and Operations Management', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG211', '08:00-09:00', 45, 1),
+(2998, 'TAX2', 'Business & Transfer Taxes', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'AG201', '13:00-14:00', 30, 1),
+(2999, 'ENGL493', 'Afro-Asian Literature', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG212', '10:00-11:00', 37, 1),
+(3000, 'MATH2', 'Business Statistics', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG212', '11:00-12:00', 37, 1),
+(3001, 'ENGL393', 'English and American Literature', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG212', '12:00-13:00', 37, 1),
+(3002, 'ENGL24', 'European Literature', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG212', '09:00-10:00', 37, 1),
+(3003, 'SOCSC5', 'Life and Works of Rizal', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG202', '10:00-11:00', 45, 1),
+(3004, 'EDUC13', 'Administration and Supervision', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG212', '12:00-13:00', 37, 1),
+(3005, 'MR', 'Methods of Research', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG212', '14:00-15:00', 37, 1),
+(3006, 'PSY111', 'Practicum', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG207', '11:00-12:00', 37, 1),
+(3007, 'MGT1', 'Principles of Management', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG207', '15:00-16:00', 37, 1),
+(3008, 'BA9', 'Communcation Media Laws and Ethics', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG214', '09:00-10:00', 37, 1),
+(3009, 'BA11', 'Intro to Development Communication', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG214', '10:00-11:00', 37, 1),
+(3010, 'BA12', 'Thesis or Special Project', 'AB', 9, 3.0, 1, '1', NULL, NULL, 'AG211', '11:00-12:00', 30, 1),
+(3011, 'CE414', 'Geo Tech Eng\\\'g 1 Lec', 'BSCE', NULL, 4.0, 1, '1', NULL, NULL, 'EM303', '08:00-09:00', 45, 1),
+(3012, 'CE454', 'Structural Theory 1 Lec', 'BSCE', NULL, 4.0, 1, '1', NULL, NULL, 'EM302', '17:00-18:00', 45, 1),
+(3013, 'MECH413', 'Mechanics of Fluid Lec', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'EM303', '13:00-14:00', 45, 1),
+(3014, 'CE473', 'Construction Materials and Testing Lec', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'AG205', '18:00-19:00', 45, 1),
+(3015, 'CE323', 'Highway Engineering', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'EM303', '16:00-17:00', 45, 1),
+(3021, 'CE552', 'Const Method & Project Mgt. Lec', 'BSCE', NULL, 2.0, 1, '1', NULL, NULL, 'EM302', '08:00-09:00', 45, 1),
+(3022, 'CE551L', 'Const Method & Project Mgt. Lab', 'BSCE', NULL, 1.0, 1, '1', NULL, NULL, 'EM302', '07:00-08:00', 45, 1),
+(3023, 'CE533', 'Foundation Lecture', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'EM302', '08:00-09:00', 45, 1),
+(3024, 'CE531L', 'Foundation Lab', 'BSCE', NULL, 1.0, 1, '1', NULL, NULL, 'MTRLB', '09:00-12:00', 30, 1),
+(3025, 'CE572', 'RC2  Lec', 'BSCE', NULL, 2.0, 1, '1', NULL, NULL, 'EM303', '14:00-15:00', 45, 1),
+(3026, 'CE592', 'Timber Design Lec', 'BSCE', NULL, 2.0, 1, '1', NULL, NULL, 'EM302', '09:00-10:00', 45, 1),
+(3027, 'CE591L', 'Timber Design Lab', 'BSCE', NULL, 1.0, 1, '1', NULL, NULL, 'EM302', '10:00-11:00', 45, 1),
+(3028, 'CE513', 'Water Resources Engineering', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'AG205', '17:00-18:00', 45, 1),
+(3029, 'CE573', 'Hydrology', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'EM303', '19:00-20:00', 45, 1),
+(3030, 'MKTG9', 'Franchising', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'AG106', '14:00-15:00', 40, 1),
+(3031, 'ENGL2', 'Writing in the Disciplines', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM201', '08:00-09:00', 45, 1),
+(3032, 'SOCSC1', 'Philippine History & Government', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM201', '08:00-09:00', 45, 1),
+(3033, 'HUM2', 'Philosophy of Man', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM201', '09:00-10:00', 45, 1),
+(3034, 'SOCSC2', 'Basic Econ w/Tax. Land Ref. & Oth. Iss.', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM201', '09:00-10:00', 45, 1),
+(3035, 'PT101', 'Platform Technologies', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'COMA', '10:00-13:00', 40, 1),
+(3036, 'PF101', 'Object Oriented Programming', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'COMA', '10:00-13:00', 40, 1),
+(3037, 'DS102', 'Discrete Structures 2', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM201', '07:00-08:00', 45, 1),
+(3038, 'PE3', 'Fundl\\\'s of Games and Sports', 'BSIT', 17, 2.0, 1, '1', NULL, NULL, 'PC', '08:00-10:00', 50, 1),
+(3039, 'SIA101', 'Systems Integration and Architecture 1', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'COMA', '13:00-16:00', 40, 1),
+(3040, 'PFE101', 'Event Driven Programming', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'COMA', '13:00-16:00', 40, 1),
+(3041, 'IM101', 'Advanced Database Systems', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'COMA', '13:00-16:00', 30, 1),
+(3042, 'HUM3', 'Literature of the World', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'FG606', '16:00-17:00', 45, 1),
+(3043, 'SOCSC5', 'Life and Works of Rizal', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'FG410', '16:00-17:00', 45, 1),
+(3044, 'NET102', 'Networking 2', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '17:00-18:00', 45, 1),
+(3045, 'MATH400', 'Prep. & Eval of Instructional Mat', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG512', '20:00-21:00', 45, 1),
+(3046, 'PRACT1&2', 'OJT and Community Immersion', 'BSCR', 18, 6.0, 1, '1', NULL, NULL, 'BSCR', '06:00-12:00', 20, 1),
+(3047, 'PR.101', 'Pre-Review', 'BSCR', 18, 6.0, 1, '1', NULL, NULL, 'BSCR', '18:00-20:00', 20, 1),
+(3048, 'CSE311', 'CS Elective 1', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'COMA', '13:00-16:00', 10, 1),
+(3049, 'AL102', 'Automata Theory and Formal Languages', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '12:00-13:00', 45, 1),
+(3050, 'AR101', 'Computer Organization and Architecture', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '12:00-13:00', 45, 1),
+(3052, 'IAS101', 'Information Assurance and Security 1', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '11:00-12:00', 45, 1),
+(3053, 'CC106', 'Application Development and Emerging Technologies', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'COMA', '13:00-16:00', 45, 1),
+(3054, 'GE201', 'Undestanding the Self', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'AG206', '07:00-08:00', 45, 1),
+(3055, 'GE202', 'Reading in Philippine History', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'AG202', '10:00-11:00', 45, 1),
+(3056, 'GE203', 'The Contemporary World', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'FG206', '11:00-12:00', 45, 1),
+(3057, 'GE401', 'Mathematics in the Modern World', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'FG205', '08:00-09:00', 45, 1),
+(3060, 'NSTP1', 'National Service Training Program 1', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'AG206', '13:00-16:00', 45, 1),
+(3061, 'CUST5', 'Customs Clearance and Procedures and Practices', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'AG206', '13:00-14:00', 45, 1),
+(3062, 'FIN1', 'Basic Finance', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'AG208', '15:00-16:00', 30, 1),
+(3063, 'HUM2', 'Philosophy of Man', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'AG202', '16:00-17:00', 45, 1),
+(3064, 'TARIFF4', 'Import Taxation 1', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'AG206', '17:00-18:00', 45, 1),
+(3065, 'SCM2', 'Transportation and Purchasing Management', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'AG208', '15:00-16:00', 30, 1),
+(3066, 'LIT1', 'Literature of the Philippines', 'BSCA', NULL, 3.0, 1, '1', NULL, NULL, 'AG208', '14:00-15:00', 30, 1),
+(3067, 'CE333', 'Static of Rigid Bodies', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'EM302', '17:00-18:00', 45, 1),
+(3068, 'CE314', 'Surveying 1 Lec', 'BSCE', NULL, 4.0, 1, '1', NULL, NULL, 'EM303', '18:00-19:00', 45, 1),
+(3069, 'MGT313', 'Engineering Management', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'EM302', '19:00-20:00', 45, 1),
+(3070, 'ECON313', 'Engineering Economy', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'EM303', '17:00-18:00', 45, 1),
+(3071, 'CE371', 'Safety Management', 'BSCE', NULL, 1.0, 1, '1', NULL, NULL, 'EM303', '18:00-19:00', 45, 1),
+(3072, 'ME313', 'Basic Mechanical Engineering', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'EM302', '19:00-20:00', 45, 1),
+(3073, 'MATH313', 'Differential Equations', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'EM302', '20:00-21:00', 45, 1),
+(3074, 'ENGL2', 'Writing in the Disciplines', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'EM302', '18:00-19:00', 45, 1),
+(3075, 'SOCSC1', 'Philippine History & Government', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'AG205', '15:00-16:00', 45, 1),
+(3076, 'PHYS214', 'College Physics 2', 'BSCE', NULL, 4.0, 1, '1', NULL, NULL, 'AG205', '19:00-21:00', 45, 1),
+(3077, 'PE3', 'Fundl\\\'s of Games and Sports', 'BSCE', NULL, 2.0, 1, '1', NULL, NULL, 'PC', '06:00-08:00', 50, 1),
+(3078, 'CWTS2', 'National Service Training Program 2', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'EM303', '08:00-11:00', 45, 1),
+(3086, 'MKTG3', 'Marketing Research', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG312', '10:00-11:00', 40, 1),
+(3089, 'OPTNMGT7', 'Global International Trade', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'SRBA', '13:00-14:00', 45, 1),
+(3106, 'MKTG5', 'Product Management', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'SRBA', '11:00-12:00', 40, 1),
+(3108, 'MKTG4', 'Distribution Management', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG311', '14:00-15:00', 40, 1),
+(3109, 'MGT6', 'Human Behavior in Organization', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG311', '15:00-16:00', 40, 1),
+(3111, 'HUM3', 'Logic', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'AG106', '16:00-17:00', 40, 1),
+(3112, 'LAW1', 'Law on Obligation and Contracts', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'FG306', '18:00-19:00', 40, 1),
+(3117, 'MGT12', 'Human Resource Management', 'BSBA', NULL, 3.0, 1, '1', NULL, NULL, 'AG106', '17:00-18:00', 40, 1),
+(3119, 'ELECTIVE4A', 'World Culture', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG206', '19:00-20:00', 45, 1),
+(3120, 'CE412', 'Building Design 2 Lec', 'BSCE', NULL, 2.0, 1, '1', NULL, NULL, 'COMC', '13:00-14:00', 35, 1),
+(3124, 'PHILO2', 'Intro to Philosophy and Logic', 'BSCE', NULL, 3.0, 1, '1', NULL, NULL, 'FG206', '20:00-21:00', 45, 1),
+(3125, 'ES321', 'Computer Aided Drafting', 'BSCE', NULL, 1.0, 1, '1', NULL, NULL, 'COMC', '13:00-16:00', 35, 1),
+(3126, 'FORSCI3', 'Forensic Ballistics', 'BSCR', 18, 4.0, 1, '1', NULL, NULL, 'FG607', '07:00-08:50', 45, 1),
+(3127, 'ENGL34CR', 'Technical Report Writing 1', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG607', '09:00-10:00', 45, 1),
+(3128, 'LEA4', 'Police Intelligence', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG607', '10:00-11:00', 45, 1),
+(3129, 'LEA5', 'Police Personnel and Records Management', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG603', '07:00-08:00', 45, 1),
+(3130, 'CA1', 'Institutional Corrections', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG607', '09:00-10:00', 45, 1),
+(3131, 'CDI2', 'Traffic Management and Accident Investigation', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG607', '', 40, 1),
+(3132, 'FORSCI4', 'Questioned Documents Exam', 'BSCR', 18, 4.0, 1, '1', NULL, NULL, 'FG607', '11:00-12:20', 45, 1),
+(3133, 'CRIM6', 'Criminilogical Research & Statistics', 'BSCR', 18, 3.0, 1, '1', NULL, NULL, 'FG605', '12:00-13:00', 45, 1),
+(3142, 'LEA4', 'Police Intelligence', 'BSCS', NULL, 3.0, 1, '1', NULL, NULL, 'FG611', '15:00-16:00', 45, 1),
+(3165, 'ACCTG32', 'Advanced Accounting 1', 'BSA', NULL, 6.0, 1, '1', NULL, NULL, 'AG201', '17:00-19:00', 30, 1),
+(3168, 'ACCTG23', 'Financial Accounting 3', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG206', '15:00-16:00', 45, 1),
+(3169, 'EDUC333', 'Educational Technology 2', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'COMB', '13:00-14:00', 40, 1),
+(3171, 'MR', 'Methods of Research', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'EM306', '19:00-20:00', 45, 1),
+(3172, 'ENGL311', 'Children\\\'s Literature', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG210', '18:00-19:00', 45, 1),
+(3173, 'FIL205', 'Panitikan ng Pilipinas', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'AG210', '17:00-18:00', 37, 1),
+(3174, 'PS393', 'Astronomy', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG607', '16:00-17:00', 45, 1),
+(3175, 'SOCSC8', 'Basic Geography', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG302', '15:00-16:00', 45, 1),
+(3176, 'PS313', 'Phys for Health Science', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG410', '14:00-15:00', 45, 1),
+(3177, 'PEACEED', 'Peace Education', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'AG210', '15:00-16:00', 37, 1),
+(3199, 'FS311', 'Technology in the Learning Envi.', 'BSED', 19, 1.0, 1, '1', NULL, NULL, 'EM306', '08:00-09:00', 45, 1),
+(3200, 'MR', 'Methods of Research', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'EM306', '18:00-19:00', 45, 1),
+(3201, 'ENGL313', 'Structure of the English', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'AG210', '13:00-14:00', 37, 1),
+(3202, 'EDUC302', 'Curriculum Development', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'AG210', '16:00-17:00', 37, 1),
+(3203, 'ENGL353', 'The Teaching of Speaking', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'EM305', '14:00-15:00', 45, 1),
+(3204, 'ENGL393', 'English and American Literature', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG312', '15:00-16:00', 45, 1),
+(3205, 'HUM2', 'Philosophy of Man', 'BSED', NULL, 3.0, 1, '1', NULL, NULL, 'FG206', '17:00-18:00', 45, 1),
+(3206, 'ENGL333', 'Literary Criticism', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'EM305', '14:00-15:00', 45, 1),
+(3207, 'EDUC333', 'Educational Technology 2', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'COMB', '15:00-16:00', 40, 1),
+(3208, 'TSE', 'Teaching Strategies in English', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG206', '19:00-20:00', 45, 1),
+(3212, 'FIL313', 'Panintikan', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'AG210', '15:00-16:00', 37, 1),
+(3213, 'FIL353', 'Panulaang Filipino', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG205', '19:00-20:00', 45, 1),
+(3215, 'FIL373', 'Pagtuturo at pagtataya sa pagbasa at pagsulat', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'EM306', '14:00-15:00', 45, 1),
+(3216, 'TSGF', 'Teching Strategies in Filipino', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG211', '18:00-19:00', 45, 1),
+(3217, 'FIL395', 'Intro sa Pananaliksik-wika at Panitikan', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG210', '19:00-20:00', 45, 1),
+(3220, 'MATH201', 'Elementary Statistics', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'EM306', '14:00-15:00', 45, 1),
+(3221, 'MATH202', 'Plane Geometry', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'EM306', '15:00-16:00', 45, 1),
+(3222, 'MATH204', 'Probability', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'AG208', '17:00-18:00', 30, 1),
+(3223, 'TSGM', 'Teching Strategies in Mathematics', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG211', '18:00-19:00', 45, 1),
+(3224, 'MATH306', 'Abstract Algebra', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'AG210', '16:00-17:00', 37, 1),
+(3227, 'LIT2', 'Literature of the World', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'AG210', '12:00-13:00', 37, 1),
+(3228, 'PS315', 'Organic Chemistry', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'CLAB', '14:00-15:00', 45, 1),
+(3229, 'PS333', 'Thermodynamics with Lab', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG611', '16:00-17:00', 45, 1),
+(3230, 'PS393', 'Astronomy', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG302', '18:00-19:00', 45, 1),
+(3231, 'ENGL311', 'Children\\\'s Literature', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'EM305', '07:00-09:30', 45, 1),
+(3232, 'FIL205', 'Panitikan ng Pilipinas', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'EM305', '09:30-12:00', 45, 1),
+(3234, 'SOCSC8', 'Basic Geography', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'EM305', '15:30-18:00', 45, 1),
+(3235, 'PS313', 'Phys for Health Science', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'FG410', '07:00-09:30', 45, 1),
+(3239, 'TSPE', 'Teching Strategies in Physical Education', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'FG211', '17:00-18:00', 45, 1),
+(3240, 'SPE103', 'Intro to biomechanics & movement Ed', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'EM305', '13:00-14:00', 45, 1),
+(3241, 'SPE109', 'Int\\\'l Folk Dance', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'EM305', '15:00-16:00', 45, 1),
+(3242, 'SPE112', 'Comprehensive School Health Educ', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'EM305', '13:00-14:00', 45, 1),
+(3243, 'MUSIC1', 'Fundamentals of Music', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'EM205', '12:00-13:00', 25, 1),
+(3244, 'FS311', 'Technology in the Learning Envi.', 'BPE', NULL, 1.0, 1, '1', NULL, NULL, 'EM306', '08:00-09:00', 45, 1),
+(3245, 'IT316', 'Systems Analysis and Design', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'COMA', '10:00-13:00', 40, 1),
+(3246, 'ITE311', 'IT Elective 1', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '18:00-19:00', 30, 1),
+(3247, 'FCE311', 'Free Elective 1', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'EM202', '18:00-19:00', 30, 1),
+(3249, 'FIL393', 'Sanaysay at Talumpati', 'BSED', 19, 3.0, 1, '1', NULL, NULL, 'EM306', '13:00-14:00', 37, 1),
+(3251, 'EDUC206', 'Assessment of Student Learning 1', 'BPE', NULL, 3.0, 1, '1', NULL, NULL, 'AG214', '14:00-15:00', 37, 1),
+(3254, 'FIN23', 'Financial Management 2', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG312', '08:00-09:00', 45, 1),
+(3255, 'TAX1', 'Income Taxation', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'AG201', '09:00-10:00', 30, 1),
+(3258, 'FIN22', 'Financial Management 1', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'FG303', '19:00-20:00', 45, 1),
+(3261, 'LAW3', 'Law on Negotiable Instruments', 'BSA', NULL, 3.0, 1, '1', NULL, NULL, 'AG201', '19:00-20:00', 30, 1),
+(3262, 'IT317', 'Internet and Web Development', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'COMA', '16:00-19:00', 40, 1),
+(3263, 'FS211', 'Learners Development & Environment', 'BEED', 19, 1.0, 1, '1', NULL, NULL, 'SRED1', '08:00-09:00', 45, 1),
+(3264, 'PE3', 'Fundl\\\'s of Games and Sports', 'BEED', 19, 2.0, 1, '1', NULL, NULL, 'PC', '06:00-08:00', 50, 1),
+(3265, 'ENGL2', 'Writing in the Disciplines', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG410', '18:00-19:00', 45, 1),
+(3266, 'HUM2', 'Philosophy of Man', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG405', '19:00-20:00', 45, 1),
+(3267, 'SOCSC2', 'Basic Econ w/Tax. Land Ref. & Oth. Iss.', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'RA122', '17:00-18:00', 45, 1),
+(3268, 'EDUC213', 'Child & Adolescent Devt.', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'EM305', '16:00-17:00', 45, 1),
+(3269, 'EDUC233', 'Social Dimension of Education', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG410', '18:00-19:00', 45, 1),
+(3270, 'MATH201', 'Elementary Statistics', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG602', '19:00-20:00', 45, 1),
+(3271, 'LIT1', 'Literature of the Philippines', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'RA122', '17:00-18:00', 45, 1),
+(3272, 'EDUC253', 'Principle of Teaching 1', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'FG409', '16:00-17:00', 45, 1),
+(3332, 'PHILO2', 'Intro to Philosophy and Logic', 'BEED', 19, 3.0, 1, '1', NULL, NULL, 'EM302', '14:00-15:00', 45, 1),
+(3333, 'CC104', 'Data Structures and Algorithm', 'BSIT', 17, 3.0, 1, '1', NULL, NULL, 'COMA', '10:00-13:00', 40, 1);
 
 -- --------------------------------------------------------
 
@@ -63368,6 +63885,7 @@ CREATE TABLE `system_users` (
   `username` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `password_encrypted` text DEFAULT NULL,
   `role_id` int(11) NOT NULL,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
@@ -63384,13 +63902,19 @@ CREATE TABLE `system_users` (
 -- Dumping data for table `system_users`
 --
 
-INSERT INTO `system_users` (`id`, `username`, `email`, `password`, `role_id`, `first_name`, `last_name`, `employee_id`, `department_id`, `branch_id`, `is_active`, `last_login`, `created_by`, `created_at`) VALUES
-(1, 'admin', 'admin@cjlg.edu', '$2y$10$TLxxyI7CxhO/yY4VTSc0O.UASgC69mXZuGb2wplBO2LVYp4hOqU0K', 1, 'System', 'Administrator', 'SA-2025-001', NULL, 1, 1, '2026-03-29 23:20:19', NULL, '2026-03-26 04:21:10'),
-(2, 'registrar', 'registrar@cjlg.edu', '$2y$10$mKFpOi1MpLqlscvUAwg/4.eFCc9eKIcx59fk1JTgPHRXyCfnqOnxO', 2, 'Registrar', 'User', 'R-2025-001', NULL, 1, 1, NULL, NULL, '2026-03-26 04:21:10'),
-(3, 'dean', 'dean@cjlg.edu', '$2y$10$mKFpOi1MpLqlscvUAwg/4.eFCc9eKIcx59fk1JTgPHRXyCfnqOnxO', 3, 'Dean', 'Computer Science', 'D-2025-001', 1, 1, 1, NULL, NULL, '2026-03-26 04:21:10'),
-(4, 'teacher', 'teacher@cjlg.edu', '$2y$10$swjHX3fbnBpvAC7Dlxwep.PNODHAko64m8RwPKTAWaJ5B9hzWZzDu', 4, 'Juan', 'Dela Cruz', 'T-2025-001', 1, 1, 1, '2026-03-26 12:48:34', NULL, '2026-03-26 04:21:10'),
-(5, 'finance', 'finance@cjlg.edu', '$2y$10$mKFpOi1MpLqlscvUAwg/4.eFCc9eKIcx59fk1JTgPHRXyCfnqOnxO', 5, 'Finance', 'Officer', 'F-2025-001', NULL, 1, 1, NULL, NULL, '2026-03-26 04:21:10'),
-(6, 'cashier', 'cashier@cjlg.edu', '$2y$10$mKFpOi1MpLqlscvUAwg/4.eFCc9eKIcx59fk1JTgPHRXyCfnqOnxO', 6, 'Cashier', 'User', 'C-2025-001', NULL, 1, 1, NULL, NULL, '2026-03-26 04:21:10');
+INSERT INTO `system_users` (`id`, `username`, `email`, `password`, `password_encrypted`, `role_id`, `first_name`, `last_name`, `employee_id`, `department_id`, `branch_id`, `is_active`, `last_login`, `created_by`, `created_at`) VALUES
+(1, 'admin', 'admin@cjlg.edu', '$2y$10$EYP7.bJ7/CyTXh77ObKfn.u8T/Ujrym9e1R5KQQd2kJa86OrbD9Am', 'eU9YMnRXNVRLdGtJN0NrWFl4WDNpUT09OjqDC+vjTWx1layB9L7xEZSY', 1, 'System', 'Administrator', 'SA-2025-001', NULL, 1, 1, '2026-04-04 13:26:07', NULL, '2026-03-26 04:21:10'),
+(6, 'cashier', 'cashier@cjlg.edu', '$2y$10$2w0o3ekySlWXn18jWOa/i.Gl93PvFCVnPOp6caBZlMKbiMp7SnT..', 'RUUvc2ZjdGtUdG1jeE42MndYMHUyZz09OjqR8VUaDvroCMlr22UYRqtN', 6, 'Cashier', 'User', 'C-2025-001', NULL, 1, 1, '2026-04-04 13:27:07', NULL, '2026-03-26 04:21:10'),
+(15, '20260001', 'reg@gmail.com', '$2y$10$rlPdUk2PaZhjYgU.3aI2s.82BZiSAtpDQYPUdku12TgdqTMaH40DG', 'WStSYnJtRkw3Tll3ZzlLby95VFY0Zz09Ojrry36Kz9luVXoF2aqIvF9y', 2, 'regs', 'regis', '20260001', NULL, 1, 1, '2026-04-04 11:05:52', 1, '2026-04-02 11:12:02'),
+(16, '20260002', 'cet@gmail.com', '$2y$10$xcgsxinHHdfBceMJ4V9ZoOBYcLJDptndFt69yzBGdoMCV14jgXncO', 'YkFsU1JQOFBsVytLYWRlNnFGMEVMQT09OjoomHEKfSW1rL3zjYxsC+pr', 3, 'ce', 'cet', '20260002', 17, 1, 1, '2026-04-03 10:14:52', 1, '2026-04-02 11:15:00'),
+(17, '20260003', 'fin@gmail.com', '$2y$10$rerTDqPV6Ss95.W1x2DSSOAhotaLjiyL7JsAKw88bnaySMf7vcPeK', 'THZjcHE1ZHMwSmtxMkVSVFdueUpGZz09OjpgKhVyitgMNY47KkQGcVvG', 5, 'finacecer', 'finance', '20260003', NULL, 1, 1, '2026-04-04 13:28:44', 1, '2026-04-02 12:08:18'),
+(18, '20260004', 'teeacher@gmail.com', '$2y$10$xYxiFYyHMqFf7k1lm.WpAOR6tackzt9e2diTsdKwvn5begwM0RRBa', 'NjBsWStQNVdXUTdjM2VxdFNGS3M4dz09OjruQyFv0htov1TqzreHHsD2', 4, 'tea', 'cher', '20260004', NULL, 1, 1, '2026-04-03 10:36:28', 1, '2026-04-02 12:10:21'),
+(19, '20260005', 'crim@gmail.com', '$2y$10$fEiN6VsXtv9EVI8KwHK11u8clBoWHZw91Cr9o51cw01K8rtcXgf6m', 'TGYrTVZHMnliNktHUk81bGx4bGdEQT09Ojr4Hc/gvFkhRH468dDE0PxG', 3, 'crim', 'criminnal', '20260005', 18, 1, 1, '2026-04-04 11:08:21', 1, '2026-04-02 12:46:43'),
+(20, '20260006', 'casher@gmail.com', '$2y$10$z2xEFZ.uLbxdYGEXiqjNWOrO7BL12lxa1/W50LUu7nr5m6qv7zgz.', 'SkEwY2Nad1h6bG5FUi9uZC9EMG9wdz09Ojoh20w9xhpncX6tkvb4gH15', 6, 'cash', 'casher', '20260006', NULL, 1, 1, '2026-04-04 11:07:23', 1, '2026-04-02 14:55:06'),
+(21, 'T-2026-001', 'phil@gmail.com', '$2y$10$yVBOBXENRZH4K4tP0/bUauB8QuEwi.xEg55d8DnPcJBm5z3WRjwnO', 'LzVEYzZ5YTlrcVpobXJKdlg1SllQdz09Ojrx0IAQFCR0Tcw1xqOyeqEV', 4, 'phil', 'Callora', 'T-2026-001', 17, 1, 1, NULL, 16, '2026-04-03 02:17:34'),
+(22, '20260007', 'gen@gmail.com', '$2y$10$qo6MMnameKR3rEAyKO6sU.oYAOZ3U8hznQ4IL9lm6dzRIkck8lucC', 'Y3FHcmRrS2xrT1VmSzhOM3NDNy9EUT09OjrAFtQ3fV+kaKjknt+bLa7O', 3, 'gen', 'neral', '20260007', 19, 1, 1, '2026-04-03 14:00:45', 1, '2026-04-03 06:00:32'),
+(23, 'T-2026-002', 'cj@gmail.com', '$2y$10$d9Zve/awqZy.rU2QAx5CwuQHKzeVF3geoinW7bFbEKEeDmbYQgBdm', 'QmE4Mk9LVmlncVJ1OXlzRC80SVM2UT09OjpibLJGW5HY4XyYh/CXTKtv', 4, 'testing', 'cj', 'T-2026-002', 19, 1, 0, NULL, 22, '2026-04-03 07:05:47'),
+(24, 'T-2026-003', 'hjkhjkjk@gmail.com', '$2y$10$BlPJxfRmZc/3mFzgU6NskeMLLqB383OA1XMuqH3g9kdtyshoORrkK', 'ekY3RUZmZVlZNkhId2pUeGJHYk0xZz09OjpbA6TJqZOsQnf/+ZVEyexk', 4, 'nmkhjk', 'hjkhjk', 'T-2026-003', 18, 1, 1, '2026-04-04 11:28:33', 19, '2026-04-04 03:17:17');
 
 -- --------------------------------------------------------
 
@@ -63437,7 +63961,26 @@ INSERT INTO `tuition_fees` (`id`, `course_code`, `year_level`, `semester`, `tuit
 (1, 'BSCS', 1, '1st', 15000.00, 5000.00, 2500.00, 1000.00, 23500.00, 0),
 (2, 'BSCS', 2, '1st', 15000.00, 5000.00, 3000.00, 1000.00, 24000.00, 0),
 (3, 'BSBA', 1, '1st', 14000.00, 5000.00, 1000.00, 1000.00, 21000.00, 0),
-(4, 'BSGE', 1, '1st', 50000.00, 5199.00, 1900.00, 1000.00, 58099.00, 0);
+(4, 'BSGE', 1, '1st', 23000.00, 5000.00, 2000.00, 1000.00, 31000.00, 0),
+(5, 'BSCR', 1, '1st', 900000.00, 5000.00, 2000.00, 525.00, 907525.00, 0),
+(7, 'BSIT', 2, 'All', 15000.00, 5000.00, 2000.00, 1000.00, 23000.00, 0),
+(9, 'BSED', 1, 'All', 18000.00, 5000.00, 1000.00, 1000.00, 25000.00, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tuition_installments`
+--
+
+CREATE TABLE `tuition_installments` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `total_tuition` decimal(10,2) NOT NULL,
+  `per_period` decimal(10,2) NOT NULL,
+  `school_year` varchar(9) NOT NULL,
+  `semester` varchar(20) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -63448,7 +63991,8 @@ INSERT INTO `tuition_fees` (`id`, `course_code`, `year_level`, `semester`, `tuit
 --
 ALTER TABLE `activity_logs`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `idx_activity_logs_user` (`user_id`),
+  ADD KEY `idx_activity_logs_date` (`created_at`);
 
 --
 -- Indexes for table `barangays`
@@ -63482,6 +64026,14 @@ ALTER TABLE `course_fees`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `deans`
+--
+ALTER TABLE `deans`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_dean_department` (`user_id`,`department_id`),
+  ADD KEY `department_id` (`department_id`);
+
+--
 -- Indexes for table `departments`
 --
 ALTER TABLE `departments`
@@ -63501,7 +64053,9 @@ ALTER TABLE `dialects`
 ALTER TABLE `enrollments`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unique_enrollment` (`student_id`,`school_year`,`semester`),
-  ADD KEY `course_id` (`course_id`);
+  ADD KEY `course_id` (`course_id`),
+  ADD KEY `idx_enrollments_status` (`status`),
+  ADD KEY `idx_enrollments_student` (`student_id`);
 
 --
 -- Indexes for table `ethnicity`
@@ -63522,8 +64076,10 @@ ALTER TABLE `grades`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unique_grade` (`student_id`,`subject_id`,`school_year`,`semester`),
   ADD KEY `subject_id` (`subject_id`),
-  ADD KEY `teacher_id` (`teacher_id`),
-  ADD KEY `approved_by` (`approved_by`);
+  ADD KEY `approved_by` (`approved_by`),
+  ADD KEY `idx_grades_student_subject` (`student_id`,`subject_id`),
+  ADD KEY `idx_grades_status` (`grade_status`),
+  ADD KEY `idx_grades_teacher` (`teacher_id`);
 
 --
 -- Indexes for table `municipalities`
@@ -63545,8 +64101,9 @@ ALTER TABLE `notifications`
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `or_number` (`or_number`),
-  ADD KEY `student_id` (`student_id`),
-  ADD KEY `received_by` (`received_by`);
+  ADD KEY `idx_payments_student_id` (`student_id`),
+  ADD KEY `idx_payments_date` (`payment_date`),
+  ADD KEY `idx_payments_received_by` (`received_by`);
 
 --
 -- Indexes for table `payment_records`
@@ -63561,6 +64118,14 @@ ALTER TABLE `payment_records`
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `permits`
+--
+ALTER TABLE `permits`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_permits_student` (`student_id`),
+  ADD KEY `fk_permits_issued_by` (`issued_by`);
 
 --
 -- Indexes for table `provinces`
@@ -63628,15 +64193,16 @@ ALTER TABLE `semesters`
 ALTER TABLE `students`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `student_number` (`student_number`),
-  ADD KEY `course_id` (`course_id`);
+  ADD KEY `idx_students_enrollment` (`enrollment_status`),
+  ADD KEY `idx_students_course` (`course_id`);
 
 --
 -- Indexes for table `student_fees`
 --
 ALTER TABLE `student_fees`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `student_id` (`student_id`),
-  ADD KEY `fee_type_id` (`fee_type_id`);
+  ADD KEY `fee_type_id` (`fee_type_id`),
+  ADD KEY `idx_student_fees_student` (`student_id`);
 
 --
 -- Indexes for table `student_subjects`
@@ -63651,7 +64217,10 @@ ALTER TABLE `student_subjects`
 --
 ALTER TABLE `subjects`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_subject` (`subject_code`,`course_code`,`year_level`,`semester`);
+  ADD UNIQUE KEY `unique_subject` (`subject_code`,`course_code`,`year_level`,`semester`),
+  ADD KEY `idx_subjects_course` (`course_code`),
+  ADD KEY `idx_subjects_department` (`course_code`),
+  ADD KEY `fk_subjects_instructor` (`instructor_id`);
 
 --
 -- Indexes for table `subject_loads`
@@ -63670,7 +64239,9 @@ ALTER TABLE `system_users`
   ADD UNIQUE KEY `username` (`username`),
   ADD KEY `branch_id` (`branch_id`),
   ADD KEY `idx_role` (`role_id`),
-  ADD KEY `idx_department` (`department_id`);
+  ADD KEY `idx_department` (`department_id`),
+  ADD KEY `idx_system_users_role` (`role_id`),
+  ADD KEY `idx_system_users_dept` (`department_id`);
 
 --
 -- Indexes for table `teachers`
@@ -63688,6 +64259,13 @@ ALTER TABLE `tuition_fees`
   ADD UNIQUE KEY `unique_tuition` (`course_code`,`year_level`,`semester`);
 
 --
+-- Indexes for table `tuition_installments`
+--
+ALTER TABLE `tuition_installments`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_installment` (`student_id`,`school_year`,`semester`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -63695,13 +64273,13 @@ ALTER TABLE `tuition_fees`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `barangays`
 --
 ALTER TABLE `barangays`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65536;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60348;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -63719,19 +64297,25 @@ ALTER TABLE `cities`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `course_fees`
 --
 ALTER TABLE `course_fees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `deans`
+--
+ALTER TABLE `deans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `dialects`
@@ -63743,7 +64327,7 @@ ALTER TABLE `dialects`
 -- AUTO_INCREMENT for table `enrollments`
 --
 ALTER TABLE `enrollments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `ethnicity`
@@ -63761,13 +64345,13 @@ ALTER TABLE `fee_types`
 -- AUTO_INCREMENT for table `grades`
 --
 ALTER TABLE `grades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `municipalities`
 --
 ALTER TABLE `municipalities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2048;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1635;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -63779,7 +64363,7 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `payment_records`
@@ -63794,16 +64378,22 @@ ALTER TABLE `permissions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `permits`
+--
+ALTER TABLE `permits`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `provinces`
 --
 ALTER TABLE `provinces`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `regions`
 --
 ALTER TABLE `regions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `religions`
@@ -63821,7 +64411,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `role_permissions`
 --
 ALTER TABLE `role_permissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `schedules`
@@ -63851,25 +64441,25 @@ ALTER TABLE `semesters`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `student_fees`
 --
 ALTER TABLE `student_fees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `student_subjects`
 --
 ALTER TABLE `student_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3334;
 
 --
 -- AUTO_INCREMENT for table `subject_loads`
@@ -63881,7 +64471,7 @@ ALTER TABLE `subject_loads`
 -- AUTO_INCREMENT for table `system_users`
 --
 ALTER TABLE `system_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `teachers`
@@ -63893,7 +64483,13 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `tuition_fees`
 --
 ALTER TABLE `tuition_fees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tuition_installments`
+--
+ALTER TABLE `tuition_installments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -63912,6 +64508,13 @@ ALTER TABLE `barangays`
   ADD CONSTRAINT `barangays_ibfk_1` FOREIGN KEY (`municipality_id`) REFERENCES `municipalities` (`id`);
 
 --
+-- Constraints for table `deans`
+--
+ALTER TABLE `deans`
+  ADD CONSTRAINT `deans_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `system_users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `deans_ibfk_2` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `departments`
 --
 ALTER TABLE `departments`
@@ -63928,6 +64531,7 @@ ALTER TABLE `enrollments`
 -- Constraints for table `grades`
 --
 ALTER TABLE `grades`
+  ADD CONSTRAINT `fk_grades_teacher` FOREIGN KEY (`teacher_id`) REFERENCES `system_users` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `grades_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
   ADD CONSTRAINT `grades_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`),
   ADD CONSTRAINT `grades_ibfk_3` FOREIGN KEY (`teacher_id`) REFERENCES `system_users` (`id`),
@@ -63949,6 +64553,7 @@ ALTER TABLE `notifications`
 -- Constraints for table `payments`
 --
 ALTER TABLE `payments`
+  ADD CONSTRAINT `fk_payments_received_by` FOREIGN KEY (`received_by`) REFERENCES `system_users` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`received_by`) REFERENCES `system_users` (`id`);
 
@@ -63957,6 +64562,14 @@ ALTER TABLE `payments`
 --
 ALTER TABLE `payment_records`
   ADD CONSTRAINT `payment_records_ibfk_1` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `permits`
+--
+ALTER TABLE `permits`
+  ADD CONSTRAINT `fk_permits_issued_by` FOREIGN KEY (`issued_by`) REFERENCES `system_users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `permits_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `permits_ibfk_2` FOREIGN KEY (`issued_by`) REFERENCES `system_users` (`id`);
 
 --
 -- Constraints for table `provinces`
@@ -63988,6 +64601,7 @@ ALTER TABLE `students`
 -- Constraints for table `student_fees`
 --
 ALTER TABLE `student_fees`
+  ADD CONSTRAINT `fk_student_fees_student` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `student_fees_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `student_fees_ibfk_2` FOREIGN KEY (`fee_type_id`) REFERENCES `fee_types` (`id`);
 
@@ -63997,6 +64611,12 @@ ALTER TABLE `student_fees`
 ALTER TABLE `student_subjects`
   ADD CONSTRAINT `student_subjects_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `student_subjects_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`);
+
+--
+-- Constraints for table `subjects`
+--
+ALTER TABLE `subjects`
+  ADD CONSTRAINT `fk_subjects_instructor` FOREIGN KEY (`instructor_id`) REFERENCES `system_users` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `subject_loads`
@@ -64019,6 +64639,12 @@ ALTER TABLE `system_users`
 --
 ALTER TABLE `teachers`
   ADD CONSTRAINT `teachers_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `tuition_installments`
+--
+ALTER TABLE `tuition_installments`
+  ADD CONSTRAINT `tuition_installments_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -96,12 +96,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             color: white;
             border-radius: 8px;
             cursor: pointer;
+            margin-top: 10px;
         }
         .login-body .btn-primary:hover {
             background: linear-gradient(135deg, #1aa179, #146c43);
         }
         .login-footer { text-align: center; padding-top: 15px; margin-top: 15px; border-top: 1px solid #eee; }
         .login-footer a { color: #20c997; text-decoration: none; font-weight: 500; }
+        .login-body .mb-3 { margin-bottom: 20px; }
         .alert { padding: 12px; border-radius: 8px; margin-bottom: 15px; }
         .alert-danger { background: #fee; color: #c00; border: 1px solid #fcc; }
     </style>

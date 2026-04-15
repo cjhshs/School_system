@@ -75,10 +75,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: white;
             border-radius: 8px;
             cursor: pointer;
+            margin-top: 10px;
         }
         .login-body .btn-primary:hover { background: linear-gradient(135deg, #5a6fd6, #5f3c8a); }
         .login-footer { text-align: center; padding-top: 15px; margin-top: 15px; border-top: 1px solid #eee; }
         .login-footer a { color: #667eea; text-decoration: none; font-weight: 500; }
+        .login-body .mb-3 { margin-bottom: 20px; }
         .alert { padding: 12px; border-radius: 8px; margin-bottom: 15px; }
         .alert-danger { background: #fee; color: #c00; border: 1px solid #fcc; }
     </style>
